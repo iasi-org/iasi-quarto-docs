@@ -168,5 +168,735 @@
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
     ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estructura-de-un-proyecto",
+    "href": "chapters/02-fundamentals/index.html#estructura-de-un-proyecto",
+    "title": "3  Fundamentos",
+    "section": "3.2 Estructura de un proyecto",
+    "text": "3.2 Estructura de un proyecto\nUna publicación IASI Quarto sigue siendo un proyecto Quarto.\niasi.quarto no sustituye su estructura ni introduce un contenedor documental propio. Añade una convención mínima que permite descubrir la publicación, comprobarla, preparar sus artefactos derivados y delegar finalmente el renderizado en Quarto.\nLa estructura mínima de una publicación es:\npublication/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n└── iasi.yml\nLa presencia conjunta de estos cuatro archivos identifica una publicación IASI Quarto.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#configuración-general-y-configuración-por-formato",
+    "href": "chapters/02-fundamentals/index.html#configuración-general-y-configuración-por-formato",
+    "title": "3  Fundamentos",
+    "section": "3.3 Configuración general y configuración por formato",
+    "text": "3.3 Configuración general y configuración por formato\nEl archivo _quarto.yml contiene la configuración común de Quarto:\nproject:\n  type: book\n\nprofile:\n  group:\n    - [html, pdf]\n\nmetadata-files:\n  - _book-structure.yml\nLas configuraciones específicas de cada salida se mantienen separadas:\n_quarto-html.yml\n  configuración de la publicación HTML\n\n_quarto-pdf.yml\n  configuración de la publicación PDF\nEsta separación permite que una misma publicación produzca distintos formatos sin mezclar sus decisiones particulares.\nPor ejemplo, el HTML puede utilizar una hoja de estilos CSS, mientras que el PDF puede declarar opciones específicas de LaTeX.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#configuración-de-iasi.quarto",
+    "href": "chapters/02-fundamentals/index.html#configuración-de-iasi.quarto",
+    "title": "3  Fundamentos",
+    "section": "3.4 Configuración de iasi.quarto",
+    "text": "3.4 Configuración de iasi.quarto\nEl archivo iasi.yml describe cómo debe interpretar iasi.quarto el contenido de la publicación.\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\nSus valores predeterminados son:\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\nPor tanto, una publicación puede omitir las propiedades que no necesite modificar.\niasi.yml no contiene configuración de renderizado. Su responsabilidad es describir la organización editorial que iasi.quarto debe descubrir y preparar.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#directorio-de-contenido",
+    "href": "chapters/02-fundamentals/index.html#directorio-de-contenido",
+    "title": "3  Fundamentos",
+    "section": "3.5 Directorio de contenido",
+    "text": "3.5 Directorio de contenido\nLa propiedad content-dir señala dónde se encuentran los documentos de la publicación.\npublication:\n  content-dir: chapters\nCon esta configuración, la estructura habitual es:\npublication/\n├── chapters/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n└── iasi.yml\nEl nombre chapters es el valor predeterminado, pero no forma parte rígida del modelo.\nTambién sería válida una publicación como:\npublication/\n├── content/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n└── iasi.yml\nsi iasi.yml declara:\npublication:\n  content-dir: content",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#documentos-de-raíz",
+    "href": "chapters/02-fundamentals/index.html#documentos-de-raíz",
+    "title": "3  Fundamentos",
+    "section": "3.6 Documentos de raíz",
+    "text": "3.6 Documentos de raíz\nLos documentos situados en la raíz de la publicación pertenecen directamente al libro.\nPor ejemplo:\npublication/\n├── index.qmd\n├── manifesto.qmd\n├── principles.qmd\n├── licenses.qmd\n└── chapters/\niasi.quarto conserva estos documentos y los incorpora antes o después del contenido organizado en carpetas, según su posición dentro de la estructura preparada.\nEl index.qmd de la raíz es siempre un documento del autor.\nNo debe confundirse con los archivos index.qmd que pueden existir dentro del directorio de contenido.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#carpetas-de-contenido",
+    "href": "chapters/02-fundamentals/index.html#carpetas-de-contenido",
+    "title": "3  Fundamentos",
+    "section": "3.7 Carpetas de contenido",
+    "text": "3.7 Carpetas de contenido\nCada carpeta inmediata de content-dir representa una unidad editorial.\nchapters/\n├── 01-fundamentals/\n├── 02-installation/\n└── 03-usage/\nEl significado exacto de cada carpeta depende de la estrategia de publicación.\nEn una publicación regular, cada carpeta se convierte en un capítulo compuesto.\nEn una publicación structured, cada carpeta se convierte en una parte que contiene capítulos independientes.\nLa estructura física puede ser parecida, pero su interpretación editorial es distinta.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estructura-regular",
+    "href": "chapters/02-fundamentals/index.html#estructura-regular",
+    "title": "3  Fundamentos",
+    "section": "3.8 Estructura regular",
+    "text": "3.8 Estructura regular\nUna carpeta regular contiene documentos parciales que se ensamblan en un único capítulo.\nchapters/\n└── 01-fundamentals/\n    ├── front-matter.quarto\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nEl archivo front-matter.quarto es opcional.\nCuando existe, contiene un front matter Quarto completo:\n---\ntitle: \"Fundamentals\"\ntitle-block-style: none\n---\niasi.quarto lo copia literalmente al principio del index.qmd generado.\nLos documentos .qmd contienen el cuerpo del capítulo:\n## La publicación\n\nContenido de la sección.\nDurante la preparación, iasi.quarto genera:\nchapters/\n└── 01-fundamentals/\n    ├── front-matter.quarto\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    ├── 02-project-structure.qmd\n    └── index.qmd\nEl resultado derivado tiene esta forma:\n---\ntitle: \"Fundamentals\"\ntitle-block-style: none\n---\n\n&lt;!-- Generated by iasi.quarto. Do not edit. --&gt;\n\n{{{&lt; include 00-index.qmd &gt;}}}\n\n{{{&lt; include 01-publication.qmd &gt;}}}\n\n{{{&lt; include 02-project-structure.qmd &gt;}}}\nEn esta estrategia:\nel autor mantiene los documentos parciales\niasi.quarto mantiene el index.qmd de la carpeta\nSi front-matter.quarto no existe, el capítulo se genera sin front matter. Quarto podrá mostrar index.html como nombre de navegación, haciendo visible que falta la metadata editorial.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estructura-structured",
+    "href": "chapters/02-fundamentals/index.html#estructura-structured",
+    "title": "3  Fundamentos",
+    "section": "3.9 Estructura structured",
+    "text": "3.9 Estructura structured\nEn una publicación structured, cada carpeta contiene capítulos independientes.\nchapters/\n└── 01-fundamentals/\n    ├── index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nEl index.qmd de la carpeta pertenece al autor y actúa como introducción de la parte.\nLos demás documentos son capítulos completos y comienzan normalmente con un encabezado de primer nivel:\n# Estructura del proyecto\nEn esta estrategia, iasi.quarto no genera ni reemplaza el index.qmd de la carpeta.\nregular:\n  iasi.quarto mantiene el index.qmd\n\nstructured:\n  el autor mantiene el index.qmd",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#archivos-fuente-y-archivos-derivados-1",
+    "href": "chapters/02-fundamentals/index.html#archivos-fuente-y-archivos-derivados-1",
+    "title": "3  Fundamentos",
+    "section": "3.10 Archivos fuente y archivos derivados",
+    "text": "3.10 Archivos fuente y archivos derivados\nUna publicación contiene dos clases de archivos.\nLos archivos fuente son mantenidos por el autor:\niasi.yml\n_quarto.yml\n_quarto-html.yml\n_quarto-pdf.yml\nfront-matter.quarto\n*.qmd\nLos archivos derivados son producidos por iasi.quarto:\n_book-structure.yml\nindex.qmd de las carpetas regular\nEsta separación es importante.\nLos archivos derivados pueden regenerarse en cualquier momento. No deben utilizarse como lugar de edición porque su contenido pertenece al proceso de preparación.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#la-estructura-preparada",
+    "href": "chapters/02-fundamentals/index.html#la-estructura-preparada",
+    "title": "3  Fundamentos",
+    "section": "3.11 La estructura preparada",
+    "text": "3.11 La estructura preparada\nQuarto necesita una relación explícita de los capítulos que forman el libro.\niasi.quarto genera esa relación en:\n_book-structure.yml\nPor ejemplo:\nbook:\n  chapters:\n    - \"index.qmd\"\n    - \"chapters/01-fundamentals/index.qmd\"\n    - \"chapters/02-installation/index.qmd\"\nEl archivo _quarto.yml incorpora esta estructura mediante:\nmetadata-files:\n  - _book-structure.yml\nDe esta forma, la configuración principal permanece estable mientras la estructura editorial puede regenerarse automáticamente.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#publicaciones-múltiples",
+    "href": "chapters/02-fundamentals/index.html#publicaciones-múltiples",
+    "title": "3  Fundamentos",
+    "section": "3.12 Publicaciones múltiples",
+    "text": "3.12 Publicaciones múltiples\nUn directorio superior puede contener varias publicaciones independientes:\nworkspace/\n├── 01-user-guide/\n│   ├── _quarto.yml\n│   ├── _quarto-html.yml\n│   ├── _quarto-pdf.yml\n│   └── iasi.yml\n│\n└── 02-developer-guide/\n    ├── _quarto.yml\n    ├── _quarto-html.yml\n    ├── _quarto-pdf.yml\n    └── iasi.yml\nEl directorio workspace no necesita ser una publicación ni contener un iasi.yml.\niasi.quarto descubre recursivamente las carpetas que contienen la firma completa y trata cada una como una unidad de construcción independiente.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#una-estructura-explícita",
+    "href": "chapters/02-fundamentals/index.html#una-estructura-explícita",
+    "title": "3  Fundamentos",
+    "section": "3.13 Una estructura explícita",
+    "text": "3.13 Una estructura explícita\nLa estructura de una publicación IASI Quarto no pretende ocultar Quarto.\nTodos sus elementos continúan siendo visibles:\nlos documentos siguen siendo .qmd\nla configuración sigue siendo YAML\nlos perfiles siguen perteneciendo a Quarto\nlos formatos finales siguen siendo generados por Quarto\niasi.quarto añade una capa de organización y preparación, pero mantiene abiertas las piezas que forman la publicación.\n\nLa estructura no reemplaza el proyecto Quarto. Lo hace reconocible, comprobable y reproducible.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#el-archivo-iasi.yml",
+    "href": "chapters/02-fundamentals/index.html#el-archivo-iasi.yml",
+    "title": "3  Fundamentos",
+    "section": "3.14 El archivo iasi.yml",
+    "text": "3.14 El archivo iasi.yml\niasi.yml describe cómo debe interpretar iasi.quarto una publicación.\nNo sustituye a _quarto.yml ni contiene opciones de renderizado. Su función es declarar la organización editorial que iasi.quarto debe descubrir, comprobar y preparar antes de delegar la generación final en Quarto.\nLa estructura actual es:\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\nLas tres propiedades son opcionales. Cuando no se declaran, iasi.quarto utiliza sus valores predeterminados.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#valores-predeterminados",
+    "href": "chapters/02-fundamentals/index.html#valores-predeterminados",
+    "title": "3  Fundamentos",
+    "section": "3.15 Valores predeterminados",
+    "text": "3.15 Valores predeterminados\nLa configuración mínima válida es:\npublication:\nTambién puede escribirse simplemente:\npublication: {}\nEn ambos casos, el resultado efectivo es:\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\nPor tanto, estas dos configuraciones son equivalentes:\npublication: {}\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\nLos valores predeterminados permiten crear una publicación convencional sin repetir configuración que ya forma parte del modelo.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#strategy",
+    "href": "chapters/02-fundamentals/index.html#strategy",
+    "title": "3  Fundamentos",
+    "section": "3.16 strategy",
+    "text": "3.16 strategy\nLa propiedad strategy indica cómo debe interpretarse el contenido de cada carpeta inmediata del directorio de contenido.\npublication:\n  strategy: regular\nLos valores admitidos son:\nregular\nstructured\ndirect\n\n3.16.1 regular\nEn la estrategia regular, cada carpeta representa un capítulo compuesto por varios documentos parciales.\nchapters/\n└── 01-fundamentals/\n    ├── front-matter.quarto\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nDurante la preparación, iasi.quarto genera:\nchapters/01-fundamentals/index.qmd\nEse archivo reúne los documentos parciales mediante inclusiones Quarto.\n{{&lt; include 00-index.qmd &gt;}}\n\n{{&lt; include 01-publication.qmd &gt;}}\n\n{{&lt; include 02-project-structure.qmd &gt;}}\nEn esta estrategia, el index.qmd de la carpeta es un artefacto derivado y pertenece a iasi.quarto.\n\n\n3.16.2 structured\nEn la estrategia structured, cada carpeta representa una parte y sus documentos son capítulos independientes.\nchapters/\n└── 01-fundamentals/\n    ├── index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nEl index.qmd de la carpeta pertenece al autor y actúa como introducción de la parte.\nLos demás documentos se incorporan como capítulos independientes dentro de esa parte.\n\n\n3.16.3 direct\nLa estrategia direct conserva una relación más directa entre los documentos encontrados y la estructura entregada a Quarto.\nNo genera capítulos compuestos y no asume que cada carpeta deba convertirse en una parte o en un capítulo ensamblado.\nSe utiliza cuando la publicación ya controla explícitamente su organización o cuando no encaja en las convenciones de regular y structured.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#content-dir",
+    "href": "chapters/02-fundamentals/index.html#content-dir",
+    "title": "3  Fundamentos",
+    "section": "3.17 content-dir",
+    "text": "3.17 content-dir\nLa propiedad content-dir indica dónde se encuentra el contenido organizado de la publicación.\npublication:\n  content-dir: chapters\nEl valor predeterminado es:\nchapters\nCon esa configuración, iasi.quarto busca las carpetas editoriales en:\npublication/\n└── chapters/\nPuede utilizarse otro nombre:\npublication:\n  content-dir: content\nLa publicación correspondiente podría ser:\npublication/\n├── content/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n└── iasi.yml\ncontent-dir se interpreta como una ruta relativa a la raíz de la publicación.\nNo es una ruta relativa al directorio desde el que se ejecuta R ni al directorio de trabajo del usuario.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#numbered",
+    "href": "chapters/02-fundamentals/index.html#numbered",
+    "title": "3  Fundamentos",
+    "section": "3.18 numbered",
+    "text": "3.18 numbered\nLa propiedad numbered indica si las carpetas y los documentos fuente deben seguir una convención de prefijos numéricos.\npublication:\n  numbered: true\nCuando su valor es true, las carpetas deben comenzar por uno o más dígitos seguidos de un guion:\n01-fundamentals\n02-installation\n10-reference\nEl patrón utilizado es:\n^[0-9]+-\nLos documentos fuente .qmd deben seguir la misma convención:\n00-index.qmd\n01-publication.qmd\n02-project-structure.qmd\nEl patrón utilizado es:\n^[0-9]+-.*\\.qmd$\nLos prefijos determinan el orden editorial porque el descubrimiento se apoya en el orden de los nombres.\nPor ejemplo:\n01-introduction.qmd\n02-model.qmd\n10-reference.qmd\nse procesa en ese mismo orden.\n\n3.18.1 numbered: false\nUna publicación puede desactivar esta exigencia:\npublication:\n  numbered: false\nEn ese caso, iasi.quarto no exige prefijos numéricos en carpetas ni documentos.\nchapters/\n├── fundamentals/\n├── installation/\n└── usage/\ny:\nintroduction.qmd\npublication.qmd\nproject-structure.qmd\nsiguen siendo nombres válidos.\nDesactivar la validación no añade un mecanismo alternativo de ordenación. La publicación continúa dependiendo del orden lexicográfico de los nombres encontrados.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#configuración-parcial",
+    "href": "chapters/02-fundamentals/index.html#configuración-parcial",
+    "title": "3  Fundamentos",
+    "section": "3.19 Configuración parcial",
+    "text": "3.19 Configuración parcial\nNo es necesario declarar todas las propiedades.\nPor ejemplo:\npublication:\n  strategy: structured\nproduce esta configuración efectiva:\npublication:\n  strategy: structured\n  content-dir: chapters\n  numbered: true\nDel mismo modo:\npublication:\n  numbered: false\nmantiene regular como estrategia y chapters como directorio de contenido.\niasi.quarto completa únicamente las propiedades ausentes. No sustituye valores que hayan sido declarados explícitamente.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#configuración-válida-completa",
+    "href": "chapters/02-fundamentals/index.html#configuración-válida-completa",
+    "title": "3  Fundamentos",
+    "section": "3.20 Configuración válida completa",
+    "text": "3.20 Configuración válida completa\nUna publicación regular convencional puede declarar:\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\nUna publicación estructurada puede declarar:\npublication:\n  strategy: structured\n  content-dir: chapters\n  numbered: true\nUna publicación sin prefijos numéricos podría utilizar:\npublication:\n  strategy: regular\n  content-dir: content\n  numbered: false",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#yaml-mal-formado",
+    "href": "chapters/02-fundamentals/index.html#yaml-mal-formado",
+    "title": "3  Fundamentos",
+    "section": "3.21 YAML mal formado",
+    "text": "3.21 YAML mal formado\niasi.yml debe ser un documento YAML válido.\nPor ejemplo, esta configuración es incorrecta:\npublication:\n  strategy regular\nFalta el separador : entre la propiedad y su valor.\nLos errores sintácticos se detectan durante el descubrimiento, cuando iasi.quarto intenta leer el archivo.\nLa publicación no puede continuar hacia la comprobación ni hacia la preparación mientras el YAML no pueda interpretarse.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#valores-semánticamente-inválidos",
+    "href": "chapters/02-fundamentals/index.html#valores-semánticamente-inválidos",
+    "title": "3  Fundamentos",
+    "section": "3.22 Valores semánticamente inválidos",
+    "text": "3.22 Valores semánticamente inválidos\nUn documento puede ser YAML válido y, aun así, contener una configuración no admitida.\nPor ejemplo:\npublication:\n  strategy: automatic\nautomatic es una cadena válida desde el punto de vista de YAML, pero no es una estrategia reconocida por iasi.quarto.\nTambién es inválido:\npublication:\n  numbered: yes\nAunque algunas implementaciones históricas de YAML pueden interpretar yes como un valor lógico, el contrato de iasi.quarto espera una configuración inequívoca y debe expresarse como:\npublication:\n  numbered: true\no:\npublication:\n  numbered: false\nLos valores semánticamente inválidos se rechazan durante la fase de comprobación.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#propiedades-desconocidas",
+    "href": "chapters/02-fundamentals/index.html#propiedades-desconocidas",
+    "title": "3  Fundamentos",
+    "section": "3.23 Propiedades desconocidas",
+    "text": "3.23 Propiedades desconocidas\nEl contrato de iasi.yml es explícito.\nEsta configuración contiene una propiedad desconocida:\npublication:\n  strategy: regular\n  content-dir: chapters\n  numbered: true\n  language: es\nlanguage no pertenece al modelo de iasi.quarto.\nEl idioma de la publicación debe configurarse en Quarto:\nlang: es\ndentro de _quarto.yml.\nLa presencia de propiedades desconocidas se considera un error porque puede ocultar erratas o configuraciones que el autor cree activas cuando en realidad no tienen ningún efecto.\nPor ejemplo:\npublication:\n  stratgy: regular\nno debe ignorarse silenciosamente. La propiedad está mal escrita y la publicación debe informar del problema.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#separación-de-responsabilidades",
+    "href": "chapters/02-fundamentals/index.html#separación-de-responsabilidades",
+    "title": "3  Fundamentos",
+    "section": "3.24 Separación de responsabilidades",
+    "text": "3.24 Separación de responsabilidades\nCada archivo de configuración tiene una responsabilidad distinta.\n_quarto.yml\n  configuración común de Quarto\n\n_quarto-html.yml\n  configuración específica de HTML\n\n_quarto-pdf.yml\n  configuración específica de PDF\n\niasi.yml\n  organización editorial interpretada por iasi.quarto\nPor ejemplo, esta opción pertenece a _quarto-html.yml:\nformat:\n  html:\n    theme: cosmo\nEsta pertenece a _quarto-pdf.yml:\nformat:\n  pdf:\n    toc: true\nY esta pertenece a iasi.yml:\npublication:\n  strategy: regular\nMantener esta separación evita que iasi.quarto se convierta en una segunda capa de configuración de Quarto.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#configuración-y-ciclo-de-construcción",
+    "href": "chapters/02-fundamentals/index.html#configuración-y-ciclo-de-construcción",
+    "title": "3  Fundamentos",
+    "section": "3.25 Configuración y ciclo de construcción",
+    "text": "3.25 Configuración y ciclo de construcción\niasi.yml participa en las primeras fases del proceso:\nvalidate()\n  reconoce la publicación por su firma\n\n.discover()\n  lee iasi.yml y aplica valores predeterminados\n\n.check()\n  comprueba propiedades, valores y estructura\n\n.prepare()\n  construye los artefactos derivados según la estrategia\nLa configuración no se interpreta durante el renderizado.\nCuando .render() se ejecuta, la publicación ya ha sido descubierta, comprobada y preparada.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#un-contrato-pequeño",
+    "href": "chapters/02-fundamentals/index.html#un-contrato-pequeño",
+    "title": "3  Fundamentos",
+    "section": "3.26 Un contrato pequeño",
+    "text": "3.26 Un contrato pequeño\niasi.yml contiene deliberadamente pocas propiedades.\nNo pretende describir toda la publicación ni duplicar la configuración disponible en Quarto.\nSu contrato actual responde únicamente a tres preguntas:\n¿Cómo se interpreta el contenido?\n  strategy\n\n¿Dónde se encuentra?\n  content-dir\n\n¿Debe seguir una convención numérica?\n  numbered\nEsa limitación mantiene la configuración legible y permite que la mayor parte del proyecto siga siendo Quarto abierto y reconocible.\n\niasi.yml no describe cómo se renderiza una publicación. Describe cómo debe entenderse antes de renderizarla.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estrategias-de-publicación",
+    "href": "chapters/02-fundamentals/index.html#estrategias-de-publicación",
+    "title": "3  Fundamentos",
+    "section": "3.27 Estrategias de publicación",
+    "text": "3.27 Estrategias de publicación\nLa estrategia de una publicación determina cómo interpreta iasi.quarto las carpetas y documentos situados dentro de content-dir.\nSe declara en iasi.yml:\npublication:\n  strategy: regular\nEl contrato actual admite tres estrategias:\nregular\nstructured\ndirect\nLa estrategia se aplica a la publicación completa. No describe el formato de salida y no cambia entre HTML y PDF.\nSu responsabilidad es editorial:\nstrategy\n  determina cómo se transforma la estructura fuente\n  en la estructura que Quarto debe renderizar",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#una-misma-estructura-física-distintas-publicaciones",
+    "href": "chapters/02-fundamentals/index.html#una-misma-estructura-física-distintas-publicaciones",
+    "title": "3  Fundamentos",
+    "section": "3.28 Una misma estructura física, distintas publicaciones",
+    "text": "3.28 Una misma estructura física, distintas publicaciones\nDos publicaciones pueden contener carpetas y documentos parecidos, pero producir estructuras editoriales diferentes.\nPor ejemplo:\nchapters/\n└── 01-fundamentals/\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nCon estrategia regular, esos documentos forman un único capítulo compuesto.\nCon estrategia structured, cada documento puede convertirse en un capítulo independiente dentro de una parte.\nLa diferencia no reside únicamente en los nombres de archivo. Reside en quién controla la composición editorial y en qué artefactos debe preparar iasi.quarto.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estrategia-regular",
+    "href": "chapters/02-fundamentals/index.html#estrategia-regular",
+    "title": "3  Fundamentos",
+    "section": "3.29 Estrategia regular",
+    "text": "3.29 Estrategia regular\nregular es la estrategia predeterminada.\npublication:\n  strategy: regular\nEstá pensada para redactar un capítulo mediante varios documentos parciales y pequeños.\nCada carpeta inmediata de content-dir representa un capítulo.\nchapters/\n├── 01-fundamentals/\n├── 02-installation/\n└── 03-usage/\nDentro de cada carpeta, los documentos .qmd representan secciones del capítulo:\nchapters/\n└── 01-fundamentals/\n    ├── front-matter.quarto\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    ├── 02-project-structure.qmd\n    └── 03-iasi-yml.qmd\nLos documentos parciales comienzan normalmente en nivel dos:\n## La publicación\n\nContenido de la sección.\nNo necesitan declarar un título de capítulo en nivel uno porque el capítulo se construye mediante el index.qmd generado.\n\n3.29.1 Propiedad del index.qmd\nEn regular, el index.qmd de cada carpeta pertenece a iasi.quarto.\nNo debe mantenerse manualmente.\nDurante .prepare(), el sistema genera un archivo con las inclusiones ordenadas:\n&lt;!-- Generated by iasi.quarto. Do not edit. --&gt;\n\n{{&lt; include 00-index.qmd &gt;}}\n\n{{&lt; include 01-publication.qmd &gt;}}\n\n{{&lt; include 02-project-structure.qmd &gt;}}\n\n{{&lt; include 03-iasi-yml.qmd &gt;}}\nEl archivo generado es un artefacto derivado y puede recrearse en cualquier momento.\nautor\n  mantiene los documentos parciales\n\niasi.quarto\n  mantiene el index.qmd compuesto\n\n\n3.29.2 front-matter.quarto\nUna carpeta regular puede contener:\nfront-matter.quarto\nEste archivo es opcional y contiene un front matter Quarto completo:\n---\ntitle: \"Fundamentals\"\ntitle-block-style: none\ntoc: true\n---\niasi.quarto no interpreta cada propiedad por separado ni inventa valores que falten.\nCopia el contenido literalmente al comienzo del index.qmd generado.\n---\ntitle: \"Fundamentals\"\ntitle-block-style: none\ntoc: true\n---\n\n&lt;!-- Generated by iasi.quarto. Do not edit. --&gt;\n\n{{&lt; include 00-index.qmd &gt;}}\nSi el archivo no existe, el capítulo se genera sin front matter.\n\n\n3.29.3 Estructura resultante\nLa estructura fuente:\nchapters/\n└── 01-fundamentals/\n    ├── front-matter.quarto\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nse convierte durante la preparación en:\nchapters/\n└── 01-fundamentals/\n    ├── front-matter.quarto\n    ├── 00-index.qmd\n    ├── 01-publication.qmd\n    ├── 02-project-structure.qmd\n    └── index.qmd\nY _book-structure.yml incorpora únicamente el capítulo compuesto:\nbook:\n  chapters:\n    - \"index.qmd\"\n    - \"chapters/01-fundamentals/index.qmd\"\nLos documentos parciales no aparecen como capítulos independientes en la estructura del libro.\n\n\n3.29.4 Cuándo utilizar regular\nregular es apropiada cuando:\nun capítulo crece demasiado para mantenerse en un único archivo\nse desea dividir la escritura sin dividir el capítulo editorial\nlas secciones deben compartir el mismo título y front matter\nel autor prefiere documentos pequeños y ensamblables\nEl modelo permite separar la unidad de escritura de la unidad de publicación.\nvarios archivos fuente\n  forman\nun capítulo publicado",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estrategia-structured",
+    "href": "chapters/02-fundamentals/index.html#estrategia-structured",
+    "title": "3  Fundamentos",
+    "section": "3.30 Estrategia structured",
+    "text": "3.30 Estrategia structured\nstructured está pensada para libros en los que cada carpeta representa una parte y cada documento es un capítulo independiente.\npublication:\n  strategy: structured\nLa estructura habitual es:\nchapters/\n└── 01-fundamentals/\n    ├── index.qmd\n    ├── 01-publication.qmd\n    ├── 02-project-structure.qmd\n    └── 03-iasi-yml.qmd\nEn esta estrategia:\nla carpeta\n  representa una parte\n\nindex.qmd\n  presenta la parte\n\ncada otro .qmd\n  representa un capítulo\n\n3.30.1 Propiedad del index.qmd\nEn structured, el index.qmd de la carpeta pertenece al autor.\niasi.quarto no lo genera ni lo reemplaza.\nEl archivo puede contener la introducción de la parte:\n# Fundamentals\n\nEsta parte presenta el modelo fundamental de una publicación IASI Quarto.\nLos demás documentos son capítulos completos y comienzan normalmente con un encabezado de nivel uno:\n# La publicación\n\nContenido del capítulo.\nLa regla de propiedad es inversa a la estrategia regular:\nregular\n  iasi.quarto mantiene index.qmd\n\nstructured\n  el autor mantiene index.qmd\n\n\n3.30.2 Estructura resultante\nLa estructura fuente:\nchapters/\n└── 01-fundamentals/\n    ├── index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nproduce una estructura editorial equivalente a:\nbook:\n  chapters:\n    - \"index.qmd\"\n    - part: \"chapters/01-fundamentals/index.qmd\"\n      chapters:\n        - \"chapters/01-fundamentals/01-publication.qmd\"\n        - \"chapters/01-fundamentals/02-project-structure.qmd\"\nLa carpeta no se ensambla en un único documento.\nCada capítulo conserva su identidad dentro de la parte.\n\n\n3.30.3 front-matter.quarto no participa\nfront-matter.quarto pertenece al modelo de composición de regular.\nEn structured, el autor controla directamente el front matter de cada documento:\n---\ntitle: \"La publicación\"\n---\n\n# La publicación\nNo se necesita un archivo externo para construir el index.qmd porque ese archivo ya es fuente del autor.\n\n\n3.30.4 Cuándo utilizar structured\nstructured es apropiada cuando:\nel libro se organiza explícitamente en partes\ncada documento debe aparecer como capítulo independiente\ncada capítulo necesita su propio título o metadata\nel autor quiere controlar el index.qmd introductorio de cada parte\nEl modelo coincide de forma directa con la estructura editorial clásica de un libro Quarto.\nuna carpeta\n  contiene\nuna parte y sus capítulos",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estrategia-direct",
+    "href": "chapters/02-fundamentals/index.html#estrategia-direct",
+    "title": "3  Fundamentos",
+    "section": "3.31 Estrategia direct",
+    "text": "3.31 Estrategia direct\ndirect es la estrategia mínima.\npublication:\n  strategy: direct\nSu objetivo es reducir al mínimo la transformación aplicada por iasi.quarto.\nNo construye capítulos compuestos como regular y no impone el modelo de partes de structured.\nLos documentos descubiertos se conservan como unidades editoriales directas.\nPor ejemplo:\nchapters/\n├── 01-introduction.qmd\n├── 02-configuration.qmd\n└── 03-reference.qmd\npuede trasladarse a una estructura equivalente:\nbook:\n  chapters:\n    - \"index.qmd\"\n    - \"chapters/01-introduction.qmd\"\n    - \"chapters/02-configuration.qmd\"\n    - \"chapters/03-reference.qmd\"\nTambién puede utilizarse con carpetas cuando la publicación ya contiene documentos completos y no necesita que iasi.quarto genere índices de composición.\n\n3.31.1 Qué no hace direct\nLa estrategia direct no debe entenderse como una estrategia que adivina la intención del autor.\nNo:\ncombina documentos parciales\ncrea títulos de capítulo\ngenera front matter\nconvierte carpetas automáticamente en partes\nSu papel es conservar la estructura encontrada con la menor intervención posible.\n\n\n3.31.2 Cuándo utilizar direct\ndirect es apropiada cuando:\nla publicación ya posee documentos completos\nla organización no encaja en regular ni structured\nse desea utilizar iasi.quarto para validar y construir\nsin introducir una composición editorial adicional\nEs también una salida útil para publicaciones heredadas o estructuras deliberadamente simples.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#comparación",
+    "href": "chapters/02-fundamentals/index.html#comparación",
+    "title": "3  Fundamentos",
+    "section": "3.32 Comparación",
+    "text": "3.32 Comparación\nLas tres estrategias pueden resumirse así:\n\n\n\n\n\n\n\n\n\n\nEstrategia\nCarpeta inmediata\nDocumentos .qmd\nindex.qmd de carpeta\nPreparación principal\n\n\n\n\nregular\nCapítulo compuesto\nSecciones parciales\nGenerado por iasi.quarto\nEnsamblar inclusiones\n\n\nstructured\nParte\nCapítulos independientes\nMantenido por el autor\nConstruir parte y capítulos\n\n\ndirect\nContenedor opcional\nUnidades directas\nNo se genera por convención\nConservar la estructura\n\n\n\nLa diferencia esencial es la unidad editorial que representa cada archivo.\nregular\n  varios archivos = un capítulo\n\nstructured\n  varios archivos = varios capítulos dentro de una parte\n\ndirect\n  cada archivo conserva su papel directo",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estrategia-y-numeración",
+    "href": "chapters/02-fundamentals/index.html#estrategia-y-numeración",
+    "title": "3  Fundamentos",
+    "section": "3.33 Estrategia y numeración",
+    "text": "3.33 Estrategia y numeración\nLa propiedad numbered es independiente de strategy.\nPor ejemplo:\npublication:\n  strategy: regular\n  numbered: false\npermite:\nchapters/\n└── fundamentals/\n    ├── introduction.qmd\n    ├── publication.qmd\n    └── project-structure.qmd\nY:\npublication:\n  strategy: structured\n  numbered: true\nexige:\nchapters/\n└── 01-fundamentals/\n    ├── index.qmd\n    ├── 01-publication.qmd\n    └── 02-project-structure.qmd\nstrategy define el significado editorial.\nnumbered define la convención de nombres y orden.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estrategia-y-formatos-de-salida",
+    "href": "chapters/02-fundamentals/index.html#estrategia-y-formatos-de-salida",
+    "title": "3  Fundamentos",
+    "section": "3.34 Estrategia y formatos de salida",
+    "text": "3.34 Estrategia y formatos de salida\nLa estrategia tampoco depende del formato final.\nUna publicación puede construirse como HTML y PDF:\nbuild()\no únicamente como HTML:\nbuild(format = \"html\")\nEn ambos casos se utiliza la misma estructura preparada.\nfuentes\n  -&gt; estrategia\n  -&gt; estructura editorial\n  -&gt; HTML\n\nfuentes\n  -&gt; estrategia\n  -&gt; estructura editorial\n  -&gt; PDF\nNo existe una estrategia regular para HTML y otra structured para PDF.\nLa organización editorial se resuelve antes de renderizar los formatos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#elección-de-estrategia",
+    "href": "chapters/02-fundamentals/index.html#elección-de-estrategia",
+    "title": "3  Fundamentos",
+    "section": "3.35 Elección de estrategia",
+    "text": "3.35 Elección de estrategia\nLa elección puede reducirse a tres preguntas.\n¿Varios archivos deben formar un solo capítulo?\n  regular\n\n¿Cada carpeta debe ser una parte con capítulos propios?\n  structured\n\n¿La estructura debe conservarse con mínima transformación?\n  direct\nCambiar de estrategia no es únicamente cambiar una opción.\nPuede cambiar:\nel significado de las carpetas\nel nivel de los encabezados\nla propiedad de los index.qmd\nla estructura generada para Quarto\nPor eso la estrategia debe elegirse según la unidad editorial deseada, no según la comodidad momentánea de los nombres de archivo.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#una-decisión-editorial-explícita",
+    "href": "chapters/02-fundamentals/index.html#una-decisión-editorial-explícita",
+    "title": "3  Fundamentos",
+    "section": "3.36 Una decisión editorial explícita",
+    "text": "3.36 Una decisión editorial explícita\nLas estrategias no intentan inferir qué quiso decir el autor.\nLo declaran.\npublication:\n  strategy: regular\nconvierte una convención implícita en un contrato verificable.\niasi.quarto puede entonces descubrir la estructura, comprobarla y generar únicamente los artefactos que corresponden a esa decisión.\n\nLa estrategia no define dónde están los archivos. Define qué significan.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ciclo-de-construcción",
+    "href": "chapters/02-fundamentals/index.html#ciclo-de-construcción",
+    "title": "3  Fundamentos",
+    "section": "3.37 Ciclo de construcción",
+    "text": "3.37 Ciclo de construcción\niasi.quarto organiza la construcción de una publicación como una secuencia de etapas explícitas.\nLa entrada pública principal es:\nbuild()\nInternamente, la construcción sigue este flujo:\nbuild()\n  -&gt; validate()\n  -&gt; seleccionar publicaciones\n  -&gt; .discover()\n  -&gt; .check()\n  -&gt; .prepare()\n  -&gt; resolver formatos\n  -&gt; .render()\nCada etapa tiene una responsabilidad concreta.\nNo todas modifican archivos y no todas necesitan conocer los mismos detalles de la publicación.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#build-como-orquestador",
+    "href": "chapters/02-fundamentals/index.html#build-como-orquestador",
+    "title": "3  Fundamentos",
+    "section": "3.38 build() como orquestador",
+    "text": "3.38 build() como orquestador\nbuild() es la operación pública que coordina el proceso completo.\nbuild()\nPuede construir:\nuna publicación actual\nvarias publicaciones dentro de un multiproyecto\ntodos los formatos soportados\nun formato seleccionado\nPor ejemplo:\nbuild(format = \"html\")\no:\nbuild(\n  book = \"user-guide\",\n  format = \"pdf\"\n)\nbuild() no concentra toda la lógica en una única función.\nDelega cada decisión en la etapa que corresponde:\nreconocer el espacio de trabajo\n  validate()\n\nleer la configuración\n  .discover()\n\ncomprobar el contrato\n  .check()\n\ngenerar artefactos derivados\n  .prepare()\n\ninvocar Quarto\n  .render()\nEsto permite que el proceso falle en el punto correcto y que cada etapa pueda entenderse de forma independiente.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#primera-etapa-validate",
+    "href": "chapters/02-fundamentals/index.html#primera-etapa-validate",
+    "title": "3  Fundamentos",
+    "section": "3.39 Primera etapa: validate()",
+    "text": "3.39 Primera etapa: validate()\nvalidate() reconoce si una ruta contiene una publicación IASI Quarto o un multiproyecto que puede contener varias.\nplan = validate(\".\")\nLa función busca la firma de publicación:\n_quarto.yml\n_quarto-html.yml\n_quarto-pdf.yml\niasi.yml\nSi los cuatro archivos existen en la ruta actual, esa ruta se considera una publicación.\nSi no existen juntos, validate() puede reconocer la ruta como un contenedor desde el que después se localizarán publicaciones completas.\nEl resultado es un plan:\nclass(plan)\n\"iasi_quarto_plan\"\n\"list\"\nEl plan contiene inicialmente:\nplan$path\nplan$current\nplan$books\n\n3.39.1 Publicación actual\nCuando la propia ruta validada contiene la firma completa:\nplan$current = TRUE\nLa publicación actual tiene prioridad.\nNo se buscan publicaciones anidadas porque la ruta ya representa una unidad de construcción completa.\n\n\n3.39.2 Multiproyecto\nCuando la ruta no es una publicación, pero contiene publicaciones descendientes:\nplan$current = FALSE\nEl plan actúa como contenedor de las publicaciones que podrán seleccionarse y descubrirse.\nvalidate() reconoce el terreno.\nTodavía no interpreta iasi.yml ni genera artefactos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#selección-de-publicaciones",
+    "href": "chapters/02-fundamentals/index.html#selección-de-publicaciones",
+    "title": "3  Fundamentos",
+    "section": "3.40 Selección de publicaciones",
+    "text": "3.40 Selección de publicaciones\nEn un multiproyecto, la selección ocurre después de validate() y antes de .discover().\nvalidate()\n  -&gt; seleccionar publicaciones\n  -&gt; .discover()\nEste orden es importante.\nSi el usuario solicita una publicación concreta:\nbuild(book = \"user-guide\")\nsolo esa publicación debe continuar por el pipeline.\nUna publicación no seleccionada no debe bloquear la construcción aunque contenga una configuración incompleta o inválida.\nLa selección admite:\nnombre completo del directorio\nnombre sin prefijo numérico\nprefijo numérico\nPor ejemplo, una carpeta:\n01-user-guide\npuede seleccionarse mediante:\nbuild(book = \"01-user-guide\")\nbuild(book = \"user-guide\")\nbuild(book = \"1\")\nEn una publicación actual, el argumento book no es necesario porque la unidad de construcción ya está determinada.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#segunda-etapa-.discover",
+    "href": "chapters/02-fundamentals/index.html#segunda-etapa-.discover",
+    "title": "3  Fundamentos",
+    "section": "3.41 Segunda etapa: .discover()",
+    "text": "3.41 Segunda etapa: .discover()\n.discover() transforma el plan validado en un modelo enriquecido de las publicaciones seleccionadas.\nplan = .discover(plan)\nDurante esta fase se leen:\n_quarto.yml\niasi.yml\ny se determina:\nnombre de la publicación\nruta\ntipo Quarto\nestrategia\ndirectorio de contenido\nuso de numeración\nconfiguración efectiva\nCada publicación descubierta se representa mediante un proyecto:\nproject$name\nproject$path\nproject$quarto_file\nproject$iasi_file\nproject$type\nproject$strategy\nproject$content_dir\nproject$content_path\nproject$numbered\nproject$quarto\nproject$iasi\nLa clase del objeto es:\niasi_quarto_project\n\n3.41.1 Aplicación de valores predeterminados\n.discover() completa las propiedades ausentes de iasi.yml.\nPor ejemplo:\npublication:\n  strategy: structured\nse descubre como:\npublication:\n  strategy: structured\n  content-dir: chapters\n  numbered: true\nLa etapa distingue entre:\nconfiguración ausente\n  se completa con valores predeterminados\n\nYAML ilegible\n  detiene el descubrimiento\nUn archivo que no puede interpretarse como YAML no puede convertirse en un proyecto descubierto.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#tercera-etapa-.check",
+    "href": "chapters/02-fundamentals/index.html#tercera-etapa-.check",
+    "title": "3  Fundamentos",
+    "section": "3.42 Tercera etapa: .check()",
+    "text": "3.42 Tercera etapa: .check()\n.check() verifica que las publicaciones descubiertas respeten el contrato de iasi.quarto.\nplan = .check(plan)\nLa comprobación se ocupa de aspectos semánticos y estructurales.\nPor ejemplo:\nestrategia soportada\ncontent-dir válido\nnumbered lógico\npropiedades conocidas\nconvenciones de nombres\nestructura coherente con la estrategia\nUn YAML puede estar bien formado y, aun así, ser incorrecto:\npublication:\n  strategy: automatic\n.discover() puede leerlo, pero .check() debe rechazarlo porque automatic no es una estrategia soportada.\n\n3.42.1 Resultado de la comprobación\nCada proyecto recibe un estado:\nproject$valid\nEl plan resume el resultado:\nplan$valid\nLa construcción solo continúa si todas las publicaciones seleccionadas son válidas.\nplan$valid = TRUE\n  -&gt; continúa hacia .prepare()\n\nplan$valid = FALSE\n  -&gt; se detiene antes de generar artefactos\nEsta separación evita que una publicación incorrecta llegue hasta Quarto y produzca errores más tardíos y menos precisos.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#cuarta-etapa-.prepare",
+    "href": "chapters/02-fundamentals/index.html#cuarta-etapa-.prepare",
+    "title": "3  Fundamentos",
+    "section": "3.43 Cuarta etapa: .prepare()",
+    "text": "3.43 Cuarta etapa: .prepare()\n.prepare() genera la estructura derivada que Quarto necesita para renderizar la publicación.\nplan = .prepare(plan)\nEsta es la primera etapa que puede escribir archivos.\nLos artefactos generados dependen de la estrategia.\n\n3.43.1 Preparación regular\nEn una publicación regular, .prepare() genera el index.qmd de cada carpeta editorial.\nchapters/01-fundamentals/index.qmd\nEse archivo:\ncopia front-matter.quarto si existe\nañade la cabecera de archivo generado\nincluye los documentos parciales en orden\nTambién genera:\n_book-structure.yml\ncon los capítulos compuestos que Quarto debe procesar.\n\n\n3.43.2 Preparación structured\nEn una publicación structured, .prepare() conserva los index.qmd mantenidos por el autor.\nNo los reemplaza.\nSu trabajo principal consiste en construir _book-structure.yml con:\npartes\nintroducciones de parte\ncapítulos independientes\n\n\n3.43.3 Preparación direct\nEn una publicación direct, .prepare() aplica la mínima transformación necesaria.\nNo construye capítulos compuestos ni convierte automáticamente cada carpeta en una parte.\n\n\n3.43.4 Artefactos\nLa publicación preparada mantiene información sobre los archivos derivados:\npublication$chapters\npublication$artifacts\npublication$changed\npublication$changed indica si la preparación tuvo que modificar algún artefacto.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#idempotencia-de-la-preparación",
+    "href": "chapters/02-fundamentals/index.html#idempotencia-de-la-preparación",
+    "title": "3  Fundamentos",
+    "section": "3.44 Idempotencia de la preparación",
+    "text": "3.44 Idempotencia de la preparación\nLa preparación debe ser idempotente.\nEsto significa que ejecutar dos veces el mismo proceso sobre las mismas fuentes no debe reescribir continuamente los mismos archivos.\nbuild()\nbuild()\nSi nada ha cambiado:\nprimera ejecución\n  puede generar artefactos\n\nsegunda ejecución\n  encuentra el mismo contenido\n  no vuelve a escribirlo\nLa escritura se realiza únicamente cuando el contenido nuevo es distinto del existente.\nEsto reduce:\ncambios innecesarios en Git\nmarcas de tiempo artificiales\nreconstrucciones provocadas por archivos idénticos\nruido en el proceso\nLa idempotencia convierte los artefactos derivados en resultados reproducibles, no en residuos de cada ejecución.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#resolución-de-formatos",
+    "href": "chapters/02-fundamentals/index.html#resolución-de-formatos",
+    "title": "3  Fundamentos",
+    "section": "3.45 Resolución de formatos",
+    "text": "3.45 Resolución de formatos\nDespués de preparar la publicación, build() determina los formatos que deben renderizarse.\nLos formatos soportados actualmente son:\nhtml\npdf\nCuando no se indica ninguno:\nbuild()\nse construyen todos los formatos soportados.\nTambién puede elegirse uno:\nbuild(format = \"html\")\no:\nbuild(format = \"pdf\")\nLa resolución de formatos pertenece al orquestador público.\n.render() recibe un único formato ya resuelto y no vuelve a validarlo.\nbuild()\n  decide qué formatos\n\n.render()\n  ejecuta un formato",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#quinta-etapa-.render",
+    "href": "chapters/02-fundamentals/index.html#quinta-etapa-.render",
+    "title": "3  Fundamentos",
+    "section": "3.46 Quinta etapa: .render()",
+    "text": "3.46 Quinta etapa: .render()\n.render() es una operación privada y mínima.\nRecibe:\nuna publicación preparada\nun formato resuelto\nSu contrato conceptual es:\n.render(publication, format)\nPor ejemplo:\npublicación 01-user-guide\nformato html\nrepresenta una ejecución.\nLa misma publicación en PDF representa otra:\npublicación 01-user-guide\nformato pdf\nEn un multiproyecto con dos publicaciones y dos formatos, build() coordina cuatro renderizados:\n01-user-guide      -&gt; html\n01-user-guide      -&gt; pdf\n02-developer-guide -&gt; html\n02-developer-guide -&gt; pdf\n\n3.46.1 Delegación en Quarto\n.render() no implementa un motor documental propio.\nInvoca Quarto con el perfil y formato correspondientes:\nquarto render --profile html --to html\no:\nquarto render --profile pdf --to pdf\nLa publicación ya debe estar validada, descubierta, comprobada y preparada.\n.render() no vuelve hacia atrás para resolver problemas de configuración o estructura.\n\n\n3.46.2 Resultado\nDespués de un renderizado correcto, la publicación registra:\npublication$rendered\npublication$profiles\nPor ejemplo:\npublication$rendered = TRUE\npublication$profiles = c(\"html\", \"pdf\")",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#fallar-antes-de-renderizar",
+    "href": "chapters/02-fundamentals/index.html#fallar-antes-de-renderizar",
+    "title": "3  Fundamentos",
+    "section": "3.47 Fallar antes de renderizar",
+    "text": "3.47 Fallar antes de renderizar\nUna propiedad importante del ciclo es que los errores se detecten lo antes posible.\nruta no reconocible\n  validate()\n\nYAML ilegible\n  .discover()\n\nconfiguración o estructura inválida\n  .check()\n\nproblema al generar artefactos\n  .prepare()\n\nfallo real de Quarto\n  .render()\nCada problema pertenece a una etapa.\nEsto evita utilizar el renderizado como mecanismo genérico de validación.\nQuarto debe recibir una publicación ya preparada, no una colección de decisiones pendientes.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ciclo-de-una-publicación-individual",
+    "href": "chapters/02-fundamentals/index.html#ciclo-de-una-publicación-individual",
+    "title": "3  Fundamentos",
+    "section": "3.48 Ciclo de una publicación individual",
+    "text": "3.48 Ciclo de una publicación individual\nPara una publicación actual:\npublication/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n└── iasi.yml\nel flujo es:\nbuild()\n  reconoce la publicación\n  descubre su configuración\n  comprueba su estructura\n  prepara sus artefactos\n  renderiza HTML y PDF\nNo existe selección entre publicaciones porque la ruta actual ya es la unidad de construcción.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ciclo-de-un-multiproyecto",
+    "href": "chapters/02-fundamentals/index.html#ciclo-de-un-multiproyecto",
+    "title": "3  Fundamentos",
+    "section": "3.49 Ciclo de un multiproyecto",
+    "text": "3.49 Ciclo de un multiproyecto\nPara:\nworkspace/\n├── 01-user-guide/\n└── 02-developer-guide/\nel flujo es:\nbuild()\n  reconoce el workspace\n  selecciona publicaciones\n  descubre solo las seleccionadas\n  comprueba cada una\n  prepara cada una\n  renderiza cada combinación de publicación y formato\nLa unidad de trabajo de .render() sigue siendo una publicación y un formato.\nEl multiproyecto solo amplía la orquestación.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#estado-acumulado",
+    "href": "chapters/02-fundamentals/index.html#estado-acumulado",
+    "title": "3  Fundamentos",
+    "section": "3.50 Estado acumulado",
+    "text": "3.50 Estado acumulado\nEl plan se enriquece durante el proceso.\nvalidate()\n  crea el plan\n\n.discover()\n  añade proyectos y configuración\n\n.check()\n  añade el resultado de comprobación\n\n.prepare()\n  añade publicaciones y artefactos\n\n.render()\n  añade formatos renderizados\nEl resultado final de build() no es únicamente un código de salida.\nEs el plan completado, con información sobre lo que se descubrió, preparó y renderizó.\nplan = build()\nAunque build() lo devuelve de forma invisible, el objeto puede conservarse para inspección.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#un-pipeline-deliberado",
+    "href": "chapters/02-fundamentals/index.html#un-pipeline-deliberado",
+    "title": "3  Fundamentos",
+    "section": "3.51 Un pipeline deliberado",
+    "text": "3.51 Un pipeline deliberado\nEl ciclo de construcción separa reconocimiento, interpretación, comprobación, preparación y ejecución.\nvalidate\n  ¿es un espacio IASI Quarto?\n\ndiscover\n  ¿qué contiene y cómo está configurado?\n\ncheck\n  ¿es coherente con el contrato?\n\nprepare\n  ¿qué artefactos necesita Quarto?\n\nrender\n  ¿puede Quarto producir el formato solicitado?\nCada etapa reduce incertidumbre antes de pasar a la siguiente.\n\nbuild() no es un único salto desde los fuentes hasta el PDF. Es una cadena de decisiones comprobables.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#api-pública",
+    "href": "chapters/02-fundamentals/index.html#api-pública",
+    "title": "3  Fundamentos",
+    "section": "3.52 API pública",
+    "text": "3.52 API pública\nLa API pública de iasi.quarto es deliberadamente pequeña.\nActualmente expone dos funciones:\nvalidate()\nbuild()\nEl resto del ciclo de construcción permanece como implementación interna:\n.discover()\n.check()\n.prepare()\n.render()\nEsta separación establece una frontera clara entre:\nlo que utiliza quien publica\nlo que coordina internamente el paquete\nLa API pública no reproduce cada fase del pipeline como una operación independiente. Ofrece únicamente los puntos de entrada necesarios para reconocer una publicación y construirla.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#validate",
+    "href": "chapters/02-fundamentals/index.html#validate",
+    "title": "3  Fundamentos",
+    "section": "3.53 validate()",
+    "text": "3.53 validate()\nvalidate() reconoce una publicación IASI Quarto o un multiproyecto.\nplan = validate()\nTambién puede recibir una ruta explícita:\nplan = validate(\"path/to/workspace\")\nSu firma conceptual es:\nvalidate(path = \".\")\nLa función comprueba la presencia de la firma IASI Quarto:\n_quarto.yml\n_quarto-html.yml\n_quarto-pdf.yml\niasi.yml\nCuando los cuatro archivos están presentes en la ruta indicada, esa ruta se reconoce como una publicación actual.\nCuando no están presentes juntos, la ruta puede reconocerse como un contenedor desde el que posteriormente se descubrirán publicaciones completas.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#resultado-de-validate",
+    "href": "chapters/02-fundamentals/index.html#resultado-de-validate",
+    "title": "3  Fundamentos",
+    "section": "3.54 Resultado de validate()",
+    "text": "3.54 Resultado de validate()\nCuando la ruta corresponde a un espacio IASI Quarto, validate() devuelve invisiblemente un plan:\nclass(plan)\n\"iasi_quarto_plan\"\n\"list\"\nEl plan inicial contiene:\nplan$path\nplan$current\nplan$books\n\n3.54.1 plan$path\nContiene la ruta normalizada utilizada como raíz del proceso.\nplan$path\nRepresenta la publicación actual o el multiproyecto validado.\n\n\n3.54.2 plan$current\nIndica si la propia ruta es una publicación completa:\nplan$current\nTRUE\n  la ruta actual contiene la firma completa\n\nFALSE\n  la ruta actúa como contenedor de publicaciones\nCuando current es TRUE, la publicación actual tiene prioridad y no se buscan publicaciones anidadas.\n\n\n3.54.3 plan$books\nContiene las publicaciones candidatas localizadas desde un multiproyecto.\nEn una publicación actual, la unidad de construcción ya está determinada y no es necesario seleccionar entre varios libros.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ruta-no-reconocida",
+    "href": "chapters/02-fundamentals/index.html#ruta-no-reconocida",
+    "title": "3  Fundamentos",
+    "section": "3.55 Ruta no reconocida",
+    "text": "3.55 Ruta no reconocida\nCuando la ruta no parece una publicación ni un multiproyecto IASI Quarto, validate() devuelve:\nNULL\nPor ejemplo:\nplan = validate(\"empty-directory\")\n\nis.null(plan)\nTRUE\nEsto permite utilizar validate() como operación de reconocimiento sin iniciar una construcción completa.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#qué-hace-validate",
+    "href": "chapters/02-fundamentals/index.html#qué-hace-validate",
+    "title": "3  Fundamentos",
+    "section": "3.56 Qué hace validate()",
+    "text": "3.56 Qué hace validate()\nvalidate() responde a una pregunta limitada:\n\n¿La ruta parece contener un espacio de trabajo IASI Quarto?\n\nNo:\ninterpreta por completo iasi.yml\ncomprueba toda la estructura editorial\ngenera index.qmd\ngenera _book-structure.yml\ninvoca Quarto\nEsas tareas pertenecen a etapas posteriores del pipeline.\nLa función valida la frontera exterior del espacio de trabajo, no toda su semántica interna.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ejemplo-con-una-publicación",
+    "href": "chapters/02-fundamentals/index.html#ejemplo-con-una-publicación",
+    "title": "3  Fundamentos",
+    "section": "3.57 Ejemplo con una publicación",
+    "text": "3.57 Ejemplo con una publicación\nDada esta estructura:\nuser-guide/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n└── iasi.yml\nla llamada:\nplan = validate(\"user-guide\")\nproduce conceptualmente:\nplan$current = TRUE\nplan$path    = \".../user-guide\"",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ejemplo-con-un-multiproyecto",
+    "href": "chapters/02-fundamentals/index.html#ejemplo-con-un-multiproyecto",
+    "title": "3  Fundamentos",
+    "section": "3.58 Ejemplo con un multiproyecto",
+    "text": "3.58 Ejemplo con un multiproyecto\nDada esta estructura:\nworkspace/\n├── 01-user-guide/\n│   ├── _quarto.yml\n│   ├── _quarto-html.yml\n│   ├── _quarto-pdf.yml\n│   └── iasi.yml\n│\n└── 02-developer-guide/\n    ├── _quarto.yml\n    ├── _quarto-html.yml\n    ├── _quarto-pdf.yml\n    └── iasi.yml\nla llamada:\nplan = validate(\"workspace\")\nproduce un plan de multiproyecto:\nplan$current = FALSE\ny conserva las publicaciones candidatas para la selección posterior.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#build",
+    "href": "chapters/02-fundamentals/index.html#build",
+    "title": "3  Fundamentos",
+    "section": "3.59 build()",
+    "text": "3.59 build()\nbuild() es el punto de entrada principal del paquete.\nbuild()\nSu firma pública es:\nbuild(\n  book = NULL,\n  format = NULL,\n  path = \".\"\n)\nLa función ejecuta el ciclo completo:\nvalidate()\nselección de publicaciones\n.discover()\n.check()\n.prepare()\n.render()\nbuild() puede operar sobre:\nla publicación actual\ntodas las publicaciones de un multiproyecto\nuna publicación seleccionada\ntodos los formatos soportados\nun formato concreto",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#construcción-predeterminada",
+    "href": "chapters/02-fundamentals/index.html#construcción-predeterminada",
+    "title": "3  Fundamentos",
+    "section": "3.60 Construcción predeterminada",
+    "text": "3.60 Construcción predeterminada\nLa llamada más sencilla es:\nbuild()\nCuando se ejecuta dentro de una publicación:\nconstruye la publicación actual\ngenera HTML\ngenera PDF\nCuando se ejecuta en un multiproyecto:\nconstruye todas las publicaciones descubiertas\ngenera todos los formatos soportados\nLos formatos soportados actualmente son:\nhtml\npdf",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#argumento-path",
+    "href": "chapters/02-fundamentals/index.html#argumento-path",
+    "title": "3  Fundamentos",
+    "section": "3.61 Argumento path",
+    "text": "3.61 Argumento path\npath indica la publicación o multiproyecto que debe construirse.\nbuild(path = \"path/to/publication\")\nSu valor predeterminado es:\npath = \".\"\nPor tanto, build() trabaja normalmente sobre el directorio actual.\nEjemplos:\nbuild(path = \"01-user-guide\")\nbuild(path = \"workspace\")\nLa ruta se valida antes de iniciar las demás etapas.\nSi no corresponde a un espacio IASI Quarto, build() devuelve invisiblemente:\nNULL",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#argumento-format",
+    "href": "chapters/02-fundamentals/index.html#argumento-format",
+    "title": "3  Fundamentos",
+    "section": "3.62 Argumento format",
+    "text": "3.62 Argumento format\nformat selecciona el formato o formatos de salida.\nPuede utilizarse:\nbuild(format = \"html\")\nbuild(format = \"pdf\")\nTambién puede indicarse:\nbuild(format = \"all\")\nLos valores:\nNULL\ny:\n\"all\"\nseleccionan todos los formatos soportados.\nConceptualmente:\nformat = NULL\n  -&gt; html y pdf\n\nformat = \"all\"\n  -&gt; html y pdf\n\nformat = \"html\"\n  -&gt; solo html\n\nformat = \"pdf\"\n  -&gt; solo pdf\nUn formato no soportado produce un error antes del renderizado:\nbuild(format = \"docx\")\nUnsupported format: \"docx\".\nLa validación de formatos pertenece a build().\n.render() recibe siempre un formato ya resuelto.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#argumento-book",
+    "href": "chapters/02-fundamentals/index.html#argumento-book",
+    "title": "3  Fundamentos",
+    "section": "3.63 Argumento book",
+    "text": "3.63 Argumento book\nbook selecciona una o varias publicaciones dentro de un multiproyecto.\nPor ejemplo:\nbuild(book = \"user-guide\")\nLa selección admite tres formas.\n\n3.63.1 Nombre completo\nbuild(book = \"01-user-guide\")\n\n\n3.63.2 Nombre sin prefijo numérico\nbuild(book = \"user-guide\")\n\n\n3.63.3 Prefijo numérico\nbuild(book = \"1\")\nLas tres expresiones pueden seleccionar:\n01-user-guide\nTambién pueden solicitarse varias publicaciones:\nbuild(\n  book = c(\n    \"user-guide\",\n    \"developer-guide\"\n  )\n)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#book-null-y-book-all",
+    "href": "chapters/02-fundamentals/index.html#book-null-y-book-all",
+    "title": "3  Fundamentos",
+    "section": "3.64 book = NULL y book = \"all\"",
+    "text": "3.64 book = NULL y book = \"all\"\nCuando book no se indica:\nbuild(book = NULL)\nse construyen todas las publicaciones disponibles en el multiproyecto.\nTambién puede expresarse:\nbuild(book = \"all\")\nEn una publicación actual, la selección mediante book no es necesaria.\nLa ruta ya identifica la única publicación que debe construirse.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#selecciones-no-encontradas",
+    "href": "chapters/02-fundamentals/index.html#selecciones-no-encontradas",
+    "title": "3  Fundamentos",
+    "section": "3.65 Selecciones no encontradas",
+    "text": "3.65 Selecciones no encontradas\nCuando una selección no existe, build() informa mediante una advertencia.\nPor ejemplo:\nbuild(\n  book = c(\n    \"user-guide\",\n    \"missing\"\n  )\n)\npuede continuar construyendo user-guide y advertir:\nBooks not found: \"missing\".\nUna publicación no encontrada no se inventa ni se sustituye por otra coincidencia aproximada.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#selección-antes-del-descubrimiento",
+    "href": "chapters/02-fundamentals/index.html#selección-antes-del-descubrimiento",
+    "title": "3  Fundamentos",
+    "section": "3.66 Selección antes del descubrimiento",
+    "text": "3.66 Selección antes del descubrimiento\nLa selección se aplica antes de .discover().\nvalidate()\n  -&gt; selección\n  -&gt; .discover()\nEsto tiene una consecuencia importante.\nUna publicación no seleccionada no participa en:\nlectura de iasi.yml\ncomprobación\npreparación\nrenderizado\nPor tanto, una publicación experimental o incompleta no bloquea la construcción de otra publicación seleccionada.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#ejemplos-de-uso",
+    "href": "chapters/02-fundamentals/index.html#ejemplos-de-uso",
+    "title": "3  Fundamentos",
+    "section": "3.67 Ejemplos de uso",
+    "text": "3.67 Ejemplos de uso\n\n3.67.1 Construir la publicación actual\nbuild()\n\n\n3.67.2 Construir solo HTML\nbuild(format = \"html\")\n\n\n3.67.3 Construir solo PDF\nbuild(format = \"pdf\")\n\n\n3.67.4 Construir un multiproyecto completo\nbuild(path = \"workspace\")\n\n\n3.67.5 Construir una publicación del multiproyecto\nbuild(\n  path = \"workspace\",\n  book = \"user-guide\"\n)\n\n\n3.67.6 Construir una publicación y un formato\nbuild(\n  path = \"workspace\",\n  book = \"user-guide\",\n  format = \"html\"\n)\n\n\n3.67.7 Construir varias publicaciones\nbuild(\n  path = \"workspace\",\n  book = c(\n    \"1\",\n    \"developer-guide\"\n  ),\n  format = \"pdf\"\n)",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#resultado-de-build",
+    "href": "chapters/02-fundamentals/index.html#resultado-de-build",
+    "title": "3  Fundamentos",
+    "section": "3.68 Resultado de build()",
+    "text": "3.68 Resultado de build()\nbuild() devuelve invisiblemente el plan completado:\nplan = build()\nEl objeto conserva información acumulada durante el pipeline.\nPor ejemplo:\nplan$path\nplan$current\nplan$projects\nplan$valid\nplan$formats\nplan$rendered\nplan$elapsed\nCada proyecto puede contener su publicación preparada:\nplan$projects[[1]]$publication\ny esta puede registrar:\npublication$chapters\npublication$artifacts\npublication$changed\npublication$rendered\npublication$profiles\nLa devolución invisible permite dos formas de uso.\nUso habitual:\nbuild()\nUso con inspección:\nplan = build()\n\nplan$formats\nplan$elapsed",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#mensajes-de-construcción",
+    "href": "chapters/02-fundamentals/index.html#mensajes-de-construcción",
+    "title": "3  Fundamentos",
+    "section": "3.69 Mensajes de construcción",
+    "text": "3.69 Mensajes de construcción\nAunque el plan se devuelve invisiblemente, build() informa del proceso mediante mensajes.\nLa salida puede mostrar:\npublicaciones reconocidas\nestado de comprobación\nformatos construidos\nresultado final\ntiempo empleado\nLos mensajes están dirigidos a la persona que ejecuta la construcción.\nEl objeto devuelto está dirigido a la inspección programática.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#api-pública-y-funciones-privadas",
+    "href": "chapters/02-fundamentals/index.html#api-pública-y-funciones-privadas",
+    "title": "3  Fundamentos",
+    "section": "3.70 API pública y funciones privadas",
+    "text": "3.70 API pública y funciones privadas\nLas fases internas no forman parte del contrato público:\n.discover()\n.check()\n.prepare()\n.render()\nEl prefijo . expresa que son funciones privadas del paquete.\nNo deben utilizarse como puntos de entrada estables desde código externo.\nPor ejemplo, esto pertenece a la implementación:\nplan = .discover(plan)\nLa forma pública de ejecutar el proceso es:\nbuild()\nLa diferencia no es meramente estética.\nLas funciones privadas pueden cambiar su estructura interna mientras se conserva el contrato de:\nvalidate()\nbuild()",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#por-qué-no-se-expone-cada-etapa",
+    "href": "chapters/02-fundamentals/index.html#por-qué-no-se-expone-cada-etapa",
+    "title": "3  Fundamentos",
+    "section": "3.71 Por qué no se expone cada etapa",
+    "text": "3.71 Por qué no se expone cada etapa\nUna API con todas las fases públicas obligaría a quien la utiliza a conocer:\nel orden correcto\nlos tipos intermedios\nlas precondiciones de cada función\nlos cambios internos del pipeline\nPor ejemplo, no tendría sentido ejecutar .prepare() sobre un plan que todavía no ha pasado por .discover() y .check().\nbuild() conserva esas precondiciones dentro del paquete.\nusuario\n  llama a build()\n\nbuild()\n  garantiza el orden correcto\nEsto reduce la superficie pública sin ocultar el modelo conceptual.\nLas etapas siguen existiendo y pueden documentarse, pero no se convierten en obligaciones para quien utiliza el paquete.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#validate-frente-a-build",
+    "href": "chapters/02-fundamentals/index.html#validate-frente-a-build",
+    "title": "3  Fundamentos",
+    "section": "3.72 validate() frente a build()",
+    "text": "3.72 validate() frente a build()\nLa elección entre las dos funciones públicas es sencilla.\nvalidate()\n  reconoce y devuelve un plan inicial\n\nbuild()\n  ejecuta la construcción completa\nUtilice validate() cuando necesite comprobar qué representa una ruta:\nplan = validate(\"workspace\")\nUtilice build() cuando necesite generar la publicación:\nbuild(\"workspace\")\nCon argumentos nombrados, la llamada correcta es:\nbuild(path = \"workspace\")\nporque el primer argumento de build() es book, no path.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#llamadas-con-argumentos-nombrados",
+    "href": "chapters/02-fundamentals/index.html#llamadas-con-argumentos-nombrados",
+    "title": "3  Fundamentos",
+    "section": "3.73 Llamadas con argumentos nombrados",
+    "text": "3.73 Llamadas con argumentos nombrados\nPara evitar ambigüedades, es recomendable nombrar los argumentos cuando se proporciona una ruta:\nbuild(path = \"workspace\")\ny no:\nbuild(\"workspace\")\nLa segunda expresión se interpreta como:\nbook = \"workspace\"\nporque la firma es:\nbuild(\n  book = NULL,\n  format = NULL,\n  path = \".\"\n)\nDel mismo modo:\nbuild(\n  book = \"user-guide\",\n  format = \"html\",\n  path = \"workspace\"\n)\nhace explícita cada decisión.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#contrato-estable-implementación-evolutiva",
+    "href": "chapters/02-fundamentals/index.html#contrato-estable-implementación-evolutiva",
+    "title": "3  Fundamentos",
+    "section": "3.74 Contrato estable, implementación evolutiva",
+    "text": "3.74 Contrato estable, implementación evolutiva\nLa API pública protege al usuario de la evolución interna del paquete.\nEl pipeline puede incorporar en el futuro:\nnuevas comprobaciones\nnuevos artefactos\nnuevos formatos\nnuevas estrategias\nsin exigir que el código externo coordine manualmente cada cambio.\nLa frontera se mantiene pequeña:\nvalidate()\nbuild()\n\nLa API pública expresa la intención. El pipeline privado resuelve el procedimiento.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
   }
 ]

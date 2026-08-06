@@ -92,11 +92,11 @@ chapters/01-fundamentals/index.qmd
 Ese archivo reúne los documentos parciales mediante inclusiones Quarto.
 
 ```qmd
-{{< include 00-index.qmd >}}
+{{{< include 00-index.qmd >}}}
 
-{{< include 01-publication.qmd >}}
+{{{< include 01-publication.qmd >}}}
 
-{{< include 02-project-structure.qmd >}}
+{{{< include 02-project-structure.qmd >}}}
 ```
 
 En esta estrategia, el `index.qmd` de la carpeta es un artefacto derivado y pertenece a `iasi.quarto`.
