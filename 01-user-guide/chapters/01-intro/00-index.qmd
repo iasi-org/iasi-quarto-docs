@@ -1,4 +1,3 @@
-# Quarto como base
 
 `iasi.quarto` está construido sobre Quarto.
 
@@ -6,7 +5,7 @@ No introduce un nuevo formato documental ni sustituye el proceso de publicación
 
 Esta relación permite utilizar `iasi.quarto` sin abandonar el ecosistema original.
 
-```plantuml
+```{.plantuml}
 @startuml
 top to bottom direction
 

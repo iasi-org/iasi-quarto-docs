@@ -1,4 +1,5 @@
 book:
   chapters:
     - "index.qmd"
-    - part: "chapters/01-intro/index.qmd"
+    - "chapters/01-intro/index.qmd"
+    - "chapters/02-fundamentals/index.qmd"

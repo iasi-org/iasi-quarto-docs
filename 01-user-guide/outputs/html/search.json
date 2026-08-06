@@ -38,5 +38,135 @@
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
     ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html",
+    "href": "chapters/01-intro/index.html",
+    "title": "2  Quarto como base",
+    "section": "",
+    "text": "2.1 Qué hace Quarto\niasi.quarto está construido sobre Quarto.\nNo introduce un nuevo formato documental ni sustituye el proceso de publicación de Quarto. Los archivos continúan siendo documentos .qmd, la configuración sigue expresándose mediante YAML y los formatos finales son generados por Quarto.\nEsta relación permite utilizar iasi.quarto sin abandonar el ecosistema original.\nLa idea central es sencilla:\nQuarto es el motor de publicación.\nEntre otras tareas, se encarga de:\nUn proyecto utilizado por iasi.quarto continúa siendo un proyecto Quarto y puede renderizarse directamente con sus herramientas habituales:\niasi.quarto no altera ese principio.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#qué-hace-quarto",
+    "href": "chapters/01-intro/index.html#qué-hace-quarto",
+    "title": "2  Quarto como base",
+    "section": "",
+    "text": "interpretar los documentos .qmd;\naplicar la configuración definida en _quarto.yml;\nejecutar el código incluido en los documentos;\nresolver referencias, citas, figuras y tablas;\naplicar temas, plantillas y estilos;\ngenerar formatos como HTML y PDF.\n\n\nquarto render",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#qué-añade-iasi.quarto",
+    "href": "chapters/01-intro/index.html#qué-añade-iasi.quarto",
+    "title": "2  Quarto como base",
+    "section": "2.2 Qué añade iasi.quarto",
+    "text": "2.2 Qué añade iasi.quarto\nEn un libro Quarto, la estructura de la publicación se declara normalmente en _quarto.yml.\nPor ejemplo:\nbook:\n  chapters:\n    - index.qmd\n    - chapters/01-intro.qmd\n    - chapters/02-installation.qmd\n    - chapters/03-usage.qmd\nEsta configuración es clara y suficiente para publicaciones pequeñas. Sin embargo, a medida que un proyecto crece, mantener manualmente la relación de capítulos, partes y documentos puede convertirse en una tarea repetitiva y propensa a errores.\niasi.quarto añade una capa de convenciones y automatización que permite deducir parte de esa estructura a partir de la organización del proyecto.\nSu trabajo consiste en:\n\ndescubrir los documentos que forman la publicación;\ninterpretar su organización;\ncomprobar que la estructura sea coherente;\npreparar la configuración que necesita Quarto;\ncoordinar la generación de uno o varios formatos.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#separación-de-responsabilidades",
+    "href": "chapters/01-intro/index.html#separación-de-responsabilidades",
+    "title": "2  Quarto como base",
+    "section": "2.3 Separación de responsabilidades",
+    "text": "2.3 Separación de responsabilidades\nLa separación entre ambas herramientas es deliberada.\n\nQuarto controla:\n\nel modelo documental;\nlos formatos de salida;\nlos motores de ejecución;\nlas plantillas;\nlos estilos;\nel proceso de renderizado.\n\niasi.quarto controla:\n\nlas convenciones de organización;\nel descubrimiento de contenido;\nla validación de la estructura;\nla preparación de la publicación;\nla coordinación de libros y formatos.\n\nEsta división evita duplicar capacidades que Quarto ya resuelve correctamente.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#un-proyecto-sigue-siendo-un-proyecto-quarto",
+    "href": "chapters/01-intro/index.html#un-proyecto-sigue-siendo-un-proyecto-quarto",
+    "title": "2  Quarto como base",
+    "section": "2.4 Un proyecto sigue siendo un proyecto Quarto",
+    "text": "2.4 Un proyecto sigue siendo un proyecto Quarto\nAdoptar iasi.quarto no encierra la publicación en un formato propietario.\nEl resultado preparado continúa utilizando archivos reconocibles por Quarto:\n\nEsto permite:\n\nutilizar directamente la línea de comandos de Quarto;\ntrabajar con las extensiones habituales del editor;\nconservar temas y configuraciones existentes;\nintegrar otras extensiones de Quarto;\ndejar de utilizar iasi.quarto sin convertir los documentos.\n\niasi.quarto añade una capa sobre el proyecto, pero no se apropia de él.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#cuándo-resulta-útil",
+    "href": "chapters/01-intro/index.html#cuándo-resulta-útil",
+    "title": "2  Quarto como base",
+    "section": "2.5 Cuándo resulta útil",
+    "text": "2.5 Cuándo resulta útil\nLa automatización aporta más valor cuando:\n\nla publicación contiene muchos capítulos;\nlos documentos cambian de posición con frecuencia;\nexisten varios libros en un mismo repositorio;\ndeben generarse varios formatos;\nse desea aplicar una organización uniforme;\nel proyecto debe poder crecer sin mantener manualmente listas extensas.\n\nEn publicaciones pequeñas, la ventaja principal es la sencillez.\nEn publicaciones grandes, la ventaja es mantener bajo control una estructura que, de otro modo, acabaría dispersa entre directorios, nombres de archivos y configuración YAML.\nEn el siguiente capítulo veremos cómo instalar iasi.quarto y comprobar que Quarto y R están correctamente disponibles.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#una-convención-sobre-quarto",
+    "href": "chapters/01-intro/index.html#una-convención-sobre-quarto",
+    "title": "2  Quarto como base",
+    "section": "3.1 Una convención sobre Quarto",
+    "text": "3.1 Una convención sobre Quarto\nQuarto ya sabe transformar documentos en libros, sitios web, artículos y otros formatos. iasi.quarto se ocupa de lo que ocurre alrededor de ese proceso:\n\ndescubrir la estructura del proyecto;\nvalidar que esa estructura sea coherente;\npreparar los artefactos necesarios;\nrenderizar uno o varios formatos;\ncoordinar la construcción de uno o varios libros.\n\nQuarto continúa siendo el motor de publicación. iasi.quarto actúa como capa de ingeniería.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#el-problema-que-resuelve",
+    "href": "chapters/01-intro/index.html#el-problema-que-resuelve",
+    "title": "2  Quarto como base",
+    "section": "3.2 El problema que resuelve",
+    "text": "3.2 El problema que resuelve\nEn un proyecto pequeño, mantener manualmente _quarto.yml puede ser suficiente. Cuando el número de documentos aumenta, esa configuración empieza a concentrar demasiado conocimiento:\n\nqué archivos forman parte del libro;\nen qué orden deben aparecer;\ncómo se organizan los capítulos;\nqué perfiles existen;\nqué formato debe generarse;\ndónde se escriben los resultados.\n\niasi.quarto convierte parte de ese conocimiento implícito en convenciones verificables.\nLa estructura del proyecto deja de ser una colección de decisiones manuales y pasa a ser información que el framework puede descubrir, validar y preparar.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#qué-aporta",
+    "href": "chapters/01-intro/index.html#qué-aporta",
+    "title": "2  Quarto como base",
+    "section": "3.3 Qué aporta",
+    "text": "3.3 Qué aporta\nEl flujo fundamental de iasi.quarto se divide en cuatro pasos:\nproject = discover()\nvalidation = validate(project)\npublication = prepare(validation)\nrender(publication)\nEn el uso habitual, build() coordina ese proceso completo.\nCada etapa tiene una responsabilidad concreta:\n\ndiscover() interpreta la estructura existente;\nvalidate() comprueba que el proyecto sea coherente;\nprepare() genera la configuración derivada necesaria;\nrender() delega en Quarto la producción de los formatos finales.\n\nEsta separación permite detectar los problemas antes de iniciar un renderizado y hace que cada transformación sea explícita.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#qué-no-pretende-ser",
+    "href": "chapters/01-intro/index.html#qué-no-pretende-ser",
+    "title": "2  Quarto como base",
+    "section": "3.4 Qué no pretende ser",
+    "text": "3.4 Qué no pretende ser\niasi.quarto no es:\n\nun sustituto de Quarto;\nun nuevo lenguaje documental;\nun generador de contenido;\nuna plantilla cerrada;\nuna abstracción que oculte por completo la configuración de Quarto.\n\nEl proyecto sigue siendo un proyecto Quarto normal. Sus archivos pueden abrirse, editarse y renderizarse con las herramientas habituales.\nLa diferencia es que ciertas decisiones estructurales se expresan mediante convenciones que iasi.quarto puede comprender.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro/index.html#una-herramienta-para-proyectos-que-crecen",
+    "href": "chapters/01-intro/index.html#una-herramienta-para-proyectos-que-crecen",
+    "title": "2  Quarto como base",
+    "section": "3.5 Una herramienta para proyectos que crecen",
+    "text": "3.5 Una herramienta para proyectos que crecen\nEl valor de iasi.quarto aparece cuando la documentación deja de ser un conjunto de archivos aislados y empieza a comportarse como un sistema.\nEn ese momento importan el orden, la consistencia, la repetibilidad y la capacidad de modificar la estructura sin reconstruir manualmente toda la configuración.\niasi.quarto proporciona ese armazón sin quitarle a Quarto el papel central que le corresponde.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto como base</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html",
+    "href": "chapters/02-fundamentals/index.html",
+    "title": "3  Fundamentos",
+    "section": "",
+    "text": "3.1 La publicación IASI Quarto\nUna publicación IASI Quarto es un proyecto Quarto cuya estructura, configuración y proceso de construcción siguen las convenciones definidas por iasi.quarto.\nNo es un tipo diferente de documento. Sigue siendo una publicación Quarto y puede utilizar sus formatos, extensiones y mecanismos habituales. iasi.quarto añade una capa de organización y automatización sobre ese proyecto:\nLa publicación continúa perteneciendo a Quarto. iasi.quarto no sustituye su motor, sino que organiza todo lo que ocurre antes de invocarlo.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-fundamentals/index.html#la-publicación-iasi-quarto",
+    "href": "chapters/02-fundamentals/index.html#la-publicación-iasi-quarto",
+    "title": "3  Fundamentos",
+    "section": "",
+    "text": "reconoce publicaciones;\ninterpreta su estructura;\ncomprueba su coherencia;\ngenera los artefactos derivados;\ncoordina su construcción.\n\n\n\n3.1.1 La firma de una publicación\nUna carpeta se reconoce como publicación IASI Quarto cuando contiene estos cuatro archivos:\n_quarto.yml\n_quarto-html.yml\n_quarto-pdf.yml\niasi.yml\nLos cuatro forman la firma de la publicación.\n_quarto.yml contiene la configuración común del proyecto Quarto.\n_quarto-html.yml contiene la configuración específica del perfil HTML.\n_quarto-pdf.yml contiene la configuración específica del perfil PDF.\niasi.yml declara cómo debe interpretar y preparar la publicación iasi.quarto.\nLa coexistencia de los cuatro archivos es intencionada. La presencia aislada de _quarto.yml únicamente identifica un proyecto Quarto. La presencia aislada de iasi.yml tampoco es suficiente. Solo la firma completa identifica una publicación IASI Quarto.\nUna estructura mínima puede ser:\nmy-publication/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n├── iasi.yml\n├── index.qmd\n└── chapters/\nLa firma permite reconocer el proyecto sin analizar todavía toda su configuración ni recorrer su contenido. El reconocimiento es deliberadamente superficial: primero se determina qué existe; después se estudia qué contiene.\n\n\n3.1.2 Una publicación no es necesariamente un libro\niasi.quarto utiliza el término publicación para referirse a la unidad que puede comprobarse, prepararse y construirse.\nActualmente, el caso principal es un libro Quarto:\nproject:\n  type: book\nSin embargo, la publicación y el tipo de proyecto son conceptos diferentes.\nLa publicación es la unidad gestionada por iasi.quarto.\nEl tipo indica cómo entiende Quarto ese proyecto:\nbook\nwebsite\nmanuscript\narticle\nEsta separación evita incorporar en la arquitectura una equivalencia innecesaria:\npublicación ≠ libro\nUn libro es un tipo posible de publicación. La publicación es el concepto más general.\n\n\n3.1.3 Publicación individual\nCuando la carpeta indicada contiene directamente la firma completa, se considera una publicación individual.\nPor ejemplo:\nuser-guide/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n├── iasi.yml\n├── index.qmd\n└── chapters/\nEn este caso, la carpeta user-guide/ es la raíz de la publicación.\nLa construcción se realiza desde esa raíz y todos los archivos de configuración, contenido y salida se interpretan en relación con ella.\nvalidate(\"user-guide\")\nTambién puede validarse desde el propio directorio:\nvalidate()\n\n\n3.1.4 Multiproyecto\nUna carpeta puede actuar como contenedor de varias publicaciones independientes.\ndocs/\n├── user-guide/\n│   ├── _quarto.yml\n│   ├── _quarto-html.yml\n│   ├── _quarto-pdf.yml\n│   ├── iasi.yml\n│   ├── index.qmd\n│   └── chapters/\n│\n└── developer-guide/\n    ├── _quarto.yml\n    ├── _quarto-html.yml\n    ├── _quarto-pdf.yml\n    ├── iasi.yml\n    ├── index.qmd\n    └── chapters/\nLa carpeta docs/ no es una publicación. Es un multiproyecto que contiene dos publicaciones:\nuser-guide\ndeveloper-guide\nCada una conserva su propia configuración, estrategia, contenido y perfiles de salida.\nEl multiproyecto permite construirlas conjuntamente sin convertirlas en partes de un único libro.\nvalidate(\"docs\")\nLa validación reconoce el contenedor y localiza las publicaciones que contiene.\nLa raíz del multiproyecto no necesita disponer de su propio iasi.yml. Su función es agrupar publicaciones completas, no comportarse como una publicación adicional.\n\n\n3.1.5 La publicación actual tiene prioridad\nCuando la carpeta indicada contiene la firma completa, se interpreta como una publicación individual aunque existan otras firmas en directorios descendientes.\npublication/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n├── iasi.yml\n├── index.qmd\n├── chapters/\n└── examples/\n    └── sample-book/\n        ├── _quarto.yml\n        ├── _quarto-html.yml\n        ├── _quarto-pdf.yml\n        └── iasi.yml\nEn este caso, publication/ es la publicación actual. La publicación situada bajo examples/ no se incorpora automáticamente al mismo plan de construcción.\nEsta regla evita que ejemplos, plantillas, pruebas o proyectos auxiliares se confundan con publicaciones hermanas.\nEl reconocimiento sigue este orden:\n\ncomprobar si la carpeta actual contiene la firma completa;\nsi la contiene, tratarla como una publicación individual;\nsi no la contiene, buscar publicaciones completas en sus descendientes;\nsi se encuentran, tratar la carpeta como multiproyecto;\nsi no se encuentra ninguna, concluir que no es un proyecto IASI Quarto.\n\n\n\n3.1.6 Publicación y contenido\nLa raíz de la publicación no obliga a utilizar un directorio llamado chapters.\nEl directorio de contenido se declara en iasi.yml:\npublication:\n  content-dir: chapters\nPodría utilizarse otro nombre:\npublication:\n  content-dir: content\nY la estructura correspondiente sería:\nmy-publication/\n├── _quarto.yml\n├── _quarto-html.yml\n├── _quarto-pdf.yml\n├── iasi.yml\n├── index.qmd\n└── content/\nLa publicación es la raíz completa del proyecto. El directorio de contenido es solo una de sus partes.\nEsta distinción permite que una publicación contenga, además del texto principal:\nimages/\nresources/\nbibliography/\nextensions/\nscripts/\noutputs/\niasi.quarto no redefine toda la estructura de Quarto. Solo necesita conocer dónde se encuentra el contenido que debe organizar.\n\n\n3.1.7 Archivos fuente y archivos derivados\nDentro de una publicación existen dos clases de archivos.\nLos archivos fuente pertenecen al autor:\nindex.qmd\niasi.yml\n_quarto.yml\n_quarto-html.yml\n_quarto-pdf.yml\nchapters/01-intro/01-introduction.qmd\nLos archivos derivados son generados por iasi.quarto durante la preparación:\n_book-structure.yml\nchapters/01-intro/index.qmd\nLa lista exacta depende de la estrategia de publicación.\nLa diferencia es importante:\n\nlos archivos fuente expresan decisiones editoriales;\nlos archivos derivados materializan esas decisiones para Quarto.\n\nUn archivo derivado puede regenerarse. No debe convertirse accidentalmente en la única copia de contenido escrito por el autor.\n\n\n3.1.8 Reconocer no significa construir\nEl reconocimiento de una publicación no implica que sea válida ni que pueda construirse.\nUna carpeta puede contener la firma completa y, aun así, presentar problemas:\niasi.yml mal formado\nestrategia desconocida\ndirectorio de contenido inexistente\nindex.qmd raíz ausente\nestructura incompatible con la estrategia\nPor eso validate() responde a una pregunta limitada:\n\n¿Existe aquí una publicación IASI Quarto o un multiproyecto reconocible?\n\nNo genera archivos, no modifica el proyecto y no ejecuta Quarto.\nvalidate()\nLa construcción completa corresponde a:\nbuild()\nEsta separación permite inspeccionar un proyecto antes de intervenir sobre él.\n\n\n3.1.9 La publicación como unidad de construcción\nUna publicación reúne todo lo necesario para ejecutar una construcción independiente:\nconfiguración común\nconfiguración por formato\ndeclaración IASI\ncontenido\nartefactos derivados\nsalidas\nEn un multiproyecto, cada publicación mantiene esa independencia.\nEsto permite construir:\n\ntodas las publicaciones;\nuna publicación concreta;\ntodos los formatos;\nun formato determinado.\n\nPor ejemplo:\nbuild(\n  book = \"user-guide\",\n  format = \"html\"\n)\nLa selección pertenece al proceso de construcción. La publicación, por su parte, continúa siendo una unidad completa y autosuficiente.\nEsa es la frontera fundamental del modelo:\n\nUna publicación IASI Quarto es una unidad Quarto reconocible, configurable y construible de forma independiente.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Fundamentos</span>"
+    ]
   }
 ]
