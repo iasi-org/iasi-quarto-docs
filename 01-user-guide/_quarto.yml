@@ -1,0 +1,24 @@
+project:
+  type: book
+
+book:
+  title: "IASI Quarto User Guide"
+  subtitle: "Framework for Engineering Documentation with Quarto"
+  author: "IASI Project"
+
+  chapters:
+    - index.qmd
+
+format:
+
+  html:
+    toc: true
+    number-sections: true
+
+  pdf:
+    documentclass: scrreprt
+    toc: true
+    number-sections: true
+
+execute:
+  freeze: auto

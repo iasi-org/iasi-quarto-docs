@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "IASI Quarto User Guide",
+    "section": "",
+    "text": "1 Introducción\nBienvenido a la guía de usuario de iasi.quarto.\nEste libro está dirigido a quienes desean utilizar iasi.quarto para construir proyectos documentales basados en Quarto.\nNo es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.\nEl objetivo de esta guía es ayudarte a comprender la filosofía de iasi.quarto, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#iasi.quarto-y-quarto",
+    "href": "index.html#iasi.quarto-y-quarto",
+    "title": "IASI Quarto User Guide",
+    "section": "1.1 iasi.quarto y Quarto",
+    "text": "1.1 iasi.quarto y Quarto\niasi.quarto vive sobre Quarto.\nNo pretende sustituirlo, modificar su modelo documental ni crear un sistema de publicación alternativo.\nQuarto continúa siendo el motor responsable de procesar los documentos y generar los formatos finales. iasi.quarto proporciona una capa de organización, automatización y convenciones que facilita el desarrollo y mantenimiento de proyectos documentales de cualquier tamaño.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#qué-encontrarás-en-este-libro",
+    "href": "index.html#qué-encontrarás-en-este-libro",
+    "title": "IASI Quarto User Guide",
+    "section": "1.2 ¿Qué encontrarás en este libro?",
+    "text": "1.2 ¿Qué encontrarás en este libro?\nA lo largo de esta guía aprenderás a:\n\ncomprender el propósito de iasi.quarto;\ninstalar el framework;\ncrear un nuevo proyecto;\norganizar la documentación;\ngenerar libros en distintos formatos;\nconfigurar el comportamiento del framework;\nutilizar la API pública;\nresolver los problemas más habituales.\n\nCada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#requisitos",
+    "href": "index.html#requisitos",
+    "title": "IASI Quarto User Guide",
+    "section": "1.3 Requisitos",
+    "text": "1.3 Requisitos\nSe recomienda tener conocimientos básicos de:\n\nQuarto;\nGit;\nR (para utilizar el paquete iasi.quarto).\n\nNo obstante, los conceptos específicos del framework se explican desde el principio.\nComencemos entendiendo por qué nació el framework y qué problemas pretende resolver.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
+    ]
+  }
+]
