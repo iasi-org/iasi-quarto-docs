@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,13 +12,10 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -79,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b808e4060ecc782e0bebc2c887f613fa.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-b16ba7212847ce7939909783b50ea0ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -166,6 +163,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fundamentos</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/03-installation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Instalación</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/04-plantuml/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">PlantUML</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -205,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>iasi.quarto</code> está construido sobre Quarto.</p>
 <p>No introduce un nuevo formato documental ni sustituye el proceso de publicación de Quarto. Los archivos continúan siendo documentos <code>.qmd</code>, la configuración sigue expresándose mediante YAML y los formatos finales son generados por Quarto.</p>
 <p>Esta relación permite utilizar <code>iasi.quarto</code> sin abandonar el ecosistema original.</p>
-<p><img src="index_files/mediabag/plantuml/b6a7e91a4688cd028ca5fa4108f86006c9d29b78.png" class="img-fluid"></p>
+<p><img src="index_files\mediabag\plantuml/e9726fbb729032e7855fdb06b402d372ff7e55b6.png" class="img-fluid"></p>
 <p>La idea central es sencilla:</p>
 <blockquote class="blockquote">
 <p><code>iasi.quarto</code> organiza y prepara. Quarto renderiza.</p>
@@ -250,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="separación-de-responsabilidades" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="separación-de-responsabilidades"><span class="header-section-number">2.3</span> Separación de responsabilidades</h2>
 <p>La separación entre ambas herramientas es deliberada.</p>
-<p><img src="index_files/mediabag/plantuml/30f462d411ad5f5e02c09cedb5262a895eee9782.png" class="img-fluid"></p>
+<p><img src="index_files\mediabag\plantuml/ff2aade43961545ff82c96716bfedd3860a5ab34.png" class="img-fluid"></p>
 <p>Quarto controla:</p>
 <ul>
 <li>el modelo documental;</li>
@@ -274,7 +283,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="2.4" class="anchored" data-anchor-id="un-proyecto-sigue-siendo-un-proyecto-quarto"><span class="header-section-number">2.4</span> Un proyecto sigue siendo un proyecto Quarto</h2>
 <p>Adoptar <code>iasi.quarto</code> no encierra la publicación en un formato propietario.</p>
 <p>El resultado preparado continúa utilizando archivos reconocibles por Quarto:</p>
-<p><img src="index_files/mediabag/plantuml/a69569743cd70f97b492b8d67f79178af473f828.png" class="img-fluid"></p>
+<p><img src="index_files\mediabag\plantuml/292e8ba8e98965a360e5a43dfbcb5c707eca3485.png" class="img-fluid"></p>
 <p>Esto permite:</p>
 <ul>
 <li>utilizar directamente la línea de comandos de Quarto;</li>
