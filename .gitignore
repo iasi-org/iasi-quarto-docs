@@ -70,3 +70,4 @@ _cache/
 
 # Logs
 *.log
+.Rproj.user
