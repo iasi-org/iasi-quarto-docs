@@ -1,6 +1,6 @@
 # _quarto-pdf.yml
 project:
-  output-dir: outputs/pdf
+  output-dir: _outputs/pdf
 
 format:
   pdf:

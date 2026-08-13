@@ -1,6 +1,6 @@
 # _quarto-html.yml
 project:
-  output-dir: outputs/html
+  output-dir: _outputs/html
 
 format:
   html:
