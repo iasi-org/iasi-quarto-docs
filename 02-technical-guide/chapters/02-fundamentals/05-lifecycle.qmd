@@ -117,7 +117,7 @@ La función busca la firma de publicación:
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
-iasi.yml
+_iasi.yml
 ```
 
 Si los cuatro archivos existen en la ruta actual, esa ruta se considera una publicación.
@@ -167,7 +167,7 @@ El plan actúa como contenedor de las publicaciones que podrán seleccionarse y 
 
 `validate()` reconoce el terreno.
 
-Todavía no interpreta `iasi.yml` ni genera artefactos.
+Todavía no interpreta `_iasi.yml` ni genera artefactos.
 
 ## Selección de publicaciones
 
@@ -233,7 +233,7 @@ Durante esta fase se leen:
 
 ```text
 _quarto.yml
-iasi.yml
+_iasi.yml
 ```
 
 y se determina:
@@ -272,7 +272,7 @@ iasi_quarto_project
 
 ### Aplicación de valores predeterminados
 
-`.discover()` completa las propiedades ausentes de `iasi.yml`.
+`.discover()` completa las propiedades ausentes de `_iasi.yml`.
 
 Por ejemplo:
 
@@ -618,7 +618,7 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
 el flujo es:

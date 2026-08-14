@@ -18,6 +18,8 @@ format:
     documentclass: scrreprt
     toc: true
     number-sections: true
+    colorlinks: false
+    include-in-header: resources/tex/title-page.tex
 
 execute:
   freeze: auto

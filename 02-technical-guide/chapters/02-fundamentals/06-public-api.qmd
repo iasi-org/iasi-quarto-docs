@@ -53,7 +53,7 @@ La función comprueba la presencia de la firma IASI Quarto:
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
-iasi.yml
+_iasi.yml
 ```
 
 Cuando los cuatro archivos están presentes en la ruta indicada, esa ruta se reconoce como una publicación actual.
@@ -146,7 +146,7 @@ Esto permite utilizar `validate()` como operación de reconocimiento sin iniciar
 No:
 
 ```text
-interpreta por completo iasi.yml
+interpreta por completo _iasi.yml
 comprueba toda la estructura editorial
 genera index.qmd
 genera _book-structure.yml
@@ -166,7 +166,7 @@ user-guide/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
 la llamada:
@@ -192,13 +192,13 @@ workspace/
 │   ├── _quarto.yml
 │   ├── _quarto-html.yml
 │   ├── _quarto-pdf.yml
-│   └── iasi.yml
+│   └── _iasi.yml
 │
 └── 02-developer-guide/
     ├── _quarto.yml
     ├── _quarto-html.yml
     ├── _quarto-pdf.yml
-    └── iasi.yml
+    └── _iasi.yml
 ```
 
 la llamada:
@@ -487,7 +487,7 @@ Esto tiene una consecuencia importante.
 Una publicación no seleccionada no participa en:
 
 ```text
-lectura de iasi.yml
+lectura de _iasi.yml
 comprobación
 preparación
 renderizado

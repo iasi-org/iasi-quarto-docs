@@ -1,6 +1,6 @@
-## El archivo `iasi.yml`
+## El archivo `_iasi.yml`
 
-`iasi.yml` describe cómo debe interpretar `iasi.quarto` una publicación.
+`_iasi.yml` describe cómo debe interpretar `iasi.quarto` una publicación.
 
 No sustituye a `_quarto.yml` ni contiene opciones de renderizado. Su función es declarar la organización editorial que `iasi.quarto` debe descubrir, comprobar y preparar antes de delegar la generación final en Quarto.
 
@@ -162,7 +162,7 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
 `content-dir` se interpreta como una ruta relativa a la raíz de la publicación.
@@ -310,7 +310,7 @@ publication:
 
 ## YAML mal formado
 
-`iasi.yml` debe ser un documento YAML válido.
+`_iasi.yml` debe ser un documento YAML válido.
 
 Por ejemplo, esta configuración es incorrecta:
 
@@ -363,7 +363,7 @@ Los valores semánticamente inválidos se rechazan durante la fase de comprobaci
 
 ## Propiedades desconocidas
 
-El contrato de `iasi.yml` es explícito.
+El contrato de `_iasi.yml` es explícito.
 
 Esta configuración contiene una propiedad desconocida:
 
@@ -410,7 +410,7 @@ _quarto-html.yml
 _quarto-pdf.yml
   configuración específica de PDF
 
-iasi.yml
+_iasi.yml
   organización editorial interpretada por iasi.quarto
 ```
 
@@ -430,7 +430,7 @@ format:
     toc: true
 ```
 
-Y esta pertenece a `iasi.yml`:
+Y esta pertenece a `_iasi.yml`:
 
 ```yaml
 publication:
@@ -441,14 +441,14 @@ Mantener esta separación evita que `iasi.quarto` se convierta en una segunda ca
 
 ## Configuración y ciclo de construcción
 
-`iasi.yml` participa en las primeras fases del proceso:
+`_iasi.yml` participa en las primeras fases del proceso:
 
 ```text
 validate()
   reconoce la publicación por su firma
 
 .discover()
-  lee iasi.yml y aplica valores predeterminados
+  lee _iasi.yml y aplica valores predeterminados
 
 .check()
   comprueba propiedades, valores y estructura
@@ -465,7 +465,7 @@ Cuando `.render()` se ejecuta, la publicación ya ha sido descubierta, comprobad
 @startuml
 left to right direction
 
-file "iasi.yml" as config
+file "_iasi.yml" as config
 rectangle ".discover()" as discover
 rectangle ".check()" as check
 rectangle ".prepare()" as prepare
@@ -482,7 +482,7 @@ structure --> quarto
 
 ## Un contrato pequeño
 
-`iasi.yml` contiene deliberadamente pocas propiedades.
+`_iasi.yml` contiene deliberadamente pocas propiedades.
 
 No pretende describir toda la publicación ni duplicar la configuración disponible en Quarto.
 
@@ -501,4 +501,4 @@ Su contrato actual responde únicamente a tres preguntas:
 
 Esa limitación mantiene la configuración legible y permite que la mayor parte del proyecto siga siendo Quarto abierto y reconocible.
 
-> `iasi.yml` no describe cómo se renderiza una publicación. Describe cómo debe entenderse antes de renderizarla.
+> `_iasi.yml` no describe cómo se renderiza una publicación. Describe cómo debe entenderse antes de renderizarla.

@@ -2,7 +2,7 @@
 
 La estrategia de una publicación determina cómo interpreta `iasi.quarto` las carpetas y documentos situados dentro de `content-dir`.
 
-Se declara en `iasi.yml`:
+Se declara en `_iasi.yml`:
 
 ```yaml
 publication:

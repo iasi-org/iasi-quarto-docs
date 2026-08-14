@@ -5,3 +5,28 @@ project:
 format:
   html:
     toc: true
+    css: resources/css/top-banner.css
+    include-before-body: resources/html/top-banner.html
+
+book:
+  navbar:
+    title: "Technical Guide"
+    left:
+      - text: "Introducción"
+        href: chapters/01-intro/index.qmd
+      - text: "Fundamentos"
+        href: chapters/02-fundamentals/index.qmd
+      - text: "Instalación"
+        href: chapters/03-installation/index.qmd
+      - text: "PlantUML"
+        href: chapters/04-plantuml/index.qmd
+    right:
+      - icon: file-pdf
+        href: IASI-Quarto-Technical-Guide.pdf
+        aria-label: "Descargar guía en PDF"
+      - icon: translate
+        href: https://iasi-org.github.io/iasi-home/pages/common/manifesto-bilingual.html
+        aria-label: "Idioma / Language"
+      - icon: envelope
+        href: https://iasi-org.github.io/iasi-home/pages/common/contact.html
+        aria-label: "Contacto"

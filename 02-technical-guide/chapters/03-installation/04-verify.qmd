@@ -95,7 +95,7 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
 Desde R puede comprobarse el directorio actual con:

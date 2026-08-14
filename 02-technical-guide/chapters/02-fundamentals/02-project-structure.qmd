@@ -11,7 +11,7 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
 La presencia conjunta de estos cuatro archivos identifica una publicación IASI Quarto.
@@ -24,7 +24,7 @@ folder "Publicación" {
   file "_quarto.yml" as quarto
   file "_quarto-html.yml" as html
   file "_quarto-pdf.yml" as pdf
-  file "iasi.yml" as iasi
+  file "_iasi.yml" as iasi
 }
 
 quarto -[hidden]-> html
@@ -71,7 +71,7 @@ Por ejemplo, el HTML puede utilizar una hoja de estilos CSS, mientras que el PDF
 
 ## Configuración de iasi.quarto
 
-El archivo `iasi.yml` describe cómo debe interpretar `iasi.quarto` el contenido de la publicación.
+El archivo `_iasi.yml` describe cómo debe interpretar `iasi.quarto` el contenido de la publicación.
 
 ```yaml
 publication:
@@ -91,7 +91,7 @@ publication:
 
 Por tanto, una publicación puede omitir las propiedades que no necesite modificar.
 
-`iasi.yml` no contiene configuración de renderizado. Su responsabilidad es describir la organización editorial que `iasi.quarto` debe descubrir y preparar.
+`_iasi.yml` no contiene configuración de renderizado. Su responsabilidad es describir la organización editorial que `iasi.quarto` debe descubrir y preparar.
 
 ## Directorio de contenido
 
@@ -110,7 +110,7 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
 El nombre `chapters` es el valor predeterminado, pero no forma parte rígida del modelo.
@@ -123,10 +123,10 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml
+└── _iasi.yml
 ```
 
-si `iasi.yml` declara:
+si `_iasi.yml` declara:
 
 ```yaml
 publication:
@@ -282,7 +282,7 @@ Una publicación contiene dos clases de archivos.
 Los archivos fuente son mantenidos por el autor:
 
 ```text
-iasi.yml
+_iasi.yml
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
@@ -358,16 +358,16 @@ workspace/
 │   ├── _quarto.yml
 │   ├── _quarto-html.yml
 │   ├── _quarto-pdf.yml
-│   └── iasi.yml
+│   └── _iasi.yml
 │
 └── 02-developer-guide/
     ├── _quarto.yml
     ├── _quarto-html.yml
     ├── _quarto-pdf.yml
-    └── iasi.yml
+    └── _iasi.yml
 ```
 
-El directorio `workspace` no necesita ser una publicación ni contener un `iasi.yml`.
+El directorio `workspace` no necesita ser una publicación ni contener un `_iasi.yml`.
 
 `iasi.quarto` descubre recursivamente las carpetas que contienen la firma completa y trata cada una como una unidad de construcción independiente.
 

@@ -20,7 +20,7 @@ Una carpeta se reconoce como publicación IASI Quarto cuando contiene estos cuat
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
-iasi.yml
+_iasi.yml
 ```
 
 Los cuatro forman la **firma de la publicación**.
@@ -31,9 +31,9 @@ Los cuatro forman la **firma de la publicación**.
 
 `_quarto-pdf.yml` contiene la configuración específica del perfil PDF.
 
-`iasi.yml` declara cómo debe interpretar y preparar la publicación `iasi.quarto`.
+`_iasi.yml` declara cómo debe interpretar y preparar la publicación `iasi.quarto`.
 
-La coexistencia de los cuatro archivos es intencionada. La presencia aislada de `_quarto.yml` únicamente identifica un proyecto Quarto. La presencia aislada de `iasi.yml` tampoco es suficiente. Solo la firma completa identifica una publicación IASI Quarto.
+La coexistencia de los cuatro archivos es intencionada. La presencia aislada de `_quarto.yml` únicamente identifica un proyecto Quarto. La presencia aislada de `_iasi.yml` tampoco es suficiente. Solo la firma completa identifica una publicación IASI Quarto.
 
 Una estructura mínima puede ser:
 
@@ -42,7 +42,7 @@ my-publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 └── chapters/
 ```
@@ -92,7 +92,7 @@ user-guide/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 └── chapters/
 ```
@@ -121,7 +121,7 @@ docs/
 │   ├── _quarto.yml
 │   ├── _quarto-html.yml
 │   ├── _quarto-pdf.yml
-│   ├── iasi.yml
+│   ├── _iasi.yml
 │   ├── index.qmd
 │   └── chapters/
 │
@@ -129,7 +129,7 @@ docs/
     ├── _quarto.yml
     ├── _quarto-html.yml
     ├── _quarto-pdf.yml
-    ├── iasi.yml
+    ├── _iasi.yml
     ├── index.qmd
     └── chapters/
 ```
@@ -151,7 +151,7 @@ validate("docs")
 
 La validación reconoce el contenedor y localiza las publicaciones que contiene.
 
-La raíz del multiproyecto no necesita disponer de su propio `iasi.yml`. Su función es agrupar publicaciones completas, no comportarse como una publicación adicional.
+La raíz del multiproyecto no necesita disponer de su propio `_iasi.yml`. Su función es agrupar publicaciones completas, no comportarse como una publicación adicional.
 
 ### La publicación actual tiene prioridad
 
@@ -162,7 +162,7 @@ publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 ├── chapters/
 └── examples/
@@ -170,7 +170,7 @@ publication/
         ├── _quarto.yml
         ├── _quarto-html.yml
         ├── _quarto-pdf.yml
-        └── iasi.yml
+        └── _iasi.yml
 ```
 
 En este caso, `publication/` es la publicación actual. La publicación situada bajo `examples/` no se incorpora automáticamente al mismo plan de construcción.
@@ -189,7 +189,7 @@ El reconocimiento sigue este orden:
 
 La raíz de la publicación no obliga a utilizar un directorio llamado `chapters`.
 
-El directorio de contenido se declara en `iasi.yml`:
+El directorio de contenido se declara en `_iasi.yml`:
 
 ```yaml
 publication:
@@ -210,7 +210,7 @@ my-publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 └── content/
 ```
@@ -238,7 +238,7 @@ Los **archivos fuente** pertenecen al autor:
 
 ```text
 index.qmd
-iasi.yml
+_iasi.yml
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
@@ -268,7 +268,7 @@ El reconocimiento de una publicación no implica que sea válida ni que pueda co
 Una carpeta puede contener la firma completa y, aun así, presentar problemas:
 
 ```text
-iasi.yml mal formado
+_iasi.yml mal formado
 estrategia desconocida
 directorio de contenido inexistente
 index.qmd raíz ausente
