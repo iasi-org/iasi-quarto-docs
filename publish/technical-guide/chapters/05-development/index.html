@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="IASI Project">
 
-<title>IASI Quarto User Guide</title>
+<title>6&nbsp; Preparar el entorno – IASI Quarto Technical Guide</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,27 +23,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/01-intro/index.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-37758bcf14ad8974d9ff99838dd22ecb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/06-next-steps/index.html" rel="next">
+<link href="../../chapters/04-architecture/index.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-37758bcf14ad8974d9ff99838dd22ecb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -97,8 +132,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">User Guide</span>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Technical Guide</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -108,29 +143,33 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./chapters/01-intro/index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../chapters/01-intro/index.html" aria-current="page"> 
 <span class="menu-text">Introducción</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/02-fundamentals/index.html"> 
+    <a class="nav-link" href="../../chapters/02-fundamentals/index.html"> 
 <span class="menu-text">Fundamentos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/03-installation/index.html"> 
+    <a class="nav-link" href="../../chapters/03-installation/index.html"> 
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/04-workflow/index.html"> 
-<span class="menu-text">Workflow</span></a>
+    <a class="nav-link" href="../../chapters/04-architecture/index.html"> 
+<span class="menu-text">Arquitectura</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/05-api/index.html"> 
-<span class="menu-text">API</span></a>
+    <a class="nav-link" href="../../chapters/05-development/index.html"> 
+<span class="menu-text">Desarrollo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/06-next-steps/index.html"> 
+<span class="menu-text">Next steps</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="./IASI-Quarto-User-Guide.pdf"> <i class="bi bi-file-pdf" role="img" aria-label="Descargar guía en PDF">
+    <a class="nav-link" href="../../IASI-Quarto-Technical-Guide.pdf"> <i class="bi bi-file-pdf" role="img" aria-label="Descargar guía en PDF">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -155,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/05-development/index.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -169,38 +208,44 @@ document.addEventListener("DOMContentLoaded", () => {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01-intro/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/01-intro/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quarto como base</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02-fundamentals/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/02-fundamentals/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fundamentos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-installation/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/03-installation/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Instalación</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04-workflow/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/04-architecture/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05-api/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/05-development/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-next-steps/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
     </ul>
@@ -213,12 +258,13 @@ document.addEventListener("DOMContentLoaded", () => {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a>
-  <ul class="collapse">
-  <li><a href="#iasi.quarto-y-quarto" id="toc-iasi.quarto-y-quarto" class="nav-link" data-scroll-target="#iasi.quarto-y-quarto"><span class="header-section-number">1.1</span> iasi.quarto y Quarto</a></li>
-  <li><a href="#qué-encontrarás-en-este-libro" id="toc-qué-encontrarás-en-este-libro" class="nav-link" data-scroll-target="#qué-encontrarás-en-este-libro"><span class="header-section-number">1.2</span> ¿Qué encontrarás en este libro?</a></li>
-  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">1.3</span> Requisitos</a></li>
-  </ul></li>
+  <li><a href="#leer-un-cambio-de-extremo-a-extremo" id="toc-leer-un-cambio-de-extremo-a-extremo" class="nav-link active" data-scroll-target="#leer-un-cambio-de-extremo-a-extremo"><span class="header-section-number">6.1</span> Leer un cambio de extremo a extremo</a></li>
+  <li><a href="#pruebas-automatizadas" id="toc-pruebas-automatizadas" class="nav-link" data-scroll-target="#pruebas-automatizadas"><span class="header-section-number">6.2</span> Pruebas automatizadas</a></li>
+  <li><a href="#fixtures" id="toc-fixtures" class="nav-link" data-scroll-target="#fixtures"><span class="header-section-number">6.3</span> Fixtures</a></li>
+  <li><a href="#estrategia-de-pruebas-por-tipo-de-cambio" id="toc-estrategia-de-pruebas-por-tipo-de-cambio" class="nav-link" data-scroll-target="#estrategia-de-pruebas-por-tipo-de-cambio"><span class="header-section-number">6.4</span> Estrategia de pruebas por tipo de cambio</a></li>
+  <li><a href="#procedimiento-recomendado-para-un-cambio" id="toc-procedimiento-recomendado-para-un-cambio" class="nav-link" data-scroll-target="#procedimiento-recomendado-para-un-cambio"><span class="header-section-number">6.5</span> Procedimiento recomendado para un cambio</a></li>
+  <li><a href="#compatibilidad" id="toc-compatibilidad" class="nav-link" data-scroll-target="#compatibilidad"><span class="header-section-number">6.6</span> Compatibilidad</a></li>
+  <li><a href="#revisión-técnica" id="toc-revisión-técnica" class="nav-link" data-scroll-target="#revisión-técnica"><span class="header-section-number">6.7</span> Revisión técnica</a></li>
   </ul>
 </nav>
     </div>
@@ -227,20 +273,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">IASI Quarto User Guide</h1>
-<p class="subtitle lead">Framework for Engineering Documentation with Quarto</p>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Preparar el entorno</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>IASI Project </p>
-          </div>
-  </div>
     
   
     
@@ -251,47 +290,126 @@ document.addEventListener("DOMContentLoaded", () => {
 </header>
 
 
-<section id="introducción" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
-<p>Bienvenido a la guía de usuario de <strong>iasi.quarto</strong>.</p>
-<p>Este libro está dirigido a quienes desean utilizar <code>iasi.quarto</code> para construir proyectos documentales basados en Quarto.</p>
-<p>No es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.</p>
-<p>El objetivo de esta guía es ayudarte a comprender la filosofía de <code>iasi.quarto</code>, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.</p>
-<section id="iasi.quarto-y-quarto" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="iasi.quarto-y-quarto"><span class="header-section-number">1.1</span> iasi.quarto y Quarto</h2>
-<p><code>iasi.quarto</code> vive sobre Quarto.</p>
-<p>No pretende sustituirlo, modificar su modelo documental ni crear un sistema de publicación alternativo.</p>
-<p>Quarto continúa siendo el motor responsable de procesar los documentos y generar los formatos finales. <code>iasi.quarto</code> proporciona una capa de organización, automatización y convenciones que facilita el desarrollo y mantenimiento de proyectos documentales de cualquier tamaño.</p>
+<!-- Generated by iasi.quarto. Do not edit. -->
+<p>El desarrollo se realiza sobre el repositorio <code>iasi-quarto</code>. Se necesita R 4.2 o posterior y las dependencias declaradas en <code>DESCRIPTION</code>. Quarto es necesario para las pruebas o comprobaciones que ejecuten renderizados reales.</p>
+<p>Desde R, una instalación de desarrollo habitual es:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_deps</span>(<span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La documentación generada de la API procede de los bloques roxygen de <code>R/</code>. Después de cambiar una función pública o su contrato:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">document</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>No debe editarse <code>NAMESPACE</code> ni los archivos de <code>man/</code> como fuente primaria.</p>
+<section id="leer-un-cambio-de-extremo-a-extremo" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="leer-un-cambio-de-extremo-a-extremo"><span class="header-section-number">6.1</span> Leer un cambio de extremo a extremo</h2>
+<p>Antes de modificar una etapa, conviene seguir un caso desde la API hasta su efecto en disco:</p>
+<ol type="1">
+<li>localizar la entrada pública;</li>
+<li>seguir las funciones privadas que transforma el plan;</li>
+<li>identificar las aserciones anteriores y posteriores;</li>
+<li>revisar la estrategia afectada;</li>
+<li>localizar las pruebas y fixtures equivalentes;</li>
+<li>comprobar el artefacto final que observa el consumidor.</li>
+</ol>
+<p>Esta lectura evita corregir un síntoma en una etapa posterior cuando el dato incorrecto se introdujo antes.</p>
 </section>
-<section id="qué-encontrarás-en-este-libro" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="qué-encontrarás-en-este-libro"><span class="header-section-number">1.2</span> ¿Qué encontrarás en este libro?</h2>
-<p>A lo largo de esta guía aprenderás a:</p>
-<ul>
-<li>comprender el propósito de <code>iasi.quarto</code>;</li>
-<li>instalar el framework;</li>
-<li>crear un nuevo proyecto;</li>
-<li>organizar la documentación;</li>
-<li>generar libros en distintos formatos;</li>
-<li>configurar el comportamiento del framework;</li>
-<li>seguir un workflow recomendado desde la edición hasta la publicación;</li>
-<li>utilizar la API pública;</li>
-<li>resolver los problemas más habituales.</li>
-</ul>
-<p>Cada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.</p>
+<section id="pruebas-automatizadas" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="pruebas-automatizadas"><span class="header-section-number">6.2</span> Pruebas automatizadas</h2>
+<p>Las pruebas están en <code>tests/testthat/</code> y se agrupan por etapa: reconocimiento, descubrimiento, comprobación, preparación, construcción, publicación y despliegue.</p>
+<p>Para ejecutar el conjunto completo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">test</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para validar el paquete con las comprobaciones estándar de R:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">check</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En este entorno de documentación no siempre está disponible <code>Rscript</code>; la ausencia del ejecutable impide verificar las pruebas, pero no constituye un resultado de prueba satisfactorio. La validación debe repetirse en un entorno R configurado antes de integrar cambios del paquete.</p>
 </section>
-<section id="requisitos" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">1.3</span> Requisitos</h2>
-<p>Se recomienda tener conocimientos básicos de:</p>
+<section id="fixtures" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="fixtures"><span class="header-section-number">6.3</span> Fixtures</h2>
+<p>Los fixtures representan árboles de proyecto reales bajo <code>tests/testthat/fixtures/</code>. Son preferibles a construir estructuras complejas dentro de cada prueba porque hacen visibles los archivos que intervienen en el contrato.</p>
+<p>Al añadir un fixture:</p>
 <ul>
-<li>Quarto;</li>
-<li>Git;</li>
-<li>R (para utilizar el paquete <code>iasi.quarto</code>).</li>
+<li>utilice el árbol mínimo que reproduzca el caso;</li>
+<li>no reutilice un fixture si la prueba necesita mutarlo;</li>
+<li>distinga configuración ausente, YAML mal formado y valor semánticamente inválido;</li>
+<li>incluya perfiles HTML o PDF solo cuando formen parte del caso;</li>
+<li>compruebe tanto el resultado como los efectos en disco.</li>
 </ul>
-<p>No obstante, los conceptos específicos del framework se explican desde el principio.</p>
-<p>Comencemos entendiendo por qué nació el framework y qué problemas pretende resolver.</p>
+<p>Los helpers compartidos pertenecen a <code>tests/testthat/helper-*.R</code>. Un helper debe reducir ruido de preparación, no ocultar la condición que la prueba pretende demostrar.</p>
+</section>
+<section id="estrategia-de-pruebas-por-tipo-de-cambio" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="estrategia-de-pruebas-por-tipo-de-cambio"><span class="header-section-number">6.4</span> Estrategia de pruebas por tipo de cambio</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cambio</th>
+<th>Comprobación mínima</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reconocimiento de rutas</td>
+<td>Casos positivo, negativo, publicación actual y multiproyecto anidado</td>
+</tr>
+<tr class="even">
+<td>Nueva clave de <code>_iasi.yml</code></td>
+<td>Ausencia, valor válido, tipo incorrecto, valor desconocido y predeterminado</td>
+</tr>
+<tr class="odd">
+<td>Estrategia de preparación</td>
+<td>Árbol fuente, contenido derivado, repetición y ausencia de escrituras fuera del destino</td>
+</tr>
+<tr class="even">
+<td>Selección de publicación</td>
+<td>Nombre completo, nombre corto, prefijo numérico, varios valores y selección inexistente</td>
+</tr>
+<tr class="odd">
+<td>Formato de salida</td>
+<td>HTML, PDF, <code>all</code>, formato no soportado y perfil ausente</td>
+</tr>
+<tr class="even">
+<td>Publicación</td>
+<td>Artefactos presentes, ausentes, destino anterior y fallo sin estado parcial</td>
+</tr>
+<tr class="odd">
+<td>API pública</td>
+<td>Valor devuelto, clase, mensajes, avisos y errores observables</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="procedimiento-recomendado-para-un-cambio" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="procedimiento-recomendado-para-un-cambio"><span class="header-section-number">6.5</span> Procedimiento recomendado para un cambio</h2>
+<ol type="1">
+<li>Definir el comportamiento observable y la compatibilidad esperada.</li>
+<li>Añadir o ajustar primero el caso de prueba que expresa el contrato.</li>
+<li>Implementar el cambio en la etapa propietaria del dato.</li>
+<li>Ejecutar las pruebas específicas y después el conjunto completo.</li>
+<li>Regenerar documentación si cambia la API.</li>
+<li>Construir una publicación representativa en HTML y PDF cuando el cambio afecte a preparación, perfiles o artefactos.</li>
+<li>Actualizar la guía de usuario solo si cambia el uso público; actualizar esta guía si cambia la arquitectura o el procedimiento de mantenimiento.</li>
+<li>Registrar en <code>Next steps</code> cualquier trabajo deliberadamente aplazado.</li>
+</ol>
+</section>
+<section id="compatibilidad" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="compatibilidad"><span class="header-section-number">6.6</span> Compatibilidad</h2>
+<p>La frontera pública está formada por nombres, argumentos, valores de retorno, clases, efectos en disco y condiciones emitidas. Una modificación incompatible debe ser consciente y documentada; renombrar una función privada no garantiza por sí solo que el cambio sea interno si altera archivos generados o mensajes utilizados por automatizaciones.</p>
+<p>Los perfiles de Quarto y <code>_iasi.yml</code> también son contratos persistentes. Las nuevas claves deben tener un valor predeterminado compatible o una estrategia explícita de migración.</p>
+</section>
+<section id="revisión-técnica" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="revisión-técnica"><span class="header-section-number">6.7</span> Revisión técnica</h2>
+<p>Antes de considerar terminado un cambio, revise:</p>
+<ul>
+<li>que la responsabilidad esté en la etapa correcta;</li>
+<li>que no se duplique lógica entre estrategias;</li>
+<li>que las rutas se normalicen y permanezcan dentro del proyecto previsto;</li>
+<li>que un fallo no deje <code>publish/</code> en estado parcial;</li>
+<li>que los mensajes permitan localizar el problema;</li>
+<li>que las pruebas cubran el caso y su principal borde;</li>
+<li>que código, roxygen y manuales describan el mismo contrato.</li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -697,10 +815,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../chapters/04-architecture/index.html" class="pagination-link" aria-label="index.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/01-intro/index.html" class="pagination-link" aria-label="Quarto como base">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quarto como base</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/06-next-steps/index.html" class="pagination-link" aria-label="index.html">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">index.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

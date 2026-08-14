@@ -44,7 +44,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-12eeb4b20e9f5a2b0bfc604bfaf942bb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-37758bcf14ad8974d9ff99838dd22ecb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,15 +72,28 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.querySelector("#quarto-announcement .iasi-ants-image");
+  const bootstrap = document.querySelector("link#quarto-bootstrap");
+
+  if (!banner || !bootstrap) return;
+
+  const siteRoot = bootstrap.href.replace(/site_libs\/bootstrap\/[^/]+$/i, "");
+  banner.src = new URL("resources/images/ants.png", siteRoot).href;
+});
+</script>
 
 
-<link rel="stylesheet" href="resources/css/top-banner.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <div id="quarto-announcement" data-announcement-id="924b3bb06044a6f8e6a5618432e2a604" class="alert alert-light hidden"><div class="quarto-announcement-content">
+<p><img src="resources/images/ants.png" class="iasi-ants-image img-fluid"></p>
+</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -107,8 +120,16 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/04-plantuml/index.html"> 
-<span class="menu-text">PlantUML</span></a>
+    <a class="nav-link" href="./chapters/04-architecture/index.html"> 
+<span class="menu-text">Arquitectura</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./chapters/05-development/index.html"> 
+<span class="menu-text">Desarrollo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./chapters/06-next-steps/index.html"> 
+<span class="menu-text">Next steps</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -176,8 +197,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04-plantuml/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">PlantUML</span></span></a>
+  <a href="./chapters/04-architecture/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapters/05-development/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapters/06-next-steps/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
     </ul>
@@ -193,7 +226,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a>
   <ul class="collapse">
   <li><a href="#iasi.quarto-y-quarto" id="toc-iasi.quarto-y-quarto" class="nav-link" data-scroll-target="#iasi.quarto-y-quarto"><span class="header-section-number">1.1</span> iasi.quarto y Quarto</a></li>
-  <li><a href="#qué-encontrarás-en-este-libro" id="toc-qué-encontrarás-en-este-libro" class="nav-link" data-scroll-target="#qué-encontrarás-en-este-libro"><span class="header-section-number">1.2</span> ¿Qué encontrarás en este libro?</a></li>
+  <li><a href="#alcance-de-esta-guía" id="toc-alcance-de-esta-guía" class="nav-link" data-scroll-target="#alcance-de-esta-guía"><span class="header-section-number">1.2</span> Alcance de esta guía</a></li>
   <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">1.3</span> Requisitos</a></li>
   </ul></li>
   </ul>
@@ -201,7 +234,6 @@ ul.task-list li input[type="checkbox"] {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
-<div class="iasi-top-banner" aria-hidden="true"></div>
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -231,41 +263,40 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introducción" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
-<p>Bienvenido a la guía de usuario de <strong>iasi.quarto</strong>.</p>
-<p>Este libro está dirigido a quienes desean utilizar <code>iasi.quarto</code> para construir proyectos documentales basados en Quarto.</p>
-<p>No es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.</p>
-<p>El objetivo de esta guía es ayudarte a comprender la filosofía de <code>iasi.quarto</code>, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.</p>
+<p>Esta es la guía técnica de <strong>iasi.quarto</strong>.</p>
+<p>Está dirigida a quienes mantienen el paquete, investigan un defecto o quieren modificar y ampliar su comportamiento. La guía de usuario explica cómo utilizar el sistema; este libro explica sus contratos, su arquitectura interna y la forma segura de evolucionarlo.</p>
+<p>El contenido describe la implementación existente. Cuando se trate de una posibilidad futura y no de una capacidad disponible, se indicará expresamente y se recogerá en el capítulo final, <strong>Next steps</strong>.</p>
 <section id="iasi.quarto-y-quarto" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="iasi.quarto-y-quarto"><span class="header-section-number">1.1</span> iasi.quarto y Quarto</h2>
 <p><code>iasi.quarto</code> vive sobre Quarto.</p>
 <p>No pretende sustituirlo, modificar su modelo documental ni crear un sistema de publicación alternativo.</p>
 <p>Quarto continúa siendo el motor responsable de procesar los documentos y generar los formatos finales. <code>iasi.quarto</code> proporciona una capa de organización, automatización y convenciones que facilita el desarrollo y mantenimiento de proyectos documentales de cualquier tamaño.</p>
 </section>
-<section id="qué-encontrarás-en-este-libro" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="qué-encontrarás-en-este-libro"><span class="header-section-number">1.2</span> ¿Qué encontrarás en este libro?</h2>
-<p>A lo largo de esta guía aprenderás a:</p>
+<section id="alcance-de-esta-guía" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="alcance-de-esta-guía"><span class="header-section-number">1.2</span> Alcance de esta guía</h2>
+<p>A lo largo de esta guía se documentan:</p>
 <ul>
-<li>comprender el propósito de <code>iasi.quarto</code>;</li>
-<li>instalar el framework;</li>
-<li>crear un nuevo proyecto;</li>
-<li>organizar la documentación;</li>
-<li>generar libros en distintos formatos;</li>
-<li>configurar el comportamiento del framework;</li>
-<li>utilizar la API pública;</li>
-<li>resolver los problemas más habituales.</li>
+<li>el modelo de publicación y sus invariantes;</li>
+<li>la configuración y las estrategias de preparación;</li>
+<li>el ciclo interno desde el reconocimiento hasta la publicación;</li>
+<li>la API pública y su frontera con las funciones privadas;</li>
+<li>la organización del código y los objetos que circulan por el pipeline;</li>
+<li>el entorno de desarrollo, las pruebas y el procedimiento recomendado para introducir cambios;</li>
+<li>las limitaciones y líneas de evolución todavía pendientes.</li>
 </ul>
-<p>Cada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.</p>
+<p>PlantUML no forma parte del alcance de este manual. <code>iasi.quarto</code> puede consumir diagramas en sus publicaciones, pero la extensión y su implementación pertenecen a <code>iasi-lua</code> y se documentan en <code>iasi-lua-docs</code>.</p>
 </section>
 <section id="requisitos" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">1.3</span> Requisitos</h2>
-<p>Se recomienda tener conocimientos básicos de:</p>
+<p>Se recomienda conocer:</p>
 <ul>
 <li>Quarto;</li>
 <li>Git;</li>
-<li>R (para utilizar el paquete <code>iasi.quarto</code>).</li>
+<li>desarrollo de paquetes R;</li>
+<li>pruebas con <code>testthat</code>;</li>
+<li>YAML y sistemas de archivos.</li>
 </ul>
-<p>No obstante, los conceptos específicos del framework se explican desde el principio.</p>
-<p>Comencemos entendiendo por qué nació el framework y qué problemas pretende resolver.</p>
+<p>Los comandos y ejemplos presuponen una copia de trabajo de los repositorios <code>iasi-quarto</code> e <code>iasi-quarto-docs</code>.</p>
 
 
 </section>

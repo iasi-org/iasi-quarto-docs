@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="IASI Project">
 
-<title>IASI Quarto User Guide</title>
+<title>5&nbsp; Workflow recomendado – IASI Quarto User Guide</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -24,27 +23,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./chapters/01-intro/index.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-37758bcf14ad8974d9ff99838dd22ecb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../chapters/05-api/index.html" rel="next">
+<link href="../../chapters/03-installation/index.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-37758bcf14ad8974d9ff99838dd22ecb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -97,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">User Guide</span>
     </a>
   </div>
@@ -108,29 +143,29 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./chapters/01-intro/index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../chapters/01-intro/index.html" aria-current="page"> 
 <span class="menu-text">Introducción</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/02-fundamentals/index.html"> 
+    <a class="nav-link" href="../../chapters/02-fundamentals/index.html"> 
 <span class="menu-text">Fundamentos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/03-installation/index.html"> 
+    <a class="nav-link" href="../../chapters/03-installation/index.html"> 
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/04-workflow/index.html"> 
+    <a class="nav-link" href="../../chapters/04-workflow/index.html"> 
 <span class="menu-text">Workflow</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./chapters/05-api/index.html"> 
+    <a class="nav-link" href="../../chapters/05-api/index.html"> 
 <span class="menu-text">API</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="./IASI-Quarto-User-Guide.pdf"> <i class="bi bi-file-pdf" role="img" aria-label="Descargar guía en PDF">
+    <a class="nav-link" href="../../IASI-Quarto-User-Guide.pdf"> <i class="bi bi-file-pdf" role="img" aria-label="Descargar guía en PDF">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -155,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/04-workflow/index.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -169,37 +204,37 @@ document.addEventListener("DOMContentLoaded", () => {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/01-intro/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/01-intro/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quarto como base</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/02-fundamentals/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/02-fundamentals/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fundamentos</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/03-installation/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/03-installation/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Instalación</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/04-workflow/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/04-workflow/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./chapters/05-api/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../chapters/05-api/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
@@ -213,12 +248,14 @@ document.addEventListener("DOMContentLoaded", () => {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introducción" id="toc-introducción" class="nav-link active" data-scroll-target="#introducción"><span class="header-section-number">1</span> Introducción</a>
-  <ul class="collapse">
-  <li><a href="#iasi.quarto-y-quarto" id="toc-iasi.quarto-y-quarto" class="nav-link" data-scroll-target="#iasi.quarto-y-quarto"><span class="header-section-number">1.1</span> iasi.quarto y Quarto</a></li>
-  <li><a href="#qué-encontrarás-en-este-libro" id="toc-qué-encontrarás-en-este-libro" class="nav-link" data-scroll-target="#qué-encontrarás-en-este-libro"><span class="header-section-number">1.2</span> ¿Qué encontrarás en este libro?</a></li>
-  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos"><span class="header-section-number">1.3</span> Requisitos</a></li>
-  </ul></li>
+  <li><a href="#trabajar-desde-la-raíz-adecuada" id="toc-trabajar-desde-la-raíz-adecuada" class="nav-link active" data-scroll-target="#trabajar-desde-la-raíz-adecuada"><span class="header-section-number">5.1</span> 1. Trabajar desde la raíz adecuada</a></li>
+  <li><a href="#validar-el-espacio-de-trabajo" id="toc-validar-el-espacio-de-trabajo" class="nav-link" data-scroll-target="#validar-el-espacio-de-trabajo"><span class="header-section-number">5.2</span> 2. Validar el espacio de trabajo</a></li>
+  <li><a href="#construir-html-durante-la-edición" id="toc-construir-html-durante-la-edición" class="nav-link" data-scroll-target="#construir-html-durante-la-edición"><span class="header-section-number">5.3</span> 3. Construir HTML durante la edición</a></li>
+  <li><a href="#construir-todos-los-formatos" id="toc-construir-todos-los-formatos" class="nav-link" data-scroll-target="#construir-todos-los-formatos"><span class="header-section-number">5.4</span> 4. Construir todos los formatos</a></li>
+  <li><a href="#revisar-los-artefactos-construidos" id="toc-revisar-los-artefactos-construidos" class="nav-link" data-scroll-target="#revisar-los-artefactos-construidos"><span class="header-section-number">5.5</span> 5. Revisar los artefactos construidos</a></li>
+  <li><a href="#ensamblar-publish" id="toc-ensamblar-publish" class="nav-link" data-scroll-target="#ensamblar-publish"><span class="header-section-number">5.6</span> 6. Ensamblar <code>publish/</code></a></li>
+  <li><a href="#utilizar-deploy-al-cerrar-el-ciclo" id="toc-utilizar-deploy-al-cerrar-el-ciclo" class="nav-link" data-scroll-target="#utilizar-deploy-al-cerrar-el-ciclo"><span class="header-section-number">5.7</span> 7. Utilizar <code>deploy()</code> al cerrar el ciclo</a></li>
+  <li><a href="#ciclo-resumido" id="toc-ciclo-resumido" class="nav-link" data-scroll-target="#ciclo-resumido"><span class="header-section-number">5.8</span> Ciclo resumido</a></li>
   </ul>
 </nav>
     </div>
@@ -227,20 +264,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">IASI Quarto User Guide</h1>
-<p class="subtitle lead">Framework for Engineering Documentation with Quarto</p>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Workflow recomendado</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>IASI Project </p>
-          </div>
-  </div>
     
   
     
@@ -251,47 +281,105 @@ document.addEventListener("DOMContentLoaded", () => {
 </header>
 
 
-<section id="introducción" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introducción</h1>
-<p>Bienvenido a la guía de usuario de <strong>iasi.quarto</strong>.</p>
-<p>Este libro está dirigido a quienes desean utilizar <code>iasi.quarto</code> para construir proyectos documentales basados en Quarto.</p>
-<p>No es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.</p>
-<p>El objetivo de esta guía es ayudarte a comprender la filosofía de <code>iasi.quarto</code>, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.</p>
-<section id="iasi.quarto-y-quarto" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="iasi.quarto-y-quarto"><span class="header-section-number">1.1</span> iasi.quarto y Quarto</h2>
-<p><code>iasi.quarto</code> vive sobre Quarto.</p>
-<p>No pretende sustituirlo, modificar su modelo documental ni crear un sistema de publicación alternativo.</p>
-<p>Quarto continúa siendo el motor responsable de procesar los documentos y generar los formatos finales. <code>iasi.quarto</code> proporciona una capa de organización, automatización y convenciones que facilita el desarrollo y mantenimiento de proyectos documentales de cualquier tamaño.</p>
+<!-- Generated by iasi.quarto. Do not edit. -->
+<p>El trabajo habitual con <code>iasi.quarto</code> separa la edición, la construcción y la publicación. Esta separación permite revisar los resultados antes de reemplazar los artefactos que se desplegarán.</p>
+<p>El recorrido recomendado es:</p>
+<pre class="text"><code>editar
+  -&gt; validar
+  -&gt; construir HTML
+  -&gt; revisar
+  -&gt; construir todos los formatos
+  -&gt; publicar
+  -&gt; desplegar</code></pre>
+<section id="trabajar-desde-la-raíz-adecuada" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="trabajar-desde-la-raíz-adecuada"><span class="header-section-number">5.1</span> 1. Trabajar desde la raíz adecuada</h2>
+<p>Sitúese en la publicación que desea construir:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"path/to/publication"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>También puede trabajar desde la raíz de un multiproyecto. En ese caso, utilice <code>book</code> para seleccionar una publicación cuando no quiera procesarlas todas.</p>
 </section>
-<section id="qué-encontrarás-en-este-libro" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="qué-encontrarás-en-este-libro"><span class="header-section-number">1.2</span> ¿Qué encontrarás en este libro?</h2>
-<p>A lo largo de esta guía aprenderás a:</p>
-<ul>
-<li>comprender el propósito de <code>iasi.quarto</code>;</li>
-<li>instalar el framework;</li>
-<li>crear un nuevo proyecto;</li>
-<li>organizar la documentación;</li>
-<li>generar libros en distintos formatos;</li>
-<li>configurar el comportamiento del framework;</li>
-<li>seguir un workflow recomendado desde la edición hasta la publicación;</li>
-<li>utilizar la API pública;</li>
-<li>resolver los problemas más habituales.</li>
-</ul>
-<p>Cada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.</p>
+<section id="validar-el-espacio-de-trabajo" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="validar-el-espacio-de-trabajo"><span class="header-section-number">5.2</span> 2. Validar el espacio de trabajo</h2>
+<p>Antes de construir, compruebe que la ruta se reconoce correctamente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iasi.quarto)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En una publicación individual:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plan<span class="sc">$</span>current</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>debe ser <code>TRUE</code>. En un multiproyecto, <code>plan$books</code> muestra las publicaciones encontradas.</p>
+<p><code>validate()</code> reconoce el espacio de trabajo, pero no genera documentos ni sustituye una construcción completa.</p>
 </section>
-<section id="requisitos" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="requisitos"><span class="header-section-number">1.3</span> Requisitos</h2>
-<p>Se recomienda tener conocimientos básicos de:</p>
+<section id="construir-html-durante-la-edición" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="construir-html-durante-la-edición"><span class="header-section-number">5.3</span> 3. Construir HTML durante la edición</h2>
+<p>HTML suele ofrecer el ciclo de comprobación más rápido:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En un multiproyecto puede limitarse la operación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"."</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="st">"user-guide"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"html"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Después de cada cambio significativo, revise al menos:</p>
 <ul>
-<li>Quarto;</li>
-<li>Git;</li>
-<li>R (para utilizar el paquete <code>iasi.quarto</code>).</li>
+<li>la navegación;</li>
+<li>la estructura de capítulos;</li>
+<li>los enlaces internos;</li>
+<li>las figuras y diagramas;</li>
+<li>los bloques de código;</li>
+<li>los avisos producidos durante la construcción.</li>
 </ul>
-<p>No obstante, los conceptos específicos del framework se explican desde el principio.</p>
-<p>Comencemos entendiendo por qué nació el framework y qué problemas pretende resolver.</p>
+</section>
+<section id="construir-todos-los-formatos" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="construir-todos-los-formatos"><span class="header-section-number">5.4</span> 4. Construir todos los formatos</h2>
+<p>Cuando el contenido HTML sea correcto, construya todos los formatos configurados:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>En un libro con perfiles HTML y PDF, esta llamada genera ambos formatos. Un HTML correcto no garantiza por sí solo que el PDF pueda generarse: el entorno PDF necesita además una instalación TeX funcional.</p>
+<p>Los resultados permanecen en los directorios declarados por los perfiles, normalmente bajo <code>_outputs/</code>. Esta etapa no reemplaza todavía <code>publish/</code>.</p>
+</section>
+<section id="revisar-los-artefactos-construidos" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="revisar-los-artefactos-construidos"><span class="header-section-number">5.5</span> 5. Revisar los artefactos construidos</h2>
+<p>Antes de publicar, compruebe los resultados generados:</p>
+<pre class="text"><code>_outputs/
+├── html/
+└── pdf/</code></pre>
+<p>La revisión debe confirmar que:</p>
+<ul>
+<li>la portada y el índice del PDF son correctos;</li>
+<li>el HTML incluye sus recursos y navegación;</li>
+<li>los enlaces entre HTML y PDF tendrán sentido en el resultado publicado;</li>
+<li>no faltan imágenes, diagramas ni hojas de estilo.</li>
+</ul>
+</section>
+<section id="ensamblar-publish" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="ensamblar-publish"><span class="header-section-number">5.6</span> 6. Ensamblar <code>publish/</code></h2>
+<p>Cuando los resultados sean válidos, ensamble la publicación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>publish()</code> no vuelve a renderizar. Utiliza los artefactos ya construidos y crea el directorio desplegable <code>publish/</code>.</p>
+<p>En un multiproyecto, reúne las publicaciones seleccionadas bajo una estructura común. También puede seleccionar una publicación concreta:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span>(<span class="at">book =</span> <span class="st">"user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="utilizar-deploy-al-cerrar-el-ciclo" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="utilizar-deploy-al-cerrar-el-ciclo"><span class="header-section-number">5.7</span> 7. Utilizar <code>deploy()</code> al cerrar el ciclo</h2>
+<p>Cuando quiera construir y publicar en una única operación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deploy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>deploy()</code> ejecuta primero <code>build()</code> y solo llama a <code>publish()</code> si la construcción termina correctamente. Si el build falla, conserva el <code>publish/</code> anterior.</p>
+<p>Esta operación es apropiada cuando los fuentes están listos para convertirse en el nuevo artefacto publicado. Durante la edición diaria suele ser preferible ejecutar <code>build(format = "html")</code> de forma independiente.</p>
+</section>
+<section id="ciclo-resumido" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="ciclo-resumido"><span class="header-section-number">5.8</span> Ciclo resumido</h2>
+<p>Para desarrollo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>()</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para revisión completa:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para ensamblar resultados ya comprobados:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para cerrar el ciclo en una sola operación:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">deploy</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p>Construir sirve para comprobar. Publicar sirve para ensamblar. Desplegar coordina ambas operaciones cuando el contenido está listo.</p>
+</blockquote>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -697,10 +785,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../chapters/03-installation/index.html" class="pagination-link" aria-label="Instalación">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Instalación</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./chapters/01-intro/index.html" class="pagination-link" aria-label="Quarto como base">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Quarto como base</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/05-api/index.html" class="pagination-link" aria-label="index.html">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

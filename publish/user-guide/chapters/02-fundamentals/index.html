@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b16ba7212847ce7939909783b50ea0ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-1433e7e1113e1fa6adb15e7eda7f9337.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,15 +107,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.querySelector("#quarto-announcement .iasi-ants-image");
+  const bootstrap = document.querySelector("link#quarto-bootstrap");
+
+  if (!banner || !bootstrap) return;
+
+  const siteRoot = bootstrap.href.replace(/site_libs\/bootstrap\/[^/]+$/i, "");
+  banner.src = new URL("resources/images/ants.png", siteRoot).href;
+});
+</script>
 
 
-<link rel="stylesheet" href="../../resources/css/top-banner.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <div id="quarto-announcement" data-announcement-id="924b3bb06044a6f8e6a5618432e2a604" class="alert alert-light hidden"><div class="quarto-announcement-content">
+<p><img src="resources/images/ants.png" class="iasi-ants-image img-fluid"></p>
+</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -142,8 +155,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../chapters/04-plantuml/index.html"> 
-<span class="menu-text">PlantUML</span></a>
+    <a class="nav-link" href="../../chapters/04-workflow/index.html"> 
+<span class="menu-text">Workflow</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/05-api/index.html"> 
+<span class="menu-text">API</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -211,8 +228,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/04-plantuml/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">PlantUML</span></span></a>
+  <a href="../../chapters/04-workflow/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-api/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
     </ul>
@@ -331,54 +354,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ciclo-de-un-multiproyecto" id="toc-ciclo-de-un-multiproyecto" class="nav-link" data-scroll-target="#ciclo-de-un-multiproyecto"><span class="header-section-number">3.49</span> Ciclo de un multiproyecto</a></li>
   <li><a href="#estado-acumulado" id="toc-estado-acumulado" class="nav-link" data-scroll-target="#estado-acumulado"><span class="header-section-number">3.50</span> Estado acumulado</a></li>
   <li><a href="#un-pipeline-deliberado" id="toc-un-pipeline-deliberado" class="nav-link" data-scroll-target="#un-pipeline-deliberado"><span class="header-section-number">3.51</span> Un pipeline deliberado</a></li>
-  <li><a href="#api-pública" id="toc-api-pública" class="nav-link" data-scroll-target="#api-pública"><span class="header-section-number">3.52</span> API pública</a></li>
-  <li><a href="#validate" id="toc-validate" class="nav-link" data-scroll-target="#validate"><span class="header-section-number">3.53</span> <code>validate()</code></a></li>
-  <li><a href="#resultado-de-validate" id="toc-resultado-de-validate" class="nav-link" data-scroll-target="#resultado-de-validate"><span class="header-section-number">3.54</span> Resultado de <code>validate()</code></a>
-  <ul class="collapse">
-  <li><a href="#planpath" id="toc-planpath" class="nav-link" data-scroll-target="#planpath"><span class="header-section-number">3.54.1</span> <code>plan$path</code></a></li>
-  <li><a href="#plancurrent" id="toc-plancurrent" class="nav-link" data-scroll-target="#plancurrent"><span class="header-section-number">3.54.2</span> <code>plan$current</code></a></li>
-  <li><a href="#planbooks" id="toc-planbooks" class="nav-link" data-scroll-target="#planbooks"><span class="header-section-number">3.54.3</span> <code>plan$books</code></a></li>
-  </ul></li>
-  <li><a href="#ruta-no-reconocida" id="toc-ruta-no-reconocida" class="nav-link" data-scroll-target="#ruta-no-reconocida"><span class="header-section-number">3.55</span> Ruta no reconocida</a></li>
-  <li><a href="#qué-hace-validate" id="toc-qué-hace-validate" class="nav-link" data-scroll-target="#qué-hace-validate"><span class="header-section-number">3.56</span> Qué hace <code>validate()</code></a></li>
-  <li><a href="#ejemplo-con-una-publicación" id="toc-ejemplo-con-una-publicación" class="nav-link" data-scroll-target="#ejemplo-con-una-publicación"><span class="header-section-number">3.57</span> Ejemplo con una publicación</a></li>
-  <li><a href="#ejemplo-con-un-multiproyecto" id="toc-ejemplo-con-un-multiproyecto" class="nav-link" data-scroll-target="#ejemplo-con-un-multiproyecto"><span class="header-section-number">3.58</span> Ejemplo con un multiproyecto</a></li>
-  <li><a href="#build" id="toc-build" class="nav-link" data-scroll-target="#build"><span class="header-section-number">3.59</span> <code>build()</code></a></li>
-  <li><a href="#construcción-predeterminada" id="toc-construcción-predeterminada" class="nav-link" data-scroll-target="#construcción-predeterminada"><span class="header-section-number">3.60</span> Construcción predeterminada</a></li>
-  <li><a href="#argumento-path" id="toc-argumento-path" class="nav-link" data-scroll-target="#argumento-path"><span class="header-section-number">3.61</span> Argumento <code>path</code></a></li>
-  <li><a href="#argumento-format" id="toc-argumento-format" class="nav-link" data-scroll-target="#argumento-format"><span class="header-section-number">3.62</span> Argumento <code>format</code></a></li>
-  <li><a href="#argumento-book" id="toc-argumento-book" class="nav-link" data-scroll-target="#argumento-book"><span class="header-section-number">3.63</span> Argumento <code>book</code></a>
-  <ul class="collapse">
-  <li><a href="#nombre-completo" id="toc-nombre-completo" class="nav-link" data-scroll-target="#nombre-completo"><span class="header-section-number">3.63.1</span> Nombre completo</a></li>
-  <li><a href="#nombre-sin-prefijo-numérico" id="toc-nombre-sin-prefijo-numérico" class="nav-link" data-scroll-target="#nombre-sin-prefijo-numérico"><span class="header-section-number">3.63.2</span> Nombre sin prefijo numérico</a></li>
-  <li><a href="#prefijo-numérico" id="toc-prefijo-numérico" class="nav-link" data-scroll-target="#prefijo-numérico"><span class="header-section-number">3.63.3</span> Prefijo numérico</a></li>
-  </ul></li>
-  <li><a href="#book-null-y-book-all" id="toc-book-null-y-book-all" class="nav-link" data-scroll-target="#book-null-y-book-all"><span class="header-section-number">3.64</span> <code>book = NULL</code> y <code>book = "all"</code></a></li>
-  <li><a href="#selecciones-no-encontradas" id="toc-selecciones-no-encontradas" class="nav-link" data-scroll-target="#selecciones-no-encontradas"><span class="header-section-number">3.65</span> Selecciones no encontradas</a></li>
-  <li><a href="#selección-antes-del-descubrimiento" id="toc-selección-antes-del-descubrimiento" class="nav-link" data-scroll-target="#selección-antes-del-descubrimiento"><span class="header-section-number">3.66</span> Selección antes del descubrimiento</a></li>
-  <li><a href="#ejemplos-de-uso" id="toc-ejemplos-de-uso" class="nav-link" data-scroll-target="#ejemplos-de-uso"><span class="header-section-number">3.67</span> Ejemplos de uso</a>
-  <ul class="collapse">
-  <li><a href="#construir-la-publicación-actual" id="toc-construir-la-publicación-actual" class="nav-link" data-scroll-target="#construir-la-publicación-actual"><span class="header-section-number">3.67.1</span> Construir la publicación actual</a></li>
-  <li><a href="#construir-solo-html" id="toc-construir-solo-html" class="nav-link" data-scroll-target="#construir-solo-html"><span class="header-section-number">3.67.2</span> Construir solo HTML</a></li>
-  <li><a href="#construir-solo-pdf" id="toc-construir-solo-pdf" class="nav-link" data-scroll-target="#construir-solo-pdf"><span class="header-section-number">3.67.3</span> Construir solo PDF</a></li>
-  <li><a href="#construir-un-multiproyecto-completo" id="toc-construir-un-multiproyecto-completo" class="nav-link" data-scroll-target="#construir-un-multiproyecto-completo"><span class="header-section-number">3.67.4</span> Construir un multiproyecto completo</a></li>
-  <li><a href="#construir-una-publicación-del-multiproyecto" id="toc-construir-una-publicación-del-multiproyecto" class="nav-link" data-scroll-target="#construir-una-publicación-del-multiproyecto"><span class="header-section-number">3.67.5</span> Construir una publicación del multiproyecto</a></li>
-  <li><a href="#construir-una-publicación-y-un-formato" id="toc-construir-una-publicación-y-un-formato" class="nav-link" data-scroll-target="#construir-una-publicación-y-un-formato"><span class="header-section-number">3.67.6</span> Construir una publicación y un formato</a></li>
-  <li><a href="#construir-varias-publicaciones" id="toc-construir-varias-publicaciones" class="nav-link" data-scroll-target="#construir-varias-publicaciones"><span class="header-section-number">3.67.7</span> Construir varias publicaciones</a></li>
-  </ul></li>
-  <li><a href="#resultado-de-build" id="toc-resultado-de-build" class="nav-link" data-scroll-target="#resultado-de-build"><span class="header-section-number">3.68</span> Resultado de <code>build()</code></a></li>
-  <li><a href="#mensajes-de-construcción" id="toc-mensajes-de-construcción" class="nav-link" data-scroll-target="#mensajes-de-construcción"><span class="header-section-number">3.69</span> Mensajes de construcción</a></li>
-  <li><a href="#api-pública-y-funciones-privadas" id="toc-api-pública-y-funciones-privadas" class="nav-link" data-scroll-target="#api-pública-y-funciones-privadas"><span class="header-section-number">3.70</span> API pública y funciones privadas</a></li>
-  <li><a href="#por-qué-no-se-expone-cada-etapa" id="toc-por-qué-no-se-expone-cada-etapa" class="nav-link" data-scroll-target="#por-qué-no-se-expone-cada-etapa"><span class="header-section-number">3.71</span> Por qué no se expone cada etapa</a></li>
-  <li><a href="#validate-frente-a-build" id="toc-validate-frente-a-build" class="nav-link" data-scroll-target="#validate-frente-a-build"><span class="header-section-number">3.72</span> <code>validate()</code> frente a <code>build()</code></a></li>
-  <li><a href="#llamadas-con-argumentos-nombrados" id="toc-llamadas-con-argumentos-nombrados" class="nav-link" data-scroll-target="#llamadas-con-argumentos-nombrados"><span class="header-section-number">3.73</span> Llamadas con argumentos nombrados</a></li>
-  <li><a href="#contrato-estable-implementación-evolutiva" id="toc-contrato-estable-implementación-evolutiva" class="nav-link" data-scroll-target="#contrato-estable-implementación-evolutiva"><span class="header-section-number">3.74</span> Contrato estable, implementación evolutiva</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fundamentos</span></h1></header>
-<div class="iasi-top-banner" aria-hidden="true"></div>
 
 <header id="title-block-header">
 
@@ -1920,458 +1900,6 @@ render
 <p>Cada etapa reduce incertidumbre antes de pasar a la siguiente.</p>
 <blockquote class="blockquote">
 <p><code>build()</code> no es un único salto desde los fuentes hasta el PDF. Es una cadena de decisiones comprobables.</p>
-</blockquote>
-</section>
-<section id="api-pública" class="level2" data-number="3.52">
-<h2 data-number="3.52" class="anchored" data-anchor-id="api-pública"><span class="header-section-number">3.52</span> API pública</h2>
-<p>La API pública de <code>iasi.quarto</code> es deliberadamente pequeña.</p>
-<p>Actualmente expone dos funciones:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb208"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb208-1"><a href="#cb208-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>()</span>
-<span id="cb208-2"><a href="#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>El resto del ciclo de construcción permanece como implementación interna:</p>
-<pre class="text"><code>.discover()
-.check()
-.prepare()
-.render()</code></pre>
-<p>Esta separación establece una frontera clara entre:</p>
-<pre class="text"><code>lo que utiliza quien publica
-lo que coordina internamente el paquete</code></pre>
-<p>La API pública no reproduce cada fase del pipeline como una operación independiente. Ofrece únicamente los puntos de entrada necesarios para reconocer una publicación y construirla.</p>
-</section>
-<section id="validate" class="level2" data-number="3.53">
-<h2 data-number="3.53" class="anchored" data-anchor-id="validate"><span class="header-section-number">3.53</span> <code>validate()</code></h2>
-<p><code>validate()</code> reconoce una publicación IASI Quarto o un multiproyecto.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb211"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb211-1"><a href="#cb211-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>También puede recibir una ruta explícita:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb212"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb212-1"><a href="#cb212-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"path/to/workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Su firma conceptual es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb213"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb213-1"><a href="#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>(<span class="at">path =</span> <span class="st">"."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La función comprueba la presencia de la firma IASI Quarto:</p>
-<pre class="text"><code>_quarto.yml
-_quarto-html.yml
-_quarto-pdf.yml
-_iasi.yml</code></pre>
-<p>Cuando los cuatro archivos están presentes en la ruta indicada, esa ruta se reconoce como una publicación actual.</p>
-<p>Cuando no están presentes juntos, la ruta puede reconocerse como un contenedor desde el que posteriormente se descubrirán publicaciones completas.</p>
-</section>
-<section id="resultado-de-validate" class="level2" data-number="3.54">
-<h2 data-number="3.54" class="anchored" data-anchor-id="resultado-de-validate"><span class="header-section-number">3.54</span> Resultado de <code>validate()</code></h2>
-<p>Cuando la ruta corresponde a un espacio IASI Quarto, <code>validate()</code> devuelve invisiblemente un plan:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb215"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb215-1"><a href="#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(plan)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre class="text"><code>"iasi_quarto_plan"
-"list"</code></pre>
-<p>El plan inicial contiene:</p>
-<pre class="text"><code>plan$path
-plan$current
-plan$books</code></pre>
-<section id="planpath" class="level3" data-number="3.54.1">
-<h3 data-number="3.54.1" class="anchored" data-anchor-id="planpath"><span class="header-section-number">3.54.1</span> <code>plan$path</code></h3>
-<p>Contiene la ruta normalizada utilizada como raíz del proceso.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb218"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb218-1"><a href="#cb218-1" aria-hidden="true" tabindex="-1"></a>plan<span class="sc">$</span>path</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Representa la publicación actual o el multiproyecto validado.</p>
-</section>
-<section id="plancurrent" class="level3" data-number="3.54.2">
-<h3 data-number="3.54.2" class="anchored" data-anchor-id="plancurrent"><span class="header-section-number">3.54.2</span> <code>plan$current</code></h3>
-<p>Indica si la propia ruta es una publicación completa:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb219"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb219-1"><a href="#cb219-1" aria-hidden="true" tabindex="-1"></a>plan<span class="sc">$</span>current</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre class="text"><code>TRUE
-  la ruta actual contiene la firma completa
-
-FALSE
-  la ruta actúa como contenedor de publicaciones</code></pre>
-<p>Cuando <code>current</code> es <code>TRUE</code>, la publicación actual tiene prioridad y no se buscan publicaciones anidadas.</p>
-</section>
-<section id="planbooks" class="level3" data-number="3.54.3">
-<h3 data-number="3.54.3" class="anchored" data-anchor-id="planbooks"><span class="header-section-number">3.54.3</span> <code>plan$books</code></h3>
-<p>Contiene las publicaciones candidatas localizadas desde un multiproyecto.</p>
-<p>En una publicación actual, la unidad de construcción ya está determinada y no es necesario seleccionar entre varios libros.</p>
-</section>
-</section>
-<section id="ruta-no-reconocida" class="level2" data-number="3.55">
-<h2 data-number="3.55" class="anchored" data-anchor-id="ruta-no-reconocida"><span class="header-section-number">3.55</span> Ruta no reconocida</h2>
-<p>Cuando la ruta no parece una publicación ni un multiproyecto IASI Quarto, <code>validate()</code> devuelve:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb221"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb221-1"><a href="#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb222"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb222-1"><a href="#cb222-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"empty-directory"</span>)</span>
-<span id="cb222-2"><a href="#cb222-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb222-3"><a href="#cb222-3" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(plan)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre class="text"><code>TRUE</code></pre>
-<p>Esto permite utilizar <code>validate()</code> como operación de reconocimiento sin iniciar una construcción completa.</p>
-</section>
-<section id="qué-hace-validate" class="level2" data-number="3.56">
-<h2 data-number="3.56" class="anchored" data-anchor-id="qué-hace-validate"><span class="header-section-number">3.56</span> Qué hace <code>validate()</code></h2>
-<p><code>validate()</code> responde a una pregunta limitada:</p>
-<blockquote class="blockquote">
-<p>¿La ruta parece contener un espacio de trabajo IASI Quarto?</p>
-</blockquote>
-<p>No:</p>
-<pre class="text"><code>interpreta por completo _iasi.yml
-comprueba toda la estructura editorial
-genera index.qmd
-genera _book-structure.yml
-invoca Quarto</code></pre>
-<p>Esas tareas pertenecen a etapas posteriores del pipeline.</p>
-<p>La función valida la frontera exterior del espacio de trabajo, no toda su semántica interna.</p>
-</section>
-<section id="ejemplo-con-una-publicación" class="level2" data-number="3.57">
-<h2 data-number="3.57" class="anchored" data-anchor-id="ejemplo-con-una-publicación"><span class="header-section-number">3.57</span> Ejemplo con una publicación</h2>
-<p>Dada esta estructura:</p>
-<pre class="text"><code>user-guide/
-├── _quarto.yml
-├── _quarto-html.yml
-├── _quarto-pdf.yml
-└── _iasi.yml</code></pre>
-<p>la llamada:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>produce conceptualmente:</p>
-<pre class="text"><code>plan$current = TRUE
-plan$path    = ".../user-guide"</code></pre>
-</section>
-<section id="ejemplo-con-un-multiproyecto" class="level2" data-number="3.58">
-<h2 data-number="3.58" class="anchored" data-anchor-id="ejemplo-con-un-multiproyecto"><span class="header-section-number">3.58</span> Ejemplo con un multiproyecto</h2>
-<p>Dada esta estructura:</p>
-<pre class="text"><code>workspace/
-├── 01-user-guide/
-│   ├── _quarto.yml
-│   ├── _quarto-html.yml
-│   ├── _quarto-pdf.yml
-│   └── _iasi.yml
-│
-└── 02-developer-guide/
-    ├── _quarto.yml
-    ├── _quarto-html.yml
-    ├── _quarto-pdf.yml
-    └── _iasi.yml</code></pre>
-<p>la llamada:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb229"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>produce un plan de multiproyecto:</p>
-<pre class="text"><code>plan$current = FALSE</code></pre>
-<p>y conserva las publicaciones candidatas para la selección posterior.</p>
-</section>
-<section id="build" class="level2" data-number="3.59">
-<h2 data-number="3.59" class="anchored" data-anchor-id="build"><span class="header-section-number">3.59</span> <code>build()</code></h2>
-<p><code>build()</code> es el punto de entrada principal del paquete.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb231"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb231-1"><a href="#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Su firma pública es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb232"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb232-1"><a href="#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb232-2"><a href="#cb232-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="cn">NULL</span>,</span>
-<span id="cb232-3"><a href="#cb232-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="cn">NULL</span>,</span>
-<span id="cb232-4"><a href="#cb232-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"."</span></span>
-<span id="cb232-5"><a href="#cb232-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La función ejecuta el ciclo completo:</p>
-<pre class="text"><code>validate()
-selección de publicaciones
-.discover()
-.check()
-.prepare()
-.render()</code></pre>
-<p><code>build()</code> puede operar sobre:</p>
-<pre class="text"><code>la publicación actual
-todas las publicaciones de un multiproyecto
-una publicación seleccionada
-todos los formatos soportados
-un formato concreto</code></pre>
-</section>
-<section id="construcción-predeterminada" class="level2" data-number="3.60">
-<h2 data-number="3.60" class="anchored" data-anchor-id="construcción-predeterminada"><span class="header-section-number">3.60</span> Construcción predeterminada</h2>
-<p>La llamada más sencilla es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb235"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb235-1"><a href="#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Cuando se ejecuta dentro de una publicación:</p>
-<pre class="text"><code>construye la publicación actual
-genera HTML
-genera PDF</code></pre>
-<p>Cuando se ejecuta en un multiproyecto:</p>
-<pre class="text"><code>construye todas las publicaciones descubiertas
-genera todos los formatos soportados</code></pre>
-<p>Los formatos soportados actualmente son:</p>
-<pre class="text"><code>html
-pdf</code></pre>
-</section>
-<section id="argumento-path" class="level2" data-number="3.61">
-<h2 data-number="3.61" class="anchored" data-anchor-id="argumento-path"><span class="header-section-number">3.61</span> Argumento <code>path</code></h2>
-<p><code>path</code> indica la publicación o multiproyecto que debe construirse.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb239"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb239-1"><a href="#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">path =</span> <span class="st">"path/to/publication"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Su valor predeterminado es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb240"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb240-1"><a href="#cb240-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> <span class="st">"."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Por tanto, <code>build()</code> trabaja normalmente sobre el directorio actual.</p>
-<p>Ejemplos:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb241"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb241-1"><a href="#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">path =</span> <span class="st">"01-user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb242"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb242-1"><a href="#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">path =</span> <span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La ruta se valida antes de iniciar las demás etapas.</p>
-<p>Si no corresponde a un espacio IASI Quarto, <code>build()</code> devuelve invisiblemente:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb243"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb243-1"><a href="#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="argumento-format" class="level2" data-number="3.62">
-<h2 data-number="3.62" class="anchored" data-anchor-id="argumento-format"><span class="header-section-number">3.62</span> Argumento <code>format</code></h2>
-<p><code>format</code> selecciona el formato o formatos de salida.</p>
-<p>Puede utilizarse:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb244"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb244-1"><a href="#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb245"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb245-1"><a href="#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"pdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>También puede indicarse:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb246"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb246-1"><a href="#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Los valores:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb247"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb247-1"><a href="#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="cn">NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>y:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb248"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb248-1"><a href="#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="st">"all"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>seleccionan todos los formatos soportados.</p>
-<p>Conceptualmente:</p>
-<pre class="text"><code>format = NULL
-  -&gt; html y pdf
-
-format = "all"
-  -&gt; html y pdf
-
-format = "html"
-  -&gt; solo html
-
-format = "pdf"
-  -&gt; solo pdf</code></pre>
-<p>Un formato no soportado produce un error antes del renderizado:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb250"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb250-1"><a href="#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"docx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<pre class="text"><code>Unsupported format: "docx".</code></pre>
-<p>La validación de formatos pertenece a <code>build()</code>.</p>
-<p><code>.render()</code> recibe siempre un formato ya resuelto.</p>
-</section>
-<section id="argumento-book" class="level2" data-number="3.63">
-<h2 data-number="3.63" class="anchored" data-anchor-id="argumento-book"><span class="header-section-number">3.63</span> Argumento <code>book</code></h2>
-<p><code>book</code> selecciona una o varias publicaciones dentro de un multiproyecto.</p>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb252"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb252-1"><a href="#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">book =</span> <span class="st">"user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La selección admite tres formas.</p>
-<section id="nombre-completo" class="level3" data-number="3.63.1">
-<h3 data-number="3.63.1" class="anchored" data-anchor-id="nombre-completo"><span class="header-section-number">3.63.1</span> Nombre completo</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb253"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb253-1"><a href="#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">book =</span> <span class="st">"01-user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="nombre-sin-prefijo-numérico" class="level3" data-number="3.63.2">
-<h3 data-number="3.63.2" class="anchored" data-anchor-id="nombre-sin-prefijo-numérico"><span class="header-section-number">3.63.2</span> Nombre sin prefijo numérico</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb254"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb254-1"><a href="#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">book =</span> <span class="st">"user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="prefijo-numérico" class="level3" data-number="3.63.3">
-<h3 data-number="3.63.3" class="anchored" data-anchor-id="prefijo-numérico"><span class="header-section-number">3.63.3</span> Prefijo numérico</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb255"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb255-1"><a href="#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">book =</span> <span class="st">"1"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Las tres expresiones pueden seleccionar:</p>
-<pre class="text"><code>01-user-guide</code></pre>
-<p>También pueden solicitarse varias publicaciones:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb257"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb257-1"><a href="#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb257-2"><a href="#cb257-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="fu">c</span>(</span>
-<span id="cb257-3"><a href="#cb257-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"user-guide"</span>,</span>
-<span id="cb257-4"><a href="#cb257-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"developer-guide"</span></span>
-<span id="cb257-5"><a href="#cb257-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb257-6"><a href="#cb257-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="book-null-y-book-all" class="level2" data-number="3.64">
-<h2 data-number="3.64" class="anchored" data-anchor-id="book-null-y-book-all"><span class="header-section-number">3.64</span> <code>book = NULL</code> y <code>book = "all"</code></h2>
-<p>Cuando <code>book</code> no se indica:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb258"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb258-1"><a href="#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">book =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>se construyen todas las publicaciones disponibles en el multiproyecto.</p>
-<p>También puede expresarse:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb259"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb259-1"><a href="#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">book =</span> <span class="st">"all"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>En una publicación actual, la selección mediante <code>book</code> no es necesaria.</p>
-<p>La ruta ya identifica la única publicación que debe construirse.</p>
-</section>
-<section id="selecciones-no-encontradas" class="level2" data-number="3.65">
-<h2 data-number="3.65" class="anchored" data-anchor-id="selecciones-no-encontradas"><span class="header-section-number">3.65</span> Selecciones no encontradas</h2>
-<p>Cuando una selección no existe, <code>build()</code> informa mediante una advertencia.</p>
-<p>Por ejemplo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb260"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb260-1"><a href="#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb260-2"><a href="#cb260-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="fu">c</span>(</span>
-<span id="cb260-3"><a href="#cb260-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"user-guide"</span>,</span>
-<span id="cb260-4"><a href="#cb260-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"missing"</span></span>
-<span id="cb260-5"><a href="#cb260-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb260-6"><a href="#cb260-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>puede continuar construyendo <code>user-guide</code> y advertir:</p>
-<pre class="text"><code>Books not found: "missing".</code></pre>
-<p>Una publicación no encontrada no se inventa ni se sustituye por otra coincidencia aproximada.</p>
-</section>
-<section id="selección-antes-del-descubrimiento" class="level2" data-number="3.66">
-<h2 data-number="3.66" class="anchored" data-anchor-id="selección-antes-del-descubrimiento"><span class="header-section-number">3.66</span> Selección antes del descubrimiento</h2>
-<p>La selección se aplica antes de <code>.discover()</code>.</p>
-<pre class="text"><code>validate()
-  -&gt; selección
-  -&gt; .discover()</code></pre>
-<p>Esto tiene una consecuencia importante.</p>
-<p>Una publicación no seleccionada no participa en:</p>
-<pre class="text"><code>lectura de _iasi.yml
-comprobación
-preparación
-renderizado</code></pre>
-<p>Por tanto, una publicación experimental o incompleta no bloquea la construcción de otra publicación seleccionada.</p>
-</section>
-<section id="ejemplos-de-uso" class="level2" data-number="3.67">
-<h2 data-number="3.67" class="anchored" data-anchor-id="ejemplos-de-uso"><span class="header-section-number">3.67</span> Ejemplos de uso</h2>
-<section id="construir-la-publicación-actual" class="level3" data-number="3.67.1">
-<h3 data-number="3.67.1" class="anchored" data-anchor-id="construir-la-publicación-actual"><span class="header-section-number">3.67.1</span> Construir la publicación actual</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb264"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb264-1"><a href="#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="construir-solo-html" class="level3" data-number="3.67.2">
-<h3 data-number="3.67.2" class="anchored" data-anchor-id="construir-solo-html"><span class="header-section-number">3.67.2</span> Construir solo HTML</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb265"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb265-1"><a href="#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"html"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="construir-solo-pdf" class="level3" data-number="3.67.3">
-<h3 data-number="3.67.3" class="anchored" data-anchor-id="construir-solo-pdf"><span class="header-section-number">3.67.3</span> Construir solo PDF</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb266"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb266-1"><a href="#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">format =</span> <span class="st">"pdf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="construir-un-multiproyecto-completo" class="level3" data-number="3.67.4">
-<h3 data-number="3.67.4" class="anchored" data-anchor-id="construir-un-multiproyecto-completo"><span class="header-section-number">3.67.4</span> Construir un multiproyecto completo</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb267"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb267-1"><a href="#cb267-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">path =</span> <span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="construir-una-publicación-del-multiproyecto" class="level3" data-number="3.67.5">
-<h3 data-number="3.67.5" class="anchored" data-anchor-id="construir-una-publicación-del-multiproyecto"><span class="header-section-number">3.67.5</span> Construir una publicación del multiproyecto</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb268"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb268-1"><a href="#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb268-2"><a href="#cb268-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"workspace"</span>,</span>
-<span id="cb268-3"><a href="#cb268-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="st">"user-guide"</span></span>
-<span id="cb268-4"><a href="#cb268-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="construir-una-publicación-y-un-formato" class="level3" data-number="3.67.6">
-<h3 data-number="3.67.6" class="anchored" data-anchor-id="construir-una-publicación-y-un-formato"><span class="header-section-number">3.67.6</span> Construir una publicación y un formato</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb269"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb269-1"><a href="#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb269-2"><a href="#cb269-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"workspace"</span>,</span>
-<span id="cb269-3"><a href="#cb269-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="st">"user-guide"</span>,</span>
-<span id="cb269-4"><a href="#cb269-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"html"</span></span>
-<span id="cb269-5"><a href="#cb269-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="construir-varias-publicaciones" class="level3" data-number="3.67.7">
-<h3 data-number="3.67.7" class="anchored" data-anchor-id="construir-varias-publicaciones"><span class="header-section-number">3.67.7</span> Construir varias publicaciones</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb270"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb270-1"><a href="#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb270-2"><a href="#cb270-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"workspace"</span>,</span>
-<span id="cb270-3"><a href="#cb270-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="fu">c</span>(</span>
-<span id="cb270-4"><a href="#cb270-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1"</span>,</span>
-<span id="cb270-5"><a href="#cb270-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"developer-guide"</span></span>
-<span id="cb270-6"><a href="#cb270-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb270-7"><a href="#cb270-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"pdf"</span></span>
-<span id="cb270-8"><a href="#cb270-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-</section>
-<section id="resultado-de-build" class="level2" data-number="3.68">
-<h2 data-number="3.68" class="anchored" data-anchor-id="resultado-de-build"><span class="header-section-number">3.68</span> Resultado de <code>build()</code></h2>
-<p><code>build()</code> devuelve invisiblemente el plan completado:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb271"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb271-1"><a href="#cb271-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>El objeto conserva información acumulada durante el pipeline.</p>
-<p>Por ejemplo:</p>
-<pre class="text"><code>plan$path
-plan$current
-plan$projects
-plan$valid
-plan$formats
-plan$rendered
-plan$elapsed</code></pre>
-<p>Cada proyecto puede contener su publicación preparada:</p>
-<pre class="text"><code>plan$projects[[1]]$publication</code></pre>
-<p>y esta puede registrar:</p>
-<pre class="text"><code>publication$chapters
-publication$artifacts
-publication$changed
-publication$rendered
-publication$profiles</code></pre>
-<p>La devolución invisible permite dos formas de uso.</p>
-<p>Uso habitual:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb275"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb275-1"><a href="#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Uso con inspección:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb276"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb276-1"><a href="#cb276-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">build</span>()</span>
-<span id="cb276-2"><a href="#cb276-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb276-3"><a href="#cb276-3" aria-hidden="true" tabindex="-1"></a>plan<span class="sc">$</span>formats</span>
-<span id="cb276-4"><a href="#cb276-4" aria-hidden="true" tabindex="-1"></a>plan<span class="sc">$</span>elapsed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="mensajes-de-construcción" class="level2" data-number="3.69">
-<h2 data-number="3.69" class="anchored" data-anchor-id="mensajes-de-construcción"><span class="header-section-number">3.69</span> Mensajes de construcción</h2>
-<p>Aunque el plan se devuelve invisiblemente, <code>build()</code> informa del proceso mediante mensajes.</p>
-<p>La salida puede mostrar:</p>
-<pre class="text"><code>publicaciones reconocidas
-estado de comprobación
-formatos construidos
-resultado final
-tiempo empleado</code></pre>
-<p>Los mensajes están dirigidos a la persona que ejecuta la construcción.</p>
-<p>El objeto devuelto está dirigido a la inspección programática.</p>
-</section>
-<section id="api-pública-y-funciones-privadas" class="level2" data-number="3.70">
-<h2 data-number="3.70" class="anchored" data-anchor-id="api-pública-y-funciones-privadas"><span class="header-section-number">3.70</span> API pública y funciones privadas</h2>
-<p>Las fases internas no forman parte del contrato público:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb278"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb278-1"><a href="#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.discover</span>()</span>
-<span id="cb278-2"><a href="#cb278-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.check</span>()</span>
-<span id="cb278-3"><a href="#cb278-3" aria-hidden="true" tabindex="-1"></a><span class="fu">.prepare</span>()</span>
-<span id="cb278-4"><a href="#cb278-4" aria-hidden="true" tabindex="-1"></a><span class="fu">.render</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>El prefijo <code>.</code> expresa que son funciones privadas del paquete.</p>
-<p>No deben utilizarse como puntos de entrada estables desde código externo.</p>
-<p>Por ejemplo, esto pertenece a la implementación:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb279"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb279-1"><a href="#cb279-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">.discover</span>(plan)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La forma pública de ejecutar el proceso es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb280"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb280-1"><a href="#cb280-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La diferencia no es meramente estética.</p>
-<p>Las funciones privadas pueden cambiar su estructura interna mientras se conserva el contrato de:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb281"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb281-1"><a href="#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>()</span>
-<span id="cb281-2"><a href="#cb281-2" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="por-qué-no-se-expone-cada-etapa" class="level2" data-number="3.71">
-<h2 data-number="3.71" class="anchored" data-anchor-id="por-qué-no-se-expone-cada-etapa"><span class="header-section-number">3.71</span> Por qué no se expone cada etapa</h2>
-<p>Una API con todas las fases públicas obligaría a quien la utiliza a conocer:</p>
-<pre class="text"><code>el orden correcto
-los tipos intermedios
-las precondiciones de cada función
-los cambios internos del pipeline</code></pre>
-<p>Por ejemplo, no tendría sentido ejecutar <code>.prepare()</code> sobre un plan que todavía no ha pasado por <code>.discover()</code> y <code>.check()</code>.</p>
-<p><code>build()</code> conserva esas precondiciones dentro del paquete.</p>
-<pre class="text"><code>usuario
-  llama a build()
-
-build()
-  garantiza el orden correcto</code></pre>
-<p>Esto reduce la superficie pública sin ocultar el modelo conceptual.</p>
-<p>Las etapas siguen existiendo y pueden documentarse, pero no se convierten en obligaciones para quien utiliza el paquete.</p>
-</section>
-<section id="validate-frente-a-build" class="level2" data-number="3.72">
-<h2 data-number="3.72" class="anchored" data-anchor-id="validate-frente-a-build"><span class="header-section-number">3.72</span> <code>validate()</code> frente a <code>build()</code></h2>
-<p>La elección entre las dos funciones públicas es sencilla.</p>
-<pre class="text"><code>validate()
-  reconoce y devuelve un plan inicial
-
-build()
-  ejecuta la construcción completa</code></pre>
-<p>Utilice <code>validate()</code> cuando necesite comprobar qué representa una ruta:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb285"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb285-1"><a href="#cb285-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Utilice <code>build()</code> cuando necesite generar la publicación:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb286"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb286-1"><a href="#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Con argumentos nombrados, la llamada correcta es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb287"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb287-1"><a href="#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">path =</span> <span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>porque el primer argumento de <code>build()</code> es <code>book</code>, no <code>path</code>.</p>
-</section>
-<section id="llamadas-con-argumentos-nombrados" class="level2" data-number="3.73">
-<h2 data-number="3.73" class="anchored" data-anchor-id="llamadas-con-argumentos-nombrados"><span class="header-section-number">3.73</span> Llamadas con argumentos nombrados</h2>
-<p>Para evitar ambigüedades, es recomendable nombrar los argumentos cuando se proporciona una ruta:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb288"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb288-1"><a href="#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="at">path =</span> <span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>y no:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb289"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb289-1"><a href="#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(<span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>La segunda expresión se interpreta como:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb290"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb290-1"><a href="#cb290-1" aria-hidden="true" tabindex="-1"></a>book <span class="ot">=</span> <span class="st">"workspace"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>porque la firma es:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb291"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb291-1"><a href="#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb291-2"><a href="#cb291-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="cn">NULL</span>,</span>
-<span id="cb291-3"><a href="#cb291-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="cn">NULL</span>,</span>
-<span id="cb291-4"><a href="#cb291-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"."</span></span>
-<span id="cb291-5"><a href="#cb291-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Del mismo modo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb292"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb292-1"><a href="#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>(</span>
-<span id="cb292-2"><a href="#cb292-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">book =</span> <span class="st">"user-guide"</span>,</span>
-<span id="cb292-3"><a href="#cb292-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"html"</span>,</span>
-<span id="cb292-4"><a href="#cb292-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"workspace"</span></span>
-<span id="cb292-5"><a href="#cb292-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>hace explícita cada decisión.</p>
-</section>
-<section id="contrato-estable-implementación-evolutiva" class="level2" data-number="3.74">
-<h2 data-number="3.74" class="anchored" data-anchor-id="contrato-estable-implementación-evolutiva"><span class="header-section-number">3.74</span> Contrato estable, implementación evolutiva</h2>
-<p>La API pública protege al usuario de la evolución interna del paquete.</p>
-<p>El pipeline puede incorporar en el futuro:</p>
-<pre class="text"><code>nuevas comprobaciones
-nuevos artefactos
-nuevos formatos
-nuevas estrategias</code></pre>
-<p>sin exigir que el código externo coordine manualmente cada cambio.</p>
-<p>La frontera se mantiene pequeña:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb294"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb294-1"><a href="#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>()</span>
-<span id="cb294-2"><a href="#cb294-2" aria-hidden="true" tabindex="-1"></a><span class="fu">build</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<blockquote class="blockquote">
-<p>La API pública expresa la intención. El pipeline privado resuelve el procedimiento.</p>
 </blockquote>
 
 
