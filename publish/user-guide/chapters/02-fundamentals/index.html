@@ -81,11 +81,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-b16ba7212847ce7939909783b50ea0ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -109,12 +109,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<link rel="stylesheet" href="../../resources/css/top-banner.css">
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">User Guide</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../chapters/01-intro/index.html" aria-current="page"> 
+<span class="menu-text">Introducción</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/02-fundamentals/index.html"> 
+<span class="menu-text">Fundamentos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/03-installation/index.html"> 
+<span class="menu-text">Instalación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/04-plantuml/index.html"> 
+<span class="menu-text">PlantUML</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../IASI-Quarto-User-Guide.pdf"> <i class="bi bi-file-pdf" role="img" aria-label="Descargar guía en PDF">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://iasi-org.github.io/iasi-home/pages/common/manifesto-bilingual.html"> <i class="bi bi-translate" role="img" aria-label="Idioma / Language">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://iasi-org.github.io/iasi-home/pages/common/contact.html"> <i class="bi bi-envelope" role="img" aria-label="Contacto">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -123,26 +176,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/02-fundamentals/index.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fundamentos</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../../">IASI Quarto User Guide</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -209,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#la-estructura-preparada" id="toc-la-estructura-preparada" class="nav-link" data-scroll-target="#la-estructura-preparada"><span class="header-section-number">3.11</span> La estructura preparada</a></li>
   <li><a href="#publicaciones-múltiples" id="toc-publicaciones-múltiples" class="nav-link" data-scroll-target="#publicaciones-múltiples"><span class="header-section-number">3.12</span> Publicaciones múltiples</a></li>
   <li><a href="#una-estructura-explícita" id="toc-una-estructura-explícita" class="nav-link" data-scroll-target="#una-estructura-explícita"><span class="header-section-number">3.13</span> Una estructura explícita</a></li>
-  <li><a href="#el-archivo-iasi.yml" id="toc-el-archivo-iasi.yml" class="nav-link" data-scroll-target="#el-archivo-iasi.yml"><span class="header-section-number">3.14</span> El archivo <code>iasi.yml</code></a></li>
+  <li><a href="#el-archivo-_iasi.yml" id="toc-el-archivo-_iasi.yml" class="nav-link" data-scroll-target="#el-archivo-_iasi.yml"><span class="header-section-number">3.14</span> El archivo <code>_iasi.yml</code></a></li>
   <li><a href="#valores-predeterminados" id="toc-valores-predeterminados" class="nav-link" data-scroll-target="#valores-predeterminados"><span class="header-section-number">3.15</span> Valores predeterminados</a></li>
   <li><a href="#strategy" id="toc-strategy" class="nav-link" data-scroll-target="#strategy"><span class="header-section-number">3.16</span> <code>strategy</code></a>
   <ul class="collapse">
@@ -338,6 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Fundamentos</span></h1></header>
+<div class="iasi-top-banner" aria-hidden="true"></div>
 
 <header id="title-block-header">
 
@@ -364,19 +405,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre class="text"><code>_quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
-iasi.yml</code></pre>
+_iasi.yml</code></pre>
 <p>Los cuatro forman la <strong>firma de la publicación</strong>.</p>
 <p><code>_quarto.yml</code> contiene la configuración común del proyecto Quarto.</p>
 <p><code>_quarto-html.yml</code> contiene la configuración específica del perfil HTML.</p>
 <p><code>_quarto-pdf.yml</code> contiene la configuración específica del perfil PDF.</p>
-<p><code>iasi.yml</code> declara cómo debe interpretar y preparar la publicación <code>iasi.quarto</code>.</p>
-<p>La coexistencia de los cuatro archivos es intencionada. La presencia aislada de <code>_quarto.yml</code> únicamente identifica un proyecto Quarto. La presencia aislada de <code>iasi.yml</code> tampoco es suficiente. Solo la firma completa identifica una publicación IASI Quarto.</p>
+<p><code>_iasi.yml</code> declara cómo debe interpretar y preparar la publicación <code>iasi.quarto</code>.</p>
+<p>La coexistencia de los cuatro archivos es intencionada. La presencia aislada de <code>_quarto.yml</code> únicamente identifica un proyecto Quarto. La presencia aislada de <code>_iasi.yml</code> tampoco es suficiente. Solo la firma completa identifica una publicación IASI Quarto.</p>
 <p>Una estructura mínima puede ser:</p>
 <pre class="text"><code>my-publication/
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 └── chapters/</code></pre>
 <p>La firma permite reconocer el proyecto sin analizar todavía toda su configuración ni recorrer su contenido. El reconocimiento es deliberadamente superficial: primero se determina qué existe; después se estudia qué contiene.</p>
@@ -406,7 +447,7 @@ article</code></pre>
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 └── chapters/</code></pre>
 <p>En este caso, la carpeta <code>user-guide/</code> es la raíz de la publicación.</p>
@@ -423,7 +464,7 @@ article</code></pre>
 │   ├── _quarto.yml
 │   ├── _quarto-html.yml
 │   ├── _quarto-pdf.yml
-│   ├── iasi.yml
+│   ├── _iasi.yml
 │   ├── index.qmd
 │   └── chapters/
 │
@@ -431,7 +472,7 @@ article</code></pre>
     ├── _quarto.yml
     ├── _quarto-html.yml
     ├── _quarto-pdf.yml
-    ├── iasi.yml
+    ├── _iasi.yml
     ├── index.qmd
     └── chapters/</code></pre>
 <p>La carpeta <code>docs/</code> no es una publicación. Es un <strong>multiproyecto</strong> que contiene dos publicaciones:</p>
@@ -441,7 +482,7 @@ developer-guide</code></pre>
 <p>El multiproyecto permite construirlas conjuntamente sin convertirlas en partes de un único libro.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">validate</span>(<span class="st">"docs"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>La validación reconoce el contenedor y localiza las publicaciones que contiene.</p>
-<p>La raíz del multiproyecto no necesita disponer de su propio <code>iasi.yml</code>. Su función es agrupar publicaciones completas, no comportarse como una publicación adicional.</p>
+<p>La raíz del multiproyecto no necesita disponer de su propio <code>_iasi.yml</code>. Su función es agrupar publicaciones completas, no comportarse como una publicación adicional.</p>
 </section>
 <section id="la-publicación-actual-tiene-prioridad" class="level3" data-number="3.1.5">
 <h3 data-number="3.1.5" class="anchored" data-anchor-id="la-publicación-actual-tiene-prioridad"><span class="header-section-number">3.1.5</span> La publicación actual tiene prioridad</h3>
@@ -450,7 +491,7 @@ developer-guide</code></pre>
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 ├── chapters/
 └── examples/
@@ -458,7 +499,7 @@ developer-guide</code></pre>
         ├── _quarto.yml
         ├── _quarto-html.yml
         ├── _quarto-pdf.yml
-        └── iasi.yml</code></pre>
+        └── _iasi.yml</code></pre>
 <p>En este caso, <code>publication/</code> es la publicación actual. La publicación situada bajo <code>examples/</code> no se incorpora automáticamente al mismo plan de construcción.</p>
 <p>Esta regla evita que ejemplos, plantillas, pruebas o proyectos auxiliares se confundan con publicaciones hermanas.</p>
 <p>El reconocimiento sigue este orden:</p>
@@ -473,7 +514,7 @@ developer-guide</code></pre>
 <section id="publicación-y-contenido" class="level3" data-number="3.1.6">
 <h3 data-number="3.1.6" class="anchored" data-anchor-id="publicación-y-contenido"><span class="header-section-number">3.1.6</span> Publicación y contenido</h3>
 <p>La raíz de la publicación no obliga a utilizar un directorio llamado <code>chapters</code>.</p>
-<p>El directorio de contenido se declara en <code>iasi.yml</code>:</p>
+<p>El directorio de contenido se declara en <code>_iasi.yml</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content-dir</span><span class="kw">:</span><span class="at"> chapters</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Podría utilizarse otro nombre:</p>
@@ -484,7 +525,7 @@ developer-guide</code></pre>
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-├── iasi.yml
+├── _iasi.yml
 ├── index.qmd
 └── content/</code></pre>
 <p>La publicación es la raíz completa del proyecto. El directorio de contenido es solo una de sus partes.</p>
@@ -502,7 +543,7 @@ outputs/</code></pre>
 <p>Dentro de una publicación existen dos clases de archivos.</p>
 <p>Los <strong>archivos fuente</strong> pertenecen al autor:</p>
 <pre class="text"><code>index.qmd
-iasi.yml
+_iasi.yml
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
@@ -522,7 +563,7 @@ chapters/01-intro/index.qmd</code></pre>
 <h3 data-number="3.1.8" class="anchored" data-anchor-id="reconocer-no-significa-construir"><span class="header-section-number">3.1.8</span> Reconocer no significa construir</h3>
 <p>El reconocimiento de una publicación no implica que sea válida ni que pueda construirse.</p>
 <p>Una carpeta puede contener la firma completa y, aun así, presentar problemas:</p>
-<pre class="text"><code>iasi.yml mal formado
+<pre class="text"><code>_iasi.yml mal formado
 estrategia desconocida
 directorio de contenido inexistente
 index.qmd raíz ausente
@@ -575,9 +616,9 @@ salidas</code></pre>
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml</code></pre>
+└── _iasi.yml</code></pre>
 <p>La presencia conjunta de estos cuatro archivos identifica una publicación IASI Quarto.</p>
-<p><img src="index_files\mediabag\plantuml/03fbfc8ded8445434cb2ac8f642361b6581d011f.png" class="img-fluid"></p>
+<p><img src="index_files\mediabag\plantuml/c105a6faaa30844fcf35b9892a838e95dc3e4174.png" class="img-fluid"></p>
 </section>
 <section id="configuración-general-y-configuración-por-formato" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="configuración-general-y-configuración-por-formato"><span class="header-section-number">3.3</span> Configuración general y configuración por formato</h2>
@@ -602,7 +643,7 @@ _quarto-pdf.yml
 </section>
 <section id="configuración-de-iasi.quarto" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="configuración-de-iasi.quarto"><span class="header-section-number">3.4</span> Configuración de iasi.quarto</h2>
-<p>El archivo <code>iasi.yml</code> describe cómo debe interpretar <code>iasi.quarto</code> el contenido de la publicación.</p>
+<p>El archivo <code>_iasi.yml</code> describe cómo debe interpretar <code>iasi.quarto</code> el contenido de la publicación.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strategy</span><span class="kw">:</span><span class="at"> regular</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content-dir</span><span class="kw">:</span><span class="at"> chapters</span></span>
@@ -613,7 +654,7 @@ _quarto-pdf.yml
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content-dir</span><span class="kw">:</span><span class="at"> chapters</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">numbered</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Por tanto, una publicación puede omitir las propiedades que no necesite modificar.</p>
-<p><code>iasi.yml</code> no contiene configuración de renderizado. Su responsabilidad es describir la organización editorial que <code>iasi.quarto</code> debe descubrir y preparar.</p>
+<p><code>_iasi.yml</code> no contiene configuración de renderizado. Su responsabilidad es describir la organización editorial que <code>iasi.quarto</code> debe descubrir y preparar.</p>
 </section>
 <section id="directorio-de-contenido" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="directorio-de-contenido"><span class="header-section-number">3.5</span> Directorio de contenido</h2>
@@ -626,7 +667,7 @@ _quarto-pdf.yml
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml</code></pre>
+└── _iasi.yml</code></pre>
 <p>El nombre <code>chapters</code> es el valor predeterminado, pero no forma parte rígida del modelo.</p>
 <p>También sería válida una publicación como:</p>
 <pre class="text"><code>publication/
@@ -634,8 +675,8 @@ _quarto-pdf.yml
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml</code></pre>
-<p>si <code>iasi.yml</code> declara:</p>
+└── _iasi.yml</code></pre>
+<p>si <code>_iasi.yml</code> declara:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">content-dir</span><span class="kw">:</span><span class="at"> content</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -733,7 +774,7 @@ structured:
 <h2 data-number="3.10" class="anchored" data-anchor-id="archivos-fuente-y-archivos-derivados-1"><span class="header-section-number">3.10</span> Archivos fuente y archivos derivados</h2>
 <p>Una publicación contiene dos clases de archivos.</p>
 <p>Los archivos fuente son mantenidos por el autor:</p>
-<pre class="text"><code>iasi.yml
+<pre class="text"><code>_iasi.yml
 _quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
@@ -770,14 +811,14 @@ index.qmd de las carpetas regular</code></pre>
 │   ├── _quarto.yml
 │   ├── _quarto-html.yml
 │   ├── _quarto-pdf.yml
-│   └── iasi.yml
+│   └── _iasi.yml
 │
 └── 02-developer-guide/
     ├── _quarto.yml
     ├── _quarto-html.yml
     ├── _quarto-pdf.yml
-    └── iasi.yml</code></pre>
-<p>El directorio <code>workspace</code> no necesita ser una publicación ni contener un <code>iasi.yml</code>.</p>
+    └── _iasi.yml</code></pre>
+<p>El directorio <code>workspace</code> no necesita ser una publicación ni contener un <code>_iasi.yml</code>.</p>
 <p><code>iasi.quarto</code> descubre recursivamente las carpetas que contienen la firma completa y trata cada una como una unidad de construcción independiente.</p>
 </section>
 <section id="una-estructura-explícita" class="level2" data-number="3.13">
@@ -793,9 +834,9 @@ los formatos finales siguen siendo generados por Quarto</code></pre>
 <p>La estructura no reemplaza el proyecto Quarto. Lo hace reconocible, comprobable y reproducible.</p>
 </blockquote>
 </section>
-<section id="el-archivo-iasi.yml" class="level2" data-number="3.14">
-<h2 data-number="3.14" class="anchored" data-anchor-id="el-archivo-iasi.yml"><span class="header-section-number">3.14</span> El archivo <code>iasi.yml</code></h2>
-<p><code>iasi.yml</code> describe cómo debe interpretar <code>iasi.quarto</code> una publicación.</p>
+<section id="el-archivo-_iasi.yml" class="level2" data-number="3.14">
+<h2 data-number="3.14" class="anchored" data-anchor-id="el-archivo-_iasi.yml"><span class="header-section-number">3.14</span> El archivo <code>_iasi.yml</code></h2>
+<p><code>_iasi.yml</code> describe cómo debe interpretar <code>iasi.quarto</code> una publicación.</p>
 <p>No sustituye a <code>_quarto.yml</code> ni contiene opciones de renderizado. Su función es declarar la organización editorial que <code>iasi.quarto</code> debe descubrir, comprobar y preparar antes de delegar la generación final en Quarto.</p>
 <p>La estructura actual es:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
@@ -888,7 +929,7 @@ direct</code></pre>
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml</code></pre>
+└── _iasi.yml</code></pre>
 <p><code>content-dir</code> se interpreta como una ruta relativa a la raíz de la publicación.</p>
 <p>No es una ruta relativa al directorio desde el que se ejecuta R ni al directorio de trabajo del usuario.</p>
 </section>
@@ -970,7 +1011,7 @@ project-structure.qmd</code></pre>
 </section>
 <section id="yaml-mal-formado" class="level2" data-number="3.21">
 <h2 data-number="3.21" class="anchored" data-anchor-id="yaml-mal-formado"><span class="header-section-number">3.21</span> YAML mal formado</h2>
-<p><code>iasi.yml</code> debe ser un documento YAML válido.</p>
+<p><code>_iasi.yml</code> debe ser un documento YAML válido.</p>
 <p>Por ejemplo, esta configuración es incorrecta:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb83"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="at">  strategy regular</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -998,7 +1039,7 @@ project-structure.qmd</code></pre>
 </section>
 <section id="propiedades-desconocidas" class="level2" data-number="3.23">
 <h2 data-number="3.23" class="anchored" data-anchor-id="propiedades-desconocidas"><span class="header-section-number">3.23</span> Propiedades desconocidas</h2>
-<p>El contrato de <code>iasi.yml</code> es explícito.</p>
+<p>El contrato de <code>_iasi.yml</code> es explícito.</p>
 <p>Esta configuración contiene una propiedad desconocida:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb88"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strategy</span><span class="kw">:</span><span class="at"> regular</span></span>
@@ -1027,7 +1068,7 @@ _quarto-html.yml
 _quarto-pdf.yml
   configuración específica de PDF
 
-iasi.yml
+_iasi.yml
   organización editorial interpretada por iasi.quarto</code></pre>
 <p>Por ejemplo, esta opción pertenece a <code>_quarto-html.yml</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb92"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
@@ -1037,19 +1078,19 @@ iasi.yml
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb93"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
 <span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
 <span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Y esta pertenece a <code>iasi.yml</code>:</p>
+<p>Y esta pertenece a <code>_iasi.yml</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb94"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strategy</span><span class="kw">:</span><span class="at"> regular</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Mantener esta separación evita que <code>iasi.quarto</code> se convierta en una segunda capa de configuración de Quarto.</p>
 </section>
 <section id="configuración-y-ciclo-de-construcción" class="level2" data-number="3.25">
 <h2 data-number="3.25" class="anchored" data-anchor-id="configuración-y-ciclo-de-construcción"><span class="header-section-number">3.25</span> Configuración y ciclo de construcción</h2>
-<p><code>iasi.yml</code> participa en las primeras fases del proceso:</p>
+<p><code>_iasi.yml</code> participa en las primeras fases del proceso:</p>
 <pre class="text"><code>validate()
   reconoce la publicación por su firma
 
 .discover()
-  lee iasi.yml y aplica valores predeterminados
+  lee _iasi.yml y aplica valores predeterminados
 
 .check()
   comprueba propiedades, valores y estructura
@@ -1058,11 +1099,11 @@ iasi.yml
   construye los artefactos derivados según la estrategia</code></pre>
 <p>La configuración no se interpreta durante el renderizado.</p>
 <p>Cuando <code>.render()</code> se ejecuta, la publicación ya ha sido descubierta, comprobada y preparada.</p>
-<p><img src="index_files\mediabag\plantuml/0caaafadfe6ec2c962b2cbae27a22a4a89280d02.png" class="img-fluid"></p>
+<p><img src="index_files\mediabag\plantuml/a81a906788998b79923a0e2ec7d119960159fd30.png" class="img-fluid"></p>
 </section>
 <section id="un-contrato-pequeño" class="level2" data-number="3.26">
 <h2 data-number="3.26" class="anchored" data-anchor-id="un-contrato-pequeño"><span class="header-section-number">3.26</span> Un contrato pequeño</h2>
-<p><code>iasi.yml</code> contiene deliberadamente pocas propiedades.</p>
+<p><code>_iasi.yml</code> contiene deliberadamente pocas propiedades.</p>
 <p>No pretende describir toda la publicación ni duplicar la configuración disponible en Quarto.</p>
 <p>Su contrato actual responde únicamente a tres preguntas:</p>
 <pre class="text"><code>¿Cómo se interpreta el contenido?
@@ -1075,13 +1116,13 @@ iasi.yml
   numbered</code></pre>
 <p>Esa limitación mantiene la configuración legible y permite que la mayor parte del proyecto siga siendo Quarto abierto y reconocible.</p>
 <blockquote class="blockquote">
-<p><code>iasi.yml</code> no describe cómo se renderiza una publicación. Describe cómo debe entenderse antes de renderizarla.</p>
+<p><code>_iasi.yml</code> no describe cómo se renderiza una publicación. Describe cómo debe entenderse antes de renderizarla.</p>
 </blockquote>
 </section>
 <section id="estrategias-de-publicación" class="level2" data-number="3.27">
 <h2 data-number="3.27" class="anchored" data-anchor-id="estrategias-de-publicación"><span class="header-section-number">3.27</span> Estrategias de publicación</h2>
 <p>La estrategia de una publicación determina cómo interpreta <code>iasi.quarto</code> las carpetas y documentos situados dentro de <code>content-dir</code>.</p>
-<p>Se declara en <code>iasi.yml</code>:</p>
+<p>Se declara en <code>_iasi.yml</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb97"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strategy</span><span class="kw">:</span><span class="at"> regular</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>El contrato actual admite tres estrategias:</p>
@@ -1528,7 +1569,7 @@ invocar Quarto
 <pre class="text"><code>_quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
-iasi.yml</code></pre>
+_iasi.yml</code></pre>
 <p>Si los cuatro archivos existen en la ruta actual, esa ruta se considera una publicación.</p>
 <p>Si no existen juntos, <code>validate()</code> puede reconocer la ruta como un contenedor desde el que después se localizarán publicaciones completas.</p>
 <p>El resultado es un plan:</p>
@@ -1552,7 +1593,7 @@ plan$books</code></pre>
 <pre class="text"><code>plan$current = FALSE</code></pre>
 <p>El plan actúa como contenedor de las publicaciones que podrán seleccionarse y descubrirse.</p>
 <p><code>validate()</code> reconoce el terreno.</p>
-<p>Todavía no interpreta <code>iasi.yml</code> ni genera artefactos.</p>
+<p>Todavía no interpreta <code>_iasi.yml</code> ni genera artefactos.</p>
 </section>
 </section>
 <section id="selección-de-publicaciones" class="level2" data-number="3.40">
@@ -1584,7 +1625,7 @@ prefijo numérico</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">.discover</span>(plan)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Durante esta fase se leen:</p>
 <pre class="text"><code>_quarto.yml
-iasi.yml</code></pre>
+_iasi.yml</code></pre>
 <p>y se determina:</p>
 <pre class="text"><code>nombre de la publicación
 ruta
@@ -1609,7 +1650,7 @@ project$iasi</code></pre>
 <pre class="text"><code>iasi_quarto_project</code></pre>
 <section id="aplicación-de-valores-predeterminados" class="level3" data-number="3.41.1">
 <h3 data-number="3.41.1" class="anchored" data-anchor-id="aplicación-de-valores-predeterminados"><span class="header-section-number">3.41.1</span> Aplicación de valores predeterminados</h3>
-<p><code>.discover()</code> completa las propiedades ausentes de <code>iasi.yml</code>.</p>
+<p><code>.discover()</code> completa las propiedades ausentes de <code>_iasi.yml</code>.</p>
 <p>Por ejemplo:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb168"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">publication</span><span class="kw">:</span></span>
 <span id="cb168-2"><a href="#cb168-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">strategy</span><span class="kw">:</span><span class="at"> structured</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1809,7 +1850,7 @@ fallo real de Quarto
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml</code></pre>
+└── _iasi.yml</code></pre>
 <p>el flujo es:</p>
 <pre class="text"><code>build()
   reconoce la publicación
@@ -1909,7 +1950,7 @@ lo que coordina internamente el paquete</code></pre>
 <pre class="text"><code>_quarto.yml
 _quarto-html.yml
 _quarto-pdf.yml
-iasi.yml</code></pre>
+_iasi.yml</code></pre>
 <p>Cuando los cuatro archivos están presentes en la ruta indicada, esa ruta se reconoce como una publicación actual.</p>
 <p>Cuando no están presentes juntos, la ruta puede reconocerse como un contenedor desde el que posteriormente se descubrirán publicaciones completas.</p>
 </section>
@@ -1964,7 +2005,7 @@ FALSE
 <p>¿La ruta parece contener un espacio de trabajo IASI Quarto?</p>
 </blockquote>
 <p>No:</p>
-<pre class="text"><code>interpreta por completo iasi.yml
+<pre class="text"><code>interpreta por completo _iasi.yml
 comprueba toda la estructura editorial
 genera index.qmd
 genera _book-structure.yml
@@ -1979,7 +2020,7 @@ invoca Quarto</code></pre>
 ├── _quarto.yml
 ├── _quarto-html.yml
 ├── _quarto-pdf.yml
-└── iasi.yml</code></pre>
+└── _iasi.yml</code></pre>
 <p>la llamada:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb226"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb226-1"><a href="#cb226-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"user-guide"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>produce conceptualmente:</p>
@@ -1994,13 +2035,13 @@ plan$path    = ".../user-guide"</code></pre>
 │   ├── _quarto.yml
 │   ├── _quarto-html.yml
 │   ├── _quarto-pdf.yml
-│   └── iasi.yml
+│   └── _iasi.yml
 │
 └── 02-developer-guide/
     ├── _quarto.yml
     ├── _quarto-html.yml
     ├── _quarto-pdf.yml
-    └── iasi.yml</code></pre>
+    └── _iasi.yml</code></pre>
 <p>la llamada:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb229"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb229-1"><a href="#cb229-1" aria-hidden="true" tabindex="-1"></a>plan <span class="ot">=</span> <span class="fu">validate</span>(<span class="st">"workspace"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>produce un plan de multiproyecto:</p>
@@ -2151,7 +2192,7 @@ format = "pdf"
   -&gt; .discover()</code></pre>
 <p>Esto tiene una consecuencia importante.</p>
 <p>Una publicación no seleccionada no participa en:</p>
-<pre class="text"><code>lectura de iasi.yml
+<pre class="text"><code>lectura de _iasi.yml
 comprobación
 preparación
 renderizado</code></pre>
