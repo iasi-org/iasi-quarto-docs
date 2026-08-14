@@ -1,0 +1,104 @@
+## Preparar el entorno
+
+El desarrollo se realiza sobre el repositorio `iasi-quarto`. Se necesita R 4.2 o posterior y las dependencias declaradas en `DESCRIPTION`. Quarto es necesario para las pruebas o comprobaciones que ejecuten renderizados reales.
+
+Desde R, una instalación de desarrollo habitual es:
+
+```r
+remotes::install_deps(dependencies = TRUE)
+devtools::load_all()
+```
+
+La documentación generada de la API procede de los bloques roxygen de `R/`. Después de cambiar una función pública o su contrato:
+
+```r
+devtools::document()
+```
+
+No debe editarse `NAMESPACE` ni los archivos de `man/` como fuente primaria.
+
+## Leer un cambio de extremo a extremo
+
+Antes de modificar una etapa, conviene seguir un caso desde la API hasta su efecto en disco:
+
+1. localizar la entrada pública;
+2. seguir las funciones privadas que transforma el plan;
+3. identificar las aserciones anteriores y posteriores;
+4. revisar la estrategia afectada;
+5. localizar las pruebas y fixtures equivalentes;
+6. comprobar el artefacto final que observa el consumidor.
+
+Esta lectura evita corregir un síntoma en una etapa posterior cuando el dato incorrecto se introdujo antes.
+
+## Pruebas automatizadas
+
+Las pruebas están en `tests/testthat/` y se agrupan por etapa: reconocimiento, descubrimiento, comprobación, preparación, construcción, publicación y despliegue.
+
+Para ejecutar el conjunto completo:
+
+```r
+devtools::test()
+```
+
+Para validar el paquete con las comprobaciones estándar de R:
+
+```r
+devtools::check()
+```
+
+En este entorno de documentación no siempre está disponible `Rscript`; la ausencia del ejecutable impide verificar las pruebas, pero no constituye un resultado de prueba satisfactorio. La validación debe repetirse en un entorno R configurado antes de integrar cambios del paquete.
+
+## Fixtures
+
+Los fixtures representan árboles de proyecto reales bajo `tests/testthat/fixtures/`. Son preferibles a construir estructuras complejas dentro de cada prueba porque hacen visibles los archivos que intervienen en el contrato.
+
+Al añadir un fixture:
+
+- utilice el árbol mínimo que reproduzca el caso;
+- no reutilice un fixture si la prueba necesita mutarlo;
+- distinga configuración ausente, YAML mal formado y valor semánticamente inválido;
+- incluya perfiles HTML o PDF solo cuando formen parte del caso;
+- compruebe tanto el resultado como los efectos en disco.
+
+Los helpers compartidos pertenecen a `tests/testthat/helper-*.R`. Un helper debe reducir ruido de preparación, no ocultar la condición que la prueba pretende demostrar.
+
+## Estrategia de pruebas por tipo de cambio
+
+| Cambio | Comprobación mínima |
+|---|---|
+| Reconocimiento de rutas | Casos positivo, negativo, publicación actual y multiproyecto anidado |
+| Nueva clave de `_iasi.yml` | Ausencia, valor válido, tipo incorrecto, valor desconocido y predeterminado |
+| Estrategia de preparación | Árbol fuente, contenido derivado, repetición y ausencia de escrituras fuera del destino |
+| Selección de publicación | Nombre completo, nombre corto, prefijo numérico, varios valores y selección inexistente |
+| Formato de salida | HTML, PDF, `all`, formato no soportado y perfil ausente |
+| Publicación | Artefactos presentes, ausentes, destino anterior y fallo sin estado parcial |
+| API pública | Valor devuelto, clase, mensajes, avisos y errores observables |
+
+## Procedimiento recomendado para un cambio
+
+1. Definir el comportamiento observable y la compatibilidad esperada.
+2. Añadir o ajustar primero el caso de prueba que expresa el contrato.
+3. Implementar el cambio en la etapa propietaria del dato.
+4. Ejecutar las pruebas específicas y después el conjunto completo.
+5. Regenerar documentación si cambia la API.
+6. Construir una publicación representativa en HTML y PDF cuando el cambio afecte a preparación, perfiles o artefactos.
+7. Actualizar la guía de usuario solo si cambia el uso público; actualizar esta guía si cambia la arquitectura o el procedimiento de mantenimiento.
+8. Registrar en `Next steps` cualquier trabajo deliberadamente aplazado.
+
+## Compatibilidad
+
+La frontera pública está formada por nombres, argumentos, valores de retorno, clases, efectos en disco y condiciones emitidas. Una modificación incompatible debe ser consciente y documentada; renombrar una función privada no garantiza por sí solo que el cambio sea interno si altera archivos generados o mensajes utilizados por automatizaciones.
+
+Los perfiles de Quarto y `_iasi.yml` también son contratos persistentes. Las nuevas claves deben tener un valor predeterminado compatible o una estrategia explícita de migración.
+
+## Revisión técnica
+
+Antes de considerar terminado un cambio, revise:
+
+- que la responsabilidad esté en la etapa correcta;
+- que no se duplique lógica entre estrategias;
+- que las rutas se normalicen y permanezcan dentro del proyecto previsto;
+- que un fallo no deje `publish/` en estado parcial;
+- que los mensajes permitan localizar el problema;
+- que las pruebas cubran el caso y su principal borde;
+- que código, roxygen y manuales describan el mismo contrato.

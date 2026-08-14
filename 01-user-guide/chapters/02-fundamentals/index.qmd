@@ -14,5 +14,3 @@ title-block-style: none
 {{< include 04-strategies.qmd >}}
 
 {{< include 05-lifecycle.qmd >}}
-
-{{< include 06-public-api.qmd >}}

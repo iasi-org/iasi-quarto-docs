@@ -1,12 +1,24 @@
 # _quarto-html.yml
 project:
   output-dir: outputs/html
+  resources:
+    - resources/images/ants.png
+
+website:
+  announcement:
+    dismissable: false
+    content: "![](resources/images/ants.png){.iasi-ants-image}"
+    type: light
+    position: above-navbar
 
 format:
   html:
+    include-in-header: resources/js/iasi.html
+    theme:
+      - cosmo
+      - resources/css/iasi.scss
     toc: true
-    css: resources/css/top-banner.css
-    include-before-body: resources/html/top-banner.html
+    number-sections: true
 
 book:
   navbar:
@@ -18,8 +30,12 @@ book:
         href: chapters/02-fundamentals/index.qmd
       - text: "Instalación"
         href: chapters/03-installation/index.qmd
-      - text: "PlantUML"
-        href: chapters/04-plantuml/index.qmd
+      - text: "Arquitectura"
+        href: chapters/04-architecture/index.qmd
+      - text: "Desarrollo"
+        href: chapters/05-development/index.qmd
+      - text: "Next steps"
+        href: chapters/06-next-steps/index.qmd
     right:
       - icon: file-pdf
         href: IASI-Quarto-Technical-Guide.pdf

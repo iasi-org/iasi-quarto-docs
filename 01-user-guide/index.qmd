@@ -26,6 +26,7 @@ A lo largo de esta guía aprenderás a:
 - organizar la documentación;
 - generar libros en distintos formatos;
 - configurar el comportamiento del framework;
+- seguir un workflow recomendado desde la edición hasta la publicación;
 - utilizar la API pública;
 - resolver los problemas más habituales.
 

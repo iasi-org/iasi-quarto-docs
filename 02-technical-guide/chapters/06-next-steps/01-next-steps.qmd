@@ -1,0 +1,98 @@
+## Propósito
+
+Este capítulo reúne limitaciones conocidas, decisiones todavía abiertas y trabajo que conviene abordar para evolucionar `iasi.quarto`. No describe capacidades disponibles ni compromete una fecha de entrega.
+
+Debe mantenerse vivo: cuando una línea de trabajo se implemente, su contrato pasa al capítulo correspondiente y se elimina de aquí. Las propuestas nuevas deben indicar el problema, el resultado esperado y cómo se verificará.
+
+## Prioridad inmediata
+
+### Automatizar la verificación continua
+
+El repositorio no contiene actualmente una configuración de integración continua. Debe incorporarse una ejecución reproducible de las pruebas y de las comprobaciones del paquete en las versiones de R soportadas.
+
+El criterio de finalización debería incluir:
+
+- instalación limpia de dependencias;
+- `R CMD check` o equivalente sin errores;
+- pruebas `testthat`;
+- comprobación explícita de los requisitos de Quarto para los casos de integración;
+- conservación de logs y artefactos cuando falle una construcción.
+
+### Definir pruebas de integración con Quarto
+
+Las etapas puras cuentan con fixtures detallados, pero debe formalizarse qué renderizados reales forman parte de la verificación del proyecto. Como mínimo, conviene mantener una publicación pequeña por tipo soportado y comprobar HTML, PDF y ensamblado de `publish/`.
+
+Estas pruebas deben separar claramente los fallos del paquete, la ausencia de Quarto y los problemas del entorno LaTeX.
+
+### Consolidar la documentación técnica
+
+Parte del contenido histórico mezcla uso, implementación de `iasi.quarto` y comportamiento de extensiones Lua. La separación iniciada en esta revisión debe completarse:
+
+- la guía de usuario conserva únicamente el contrato público y los flujos de uso;
+- esta guía conserva arquitectura, mantenimiento y decisiones internas;
+- `iasi-lua-docs` documenta filtros y extensiones, incluido PlantUML;
+- los bloques roxygen son la referencia inmediata de la API R.
+
+## Evolución del diseño
+
+### Formalizar los contratos de los objetos internos
+
+`iasi_quarto_plan`, `iasi_quarto_project` e `iasi_quarto_publication` evolucionan como listas enriquecidas por etapas. Conviene definir en pruebas sus campos obligatorios por estado y las invariantes que cada transición garantiza.
+
+Antes de adoptar clases más rígidas debe evaluarse si aportan validación real sin dificultar la evolución. El objetivo no es cambiar de representación, sino evitar dependencias implícitas entre etapas.
+
+### Normalizar la organización interna
+
+Los nombres de archivo del motor combinan guiones y guiones bajos y existen responsabilidades cercanas distribuidas entre varios módulos. Puede estudiarse una normalización gradual, acompañada de pruebas, sin mezclarla con cambios funcionales.
+
+La reorganización debería facilitar responder tres preguntas: quién crea cada dato, quién puede modificarlo y qué etapa lo consume.
+
+### Revisar la extensibilidad de estrategias y formatos
+
+Las estrategias y los formatos soportados están definidos mediante ramas y listas internas. Si aumenta su número, habrá que valorar un registro explícito de capacidades que agrupe validación, preparación, formatos y artefactos por tipo.
+
+No debe introducirse esa abstracción antes de que exista un segundo caso real que justifique el coste. Mientras tanto, las nuevas ramas deben permanecer localizadas y exhaustivamente probadas.
+
+### Diseñar una política de compatibilidad
+
+Debe acordarse qué cambios requieren incremento mayor, cómo se anuncian las deprecaciones y durante cuánto tiempo se mantienen. La política debe cubrir la API R, `_iasi.yml`, nombres de estrategia, estructura de artefactos y comportamiento de `publish/`.
+
+## Operación y diagnóstico
+
+### Estructurar resultados y condiciones
+
+Los mensajes actuales son útiles para ejecución interactiva, pero la automatización podría necesitar condiciones con clases y datos estructurados. Debe evaluarse una taxonomía mínima de errores y avisos sin perder mensajes legibles.
+
+### Mejorar la observabilidad
+
+Conviene definir un modo de diagnóstico que muestre las decisiones del pipeline: raíz reconocida, publicaciones seleccionadas, configuración efectiva, archivos derivados, perfiles usados y artefactos resueltos.
+
+Este modo no debe cambiar el resultado de la construcción ni exponer información sensible de rutas o entornos sin advertencia.
+
+### Precisar la atomicidad de publicación
+
+`deploy()` evita publicar cuando falla la construcción. Queda por especificar y probar de extremo a extremo qué garantías ofrece `publish()` ante un fallo durante el ensamblado, especialmente cuando ya existe un destino anterior.
+
+El objetivo debería ser que el consumidor observe la versión anterior completa o la nueva completa, nunca una mezcla parcial.
+
+## Portabilidad y alcance futuro
+
+### Verificar plataformas soportadas
+
+Debe definirse una matriz explícita para Windows, Linux y macOS. Las pruebas deben cubrir separadores, rutas relativas, nombres anidados, permisos y sustitución segura de directorios.
+
+### Evaluar nuevos tipos de proyecto y formatos
+
+El paquete admite actualmente los tipos y formatos codificados por su motor, con HTML y PDF como formatos de construcción soportados. La incorporación de sitios, artículos u otros formatos debe partir de casos de uso concretos y especificar preparación, renderizado y publicación; no debe reducirse a ampliar una lista.
+
+## Cómo mantener este capítulo
+
+Cada elemento nuevo debería registrar:
+
+- problema observado;
+- alcance y exclusiones;
+- decisión pendiente;
+- criterio verificable de finalización;
+- dependencias con otros repositorios.
+
+`Next steps` debe seguir siendo siempre el último capítulo de la guía técnica. Su función es hacer visible lo que todavía no forma parte del contrato actual.

@@ -4,4 +4,6 @@ book:
     - "chapters/01-intro/index.qmd"
     - "chapters/02-fundamentals/index.qmd"
     - "chapters/03-installation/index.qmd"
-    - "chapters/04-plantuml/index.qmd"
+    - "chapters/04-architecture/index.qmd"
+    - "chapters/05-development/index.qmd"
+    - "chapters/06-next-steps/index.qmd"

@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../chapters/04-plantuml/index.html" rel="next">
+<link href="../../chapters/04-architecture/index.html" rel="next">
 <link href="../../chapters/02-fundamentals/index.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -79,7 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-b16ba7212847ce7939909783b50ea0ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-1433e7e1113e1fa6adb15e7eda7f9337.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,15 +107,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.querySelector("#quarto-announcement .iasi-ants-image");
+  const bootstrap = document.querySelector("link#quarto-bootstrap");
+
+  if (!banner || !bootstrap) return;
+
+  const siteRoot = bootstrap.href.replace(/site_libs\/bootstrap\/[^/]+$/i, "");
+  banner.src = new URL("resources/images/ants.png", siteRoot).href;
+});
+</script>
 
 
-<link rel="stylesheet" href="../../resources/css/top-banner.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <div id="quarto-announcement" data-announcement-id="924b3bb06044a6f8e6a5618432e2a604" class="alert alert-light hidden"><div class="quarto-announcement-content">
+<p><img src="resources/images/ants.png" class="iasi-ants-image img-fluid"></p>
+</div></div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -142,8 +155,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Instalación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../chapters/04-plantuml/index.html"> 
-<span class="menu-text">PlantUML</span></a>
+    <a class="nav-link" href="../../chapters/04-architecture/index.html"> 
+<span class="menu-text">Arquitectura</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/05-development/index.html"> 
+<span class="menu-text">Desarrollo</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../chapters/06-next-steps/index.html"> 
+<span class="menu-text">Next steps</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -211,8 +232,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/04-plantuml/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">PlantUML</span></span></a>
+  <a href="../../chapters/04-architecture/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/05-development/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/06-next-steps/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">index.html</span></span></a>
   </div>
 </li>
     </ul>
@@ -269,7 +302,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Instalación</span></h1></header>
-<div class="iasi-top-banner" aria-hidden="true"></div>
 
 <header id="title-block-header">
 
@@ -1297,8 +1329,8 @@ build(format = "html") termina correctamente</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../chapters/04-plantuml/index.html" class="pagination-link" aria-label="PlantUML">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">PlantUML</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../chapters/04-architecture/index.html" class="pagination-link" aria-label="index.html">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">index.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,12 +1,10 @@
 # Introducción
 
-Bienvenido a la guía de usuario de **iasi.quarto**.
+Esta es la guía técnica de **iasi.quarto**.
 
-Este libro está dirigido a quienes desean utilizar `iasi.quarto` para construir proyectos documentales basados en Quarto.
+Está dirigida a quienes mantienen el paquete, investigan un defecto o quieren modificar y ampliar su comportamiento. La guía de usuario explica cómo utilizar el sistema; este libro explica sus contratos, su arquitectura interna y la forma segura de evolucionarlo.
 
-No es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.
-
-El objetivo de esta guía es ayudarte a comprender la filosofía de `iasi.quarto`, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.
+El contenido describe la implementación existente. Cuando se trate de una posibilidad futura y no de una capacidad disponible, se indicará expresamente y se recogerá en el capítulo final, **Next steps**.
 
 ## iasi.quarto y Quarto
 
@@ -16,29 +14,28 @@ No pretende sustituirlo, modificar su modelo documental ni crear un sistema de p
 
 Quarto continúa siendo el motor responsable de procesar los documentos y generar los formatos finales. `iasi.quarto` proporciona una capa de organización, automatización y convenciones que facilita el desarrollo y mantenimiento de proyectos documentales de cualquier tamaño.
 
-## ¿Qué encontrarás en este libro?
+## Alcance de esta guía
 
-A lo largo de esta guía aprenderás a:
+A lo largo de esta guía se documentan:
 
-- comprender el propósito de `iasi.quarto`;
-- instalar el framework;
-- crear un nuevo proyecto;
-- organizar la documentación;
-- generar libros en distintos formatos;
-- configurar el comportamiento del framework;
-- utilizar la API pública;
-- resolver los problemas más habituales.
+- el modelo de publicación y sus invariantes;
+- la configuración y las estrategias de preparación;
+- el ciclo interno desde el reconocimiento hasta la publicación;
+- la API pública y su frontera con las funciones privadas;
+- la organización del código y los objetos que circulan por el pipeline;
+- el entorno de desarrollo, las pruebas y el procedimiento recomendado para introducir cambios;
+- las limitaciones y líneas de evolución todavía pendientes.
 
-Cada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.
+PlantUML no forma parte del alcance de este manual. `iasi.quarto` puede consumir diagramas en sus publicaciones, pero la extensión y su implementación pertenecen a `iasi-lua` y se documentan en `iasi-lua-docs`.
 
 ## Requisitos
 
-Se recomienda tener conocimientos básicos de:
+Se recomienda conocer:
 
 - Quarto;
 - Git;
-- R (para utilizar el paquete `iasi.quarto`).
+- desarrollo de paquetes R;
+- pruebas con `testthat`;
+- YAML y sistemas de archivos.
 
-No obstante, los conceptos específicos del framework se explican desde el principio.
-
-Comencemos entendiendo por qué nació el framework y qué problemas pretende resolver.
+Los comandos y ejemplos presuponen una copia de trabajo de los repositorios `iasi-quarto` e `iasi-quarto-docs`.

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "IASI Quarto Technical Guide",
     "section": "",
-    "text": "1 Introducción\nBienvenido a la guía de usuario de iasi.quarto.\nEste libro está dirigido a quienes desean utilizar iasi.quarto para construir proyectos documentales basados en Quarto.\nNo es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.\nEl objetivo de esta guía es ayudarte a comprender la filosofía de iasi.quarto, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.",
+    "text": "1 Introducción\nEsta es la guía técnica de iasi.quarto.\nEstá dirigida a quienes mantienen el paquete, investigan un defecto o quieren modificar y ampliar su comportamiento. La guía de usuario explica cómo utilizar el sistema; este libro explica sus contratos, su arquitectura interna y la forma segura de evolucionarlo.\nEl contenido describe la implementación existente. Cuando se trate de una posibilidad futura y no de una capacidad disponible, se indicará expresamente y se recogerá en el capítulo final, Next steps.",
     "crumbs": [
       "Introducción",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
@@ -22,11 +22,11 @@
     ]
   },
   {
-    "objectID": "index.html#qué-encontrarás-en-este-libro",
-    "href": "index.html#qué-encontrarás-en-este-libro",
+    "objectID": "index.html#alcance-de-esta-guía",
+    "href": "index.html#alcance-de-esta-guía",
     "title": "IASI Quarto Technical Guide",
-    "section": "1.2 ¿Qué encontrarás en este libro?",
-    "text": "1.2 ¿Qué encontrarás en este libro?\nA lo largo de esta guía aprenderás a:\n\ncomprender el propósito de iasi.quarto;\ninstalar el framework;\ncrear un nuevo proyecto;\norganizar la documentación;\ngenerar libros en distintos formatos;\nconfigurar el comportamiento del framework;\nutilizar la API pública;\nresolver los problemas más habituales.\n\nCada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.",
+    "section": "1.2 Alcance de esta guía",
+    "text": "1.2 Alcance de esta guía\nA lo largo de esta guía se documentan:\n\nel modelo de publicación y sus invariantes;\nla configuración y las estrategias de preparación;\nel ciclo interno desde el reconocimiento hasta la publicación;\nla API pública y su frontera con las funciones privadas;\nla organización del código y los objetos que circulan por el pipeline;\nel entorno de desarrollo, las pruebas y el procedimiento recomendado para introducir cambios;\nlas limitaciones y líneas de evolución todavía pendientes.\n\nPlantUML no forma parte del alcance de este manual. iasi.quarto puede consumir diagramas en sus publicaciones, pero la extensión y su implementación pertenecen a iasi-lua y se documentan en iasi-lua-docs.",
     "crumbs": [
       "Introducción",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
@@ -37,7 +37,7 @@
     "href": "index.html#requisitos",
     "title": "IASI Quarto Technical Guide",
     "section": "1.3 Requisitos",
-    "text": "1.3 Requisitos\nSe recomienda tener conocimientos básicos de:\n\nQuarto;\nGit;\nR (para utilizar el paquete iasi.quarto).\n\nNo obstante, los conceptos específicos del framework se explican desde el principio.\nComencemos entendiendo por qué nació el framework y qué problemas pretende resolver.",
+    "text": "1.3 Requisitos\nSe recomienda conocer:\n\nQuarto;\nGit;\ndesarrollo de paquetes R;\npruebas con testthat;\nYAML y sistemas de archivos.\n\nLos comandos y ejemplos presuponen una copia de trabajo de los repositorios iasi-quarto e iasi-quarto-docs.",
     "crumbs": [
       "Introducción",
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introducción</span>"
@@ -1386,1521 +1386,256 @@
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html",
-    "href": "chapters/04-plantuml/index.html",
-    "title": "5  PlantUML",
+    "objectID": "chapters/04-architecture/index.html",
+    "href": "chapters/04-architecture/index.html",
+    "title": "5  Responsabilidades del paquete",
     "section": "",
-    "text": "5.1 Instalación\niasi.quarto se distribuye como un paquete de R.\nSu instalación añade al entorno dos operaciones públicas:\nLa primera reconoce una publicación IASI Quarto. La segunda ejecuta su ciclo completo de construcción.\nEl paquete no sustituye a Quarto ni instala por sí mismo sus herramientas externas. Trabaja sobre un entorno en el que R y Quarto ya están disponibles.\nLa instalación se divide en tres pasos:\nEn primer lugar, se comprueba que R y Quarto puedan ejecutarse correctamente.\nDespués se instala el paquete desde su repositorio.\nPor último, se realiza una comprobación mínima para confirmar que iasi.quarto puede cargarse y reconocer una publicación.\nEste capítulo no pretende explicar cómo instalar R o Quarto en cada sistema operativo. Su objetivo es dejar preparado el entorno específico que necesita iasi.quarto.\nAl finalizar, debe ser posible ejecutar:\ny obtener un plan cuando el directorio actual contiene una publicación o un multiproyecto IASI Quarto.\nLa instalación prepara la herramienta. La estructura y la configuración de la publicación siguen perteneciendo al proyecto.",
+    "text": "5.1 Frontera pública\niasi.quarto es un orquestador escrito en R. Reconoce publicaciones IASI, interpreta su configuración, comprueba invariantes, prepara archivos derivados, delega el renderizado en Quarto y ensambla los artefactos publicables.\nNo procesa Markdown ni sustituye el sistema de extensiones de Quarto. Tampoco implementa los filtros Lua que una publicación pueda utilizar. Esa separación debe conservarse al añadir nuevas capacidades.\nEl archivo NAMESPACE exporta cuatro operaciones:\nLos métodos print() de iasi_quarto_project e iasi_quarto_publication también forman parte del comportamiento observable, aunque no sean operaciones del pipeline.\nTodo nombre que comienza por punto pertenece a la implementación. Puede cambiar durante la evolución del paquete, pero cualquier modificación debe preservar los contratos de las funciones públicas y contar con pruebas del comportamiento afectado.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#instalación",
-    "href": "chapters/04-plantuml/index.html#instalación",
-    "title": "5  PlantUML",
+    "objectID": "chapters/04-architecture/index.html#frontera-pública",
+    "href": "chapters/04-architecture/index.html#frontera-pública",
+    "title": "5  Responsabilidades del paquete",
     "section": "",
-    "text": "validate()\nbuild()\n\n\n\n\ncomprobar los requisitos\ninstalar iasi.quarto\nverificar el entorno\n\n\n\n\n\nlibrary(iasi.quarto)\n\nvalidate()\n\n\n\n5.1.1 ¿Por qué PlantUML?\nQuarto admite distintas formas de incorporar diagramas en una publicación.\nMermaid es una alternativa especialmente cómoda para diagramas sencillos. Puede escribirse directamente dentro del documento y encaja bien cuando el objetivo principal es representar rápidamente un flujo, una secuencia o una relación entre elementos.\nPlantUML introduce una decisión diferente.\nEn esta plataforma, el diagrama no se trata únicamente como una ilustración embebida en Markdown. Se trata como una fuente que atraviesa un compilador especializado antes de incorporarse al documento final.\nfuente PlantUML\n  -&gt; estilos compartidos\n  -&gt; extensión Lua\n  -&gt; servidor PlantUML\n  -&gt; imagen\n  -&gt; caché\n  -&gt; HTML o PDF\nLa elección no nace de una oposición entre herramientas.\nMermaid y PlantUML resuelven problemas parcialmente coincidentes, pero encajan de forma distinta en una arquitectura documental.\n\n5.1.1.1 Mermaid como opción válida\nMermaid resulta apropiado cuando se busca:\nescribir diagramas con poca infraestructura\nmantener todo dentro del documento\ncrear representaciones rápidas\naprovechar una integración directa con Quarto\nevitar un servidor externo\nPara muchos proyectos, estas propiedades son suficientes.\nUn diagrama sencillo puede escribirse cerca del texto al que pertenece y renderizarse como parte natural del documento.\nLa ventaja principal es la inmediatez.\nfuente Mermaid\n  -&gt; Quarto\n  -&gt; representación final\nEste camino reduce componentes y simplifica la puesta en marcha.\n\n\n5.1.1.2 Lo que necesita la plataforma\nLa plataforma persigue algo más amplio que insertar diagramas ocasionales.\nNecesita que los diagramas puedan formar parte de una infraestructura común:\nestilos reutilizables\nservidor controlado\nsalida gráfica predecible\ncaché independiente\nintegración con HTML y PDF\narquitectura extensible\nTambién necesita separar claramente:\nla fuente del diagrama\nla configuración del compilador\nel servicio de renderizado\nla imagen generada\nla publicación final\nPlantUML encaja mejor con esa separación.\n\n\n5.1.1.3 Un lenguaje orientado a documentación técnica\nPlantUML ofrece una familia amplia de diagramas útiles para documentación de sistemas.\nEntre otros, permite representar:\nsecuencias\ncomponentes\ndespliegues\nclases\ncasos de uso\nestados\nactividades\nobjetos\narquitecturas\nLa importancia no está únicamente en la cantidad de tipos disponibles.\nLa misma herramienta puede acompañar diferentes niveles de documentación:\nvisión general del sistema\ninteracción entre servicios\nestructura lógica\ndespliegue físico\nflujo de una operación\nmodelo de dominio\nEsto reduce la necesidad de introducir una tecnología diferente para cada clase de diagrama.\n\n\n\n5.1.2 Estilos compartidos\nUna de las razones principales de la elección es la posibilidad de centralizar la presentación mediante archivos .puml.\nPor ejemplo:\nresources/plantuml/iasi.puml\nEse archivo puede contener reglas comunes para toda la publicación:\ncolores\ntipografía\nbordes\nespaciado\napariencia de componentes\nconvenciones visuales\nEl documento describe el significado del diagrama.\nEl recurso compartido define su apariencia.\ndocumento\n  -&gt; estructura y relaciones\n\niasi.puml\n  -&gt; lenguaje visual común\nEsta separación evita copiar configuraciones visuales dentro de cada bloque.\nTambién permite modificar la identidad gráfica de numerosos diagramas desde un único lugar.\n\n\n5.1.3 Servidor independiente\nPlantUML puede ejecutarse mediante un servidor separado del proceso de Quarto.\nLa extensión envía la fuente preparada y recibe una imagen.\nextensión\n  -&gt; petición HTTP\n  -&gt; servidor PlantUML\n  -&gt; imagen\nEsta separación aporta varias posibilidades:\nservidor local para una persona\nservidor compartido para un equipo\ncontenedor dedicado\nservicio interno dentro de una red\nEl motor de diagramación no queda acoplado al navegador ni al formato final del documento.\nPuede evolucionar, actualizarse o desplegarse de forma independiente.\n\n\n5.1.4 Una imagen común para HTML y PDF\nLa configuración recomendada genera PNG.\nPlantUML -&gt; PNG -&gt; HTML\nPlantUML -&gt; PNG -&gt; PDF\nQuarto recibe el mismo tipo de recurso para ambos formatos.\nEsto evita depender de una representación distinta según el destino y reduce conversiones adicionales durante la construcción del PDF.\nLa decisión no significa que PNG sea siempre superior a SVG.\nSignifica que, para este pipeline concreto, una salida común y predecible simplifica el comportamiento general.\n\n\n5.1.5 Caché antes del renderizado\nLa extensión puede calcular una identidad para cada diagrama a partir de:\nfuente preparada\nservidor\nformato\nversión de la extensión\nCuando esa identidad ya existe en la caché, no es necesario volver a solicitar la imagen al servidor.\ndiagrama sin cambios\n  -&gt; reutilizar imagen\n\ndiagrama modificado\n  -&gt; compilar de nuevo\nLa caché pertenece a la infraestructura de la extensión, no al documento final.\nEsta posición dentro del pipeline permite reutilizar diagramas antes de que Quarto procese HTML o PDF.\n\n\n5.1.6 Integración con la arquitectura de extensiones\nPlantUML es también el primer ejemplo completo del framework de extensiones de la plataforma.\nLa integración separa:\nnúcleo común\nconfiguración\ncaché\nsistema de archivos\nmediabag\ncompilador específico\nPlantUML aporta el compilador concreto.\nEl núcleo aporta el ciclo general.\nbloque de código\n  -&gt; configuración\n  -&gt; preparación\n  -&gt; identidad\n  -&gt; caché\n  -&gt; compilación\n  -&gt; recurso para Pandoc\nEsta arquitectura permite que futuras extensiones sigan el mismo modelo sin copiar toda la infraestructura.\nPlantUML no es únicamente una herramienta de diagramación dentro del proyecto.\nEs el primer ciudadano de una familia de compiladores documentales.\n\n\n5.1.7 Comparación resumida\n\n\n\n\n\n\n\n\nAspecto\nMermaid\nPlantUML en esta plataforma\n\n\n\n\nPuesta en marcha\nMuy directa\nRequiere extensión y servidor\n\n\nInfraestructura\nMínima\nExplícita y configurable\n\n\nFuente en el documento\nSí\nSí\n\n\nEstilos compartidos\nPosibles, pero no son el centro del diseño adoptado\nArchivo .puml común\n\n\nServidor propio\nNo es necesario\nRecomendado\n\n\nCaché de la extensión\nNo forma parte de este diseño\nIntegrada antes de Quarto\n\n\nSalida común HTML/PDF\nDepende del procesamiento del documento\nPNG generado previamente\n\n\nEncaje con el framework Lua\nNo es la integración elegida\nCompilador especializado\n\n\nUso recomendado\nDiagramas rápidos y ligeros\nInfraestructura documental técnica\n\n\n\nLa tabla no pretende establecer un vencedor universal.\nDescribe la razón por la que esta plataforma adopta PlantUML como opción principal.\n\n\n5.1.8 Criterio de elección\nLa decisión puede resumirse así:\nsi el objetivo es dibujar rápidamente dentro del documento\n  Mermaid puede ser suficiente\n\nsi el objetivo es integrar los diagramas en una infraestructura común\n  PlantUML encaja mejor con esta plataforma\nLa elección se apoya en cuatro necesidades:\ncontrol\nreutilización\nreproducibilidad\nextensibilidad\nControl sobre el servicio y el formato generado.\nReutilización de estilos y convenciones visuales.\nReproducibilidad de la construcción mediante fuente, caché y compilador.\nExtensibilidad mediante una arquitectura que puede incorporar otros motores.\n\nNo elegimos PlantUML porque Mermaid no sirva. Lo elegimos porque aquí el diagrama es una pieza del pipeline de ingeniería documental.",
+    "text": "validate() reconoce una publicación o un multiproyecto;\nbuild() ejecuta el pipeline de construcción;\npublish() ensambla artefactos ya construidos bajo publish/;\ndeploy() encadena una construcción correcta y su publicación.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#servidor-plantuml",
-    "href": "chapters/04-plantuml/index.html#servidor-plantuml",
-    "title": "5  PlantUML",
-    "section": "5.2 Servidor PlantUML",
-    "text": "5.2 Servidor PlantUML\nLa extensión necesita un servidor PlantUML accesible mediante HTTP.\nEl servidor recibe la fuente preparada por la extensión y devuelve la imagen del diagrama.\nextensión Lua\n  -&gt; petición HTTP\n  -&gt; servidor PlantUML\n  -&gt; imagen PNG\nEl servidor no tiene que ejecutarse dentro del proyecto Quarto ni dentro del proceso de R.\nPuede estar:\nen el mismo equipo\nen otra máquina de la red\nen una infraestructura compartida\nen un servicio público\nLa elección depende del entorno, pero esta guía recomienda utilizar un servidor controlado por el usuario o por el equipo.",
+    "objectID": "chapters/04-architecture/index.html#pipeline-de-construcción",
+    "href": "chapters/04-architecture/index.html#pipeline-de-construcción",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.2 Pipeline de construcción",
+    "text": "5.2 Pipeline de construcción\nbuild() coordina las etapas en este orden:\nvalidate(path)\n  -&gt; .select_build_books()\n  -&gt; .discover()\n  -&gt; .check()\n  -&gt; .prepare()\n  -&gt; .render() para cada publicación y formato\n  -&gt; .report_build()\nEl orden es parte del diseño. El reconocimiento no debe leer ni validar toda la configuración; el descubrimiento no debe preparar archivos; la comprobación debe fallar antes de que Quarto sea invocado; y el renderizado solo debe recibir una publicación preparada.\ndeploy() añade una segunda fase:\nbuild()\n  -&gt; publish()\nSi build() falla, publish() no se ejecuta. Esta propiedad protege el contenido anterior de publish/.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#alternativas",
-    "href": "chapters/04-plantuml/index.html#alternativas",
-    "title": "5  PlantUML",
-    "section": "5.3 Alternativas",
-    "text": "5.3 Alternativas\n\n5.3.1 Servidor público\nUn servidor público permite comenzar sin instalar infraestructura propia.\nventajas\n  puesta en marcha inmediata\n  ninguna administración local\n\ninconvenientes\n  dependencia de Internet\n  disponibilidad fuera del control del proyecto\n  envío de la fuente del diagrama a un tercero\nPuede resultar útil para una prueba rápida.\nNo es la opción recomendada para documentación interna, diagramas sensibles o construcciones que deban ser reproducibles dentro de un entorno controlado.\n\n\n5.3.2 Servidor local\nUn servidor local se ejecuta en el mismo equipo desde el que se construye la publicación.\npublicación\n  -&gt; http://localhost:1025\n  -&gt; PlantUML\nSus principales ventajas son:\nno depende de un servicio público\nmantiene la fuente dentro del equipo\npuede funcionar sin acceso a Internet\nes sencillo de iniciar y detener\nEs la opción recomendada para desarrollo individual.\n\n\n5.3.3 Servidor compartido\nUn equipo puede mantener una única instancia accesible dentro de su red.\nequipo A ─┐\nequipo B ─┼─&gt; servidor PlantUML interno\nCI/CD   ──┘\nEsto permite compartir:\nla misma versión del motor\nuna dirección común\nuna política de actualización\nun servicio disponible para integración continua\nEs la opción recomendada cuando varias personas o procesos construyen las mismas publicaciones.",
+    "objectID": "chapters/04-architecture/index.html#modelo-de-datos",
+    "href": "chapters/04-architecture/index.html#modelo-de-datos",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.3 Modelo de datos",
+    "text": "5.3 Modelo de datos\nEl pipeline transporta un plan y lo enriquece por etapas. Los objetos principales son:\n\niasi_quarto_plan: raíz inspeccionada, publicaciones encontradas, selección y estado agregado;\niasi_quarto_project: configuración descubierta y comprobada de una publicación;\niasi_quarto_publication: representación preparada que consume el renderizado.\n\nLas etapas devuelven el plan recibido con nuevos datos. Evitar estados globales hace que el flujo sea inspeccionable y facilita probar cada transformación por separado.\nAl añadir un campo hay que decidir explícitamente:\n\nqué etapa es su propietaria;\nsi es un dato fuente, derivado o de ejecución;\nqué funciones pueden asumir que ya existe;\ncómo se representa su ausencia;\nqué prueba protege el contrato.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#instalación-recomendada-con-docker",
-    "href": "chapters/04-plantuml/index.html#instalación-recomendada-con-docker",
-    "title": "5  PlantUML",
-    "section": "5.4 Instalación recomendada con Docker",
-    "text": "5.4 Instalación recomendada con Docker\nLa instalación de referencia utiliza la imagen oficial de PlantUML Server y publica su puerto interno 8080 como puerto 1025 del equipo anfitrión.\ndocker run -d \\\n  --name plantuml-server \\\n  --restart unless-stopped \\\n  -p 1025:8080 \\\n  plantuml/plantuml-server:jetty\nEn PowerShell puede escribirse en una sola línea:\ndocker run -d --name plantuml-server --restart unless-stopped -p 1025:8080 plantuml/plantuml-server:jetty\nLa correspondencia de puertos es:\nequipo anfitrión : 1025\ncontenedor       : 8080\nLa extensión utilizará:\nhttp://localhost:1025\nEl puerto 1025 es una convención de esta instalación, no una exigencia de PlantUML ni de iasi.quarto.\nPuede sustituirse por otro puerto libre.",
+    "objectID": "chapters/04-architecture/index.html#organización-del-código",
+    "href": "chapters/04-architecture/index.html#organización-del-código",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.4 Organización del código",
+    "text": "5.4 Organización del código\nLa implementación se encuentra en R/ y sigue una separación funcional:\n\n\n\n\n\n\n\n\nÁrea\nArchivos representativos\nResponsabilidad\n\n\n\n\nAPI\nvalidate.R, build.R, publish.R, deploy.R\nEntradas estables para consumidores\n\n\nReconocimiento y comprobación\nengine_validate.R, engine_discover.R, engine_check.R\nIdentificación, lectura y validación\n\n\nPreparación\nengine_prepare*.R, engine-prepare_*.R\nGeneración de la estructura derivada por estrategia\n\n\nRenderizado\nengine-render.R, engine_build.R\nSelección de formatos y llamada a Quarto\n\n\nPublicación\nengine-publish.R, engine-artifacts.R\nResolución y ensamblado de artefactos\n\n\nDominio e infraestructura\nproject.R, publication.R, io.R, engine_paths.R, engine-assert.R\nObjetos, rutas, E/S e invariantes compartidos\n\n\n\nLos nombres históricos utilizan tanto guion como guion bajo. Antes de normalizarlos debe comprobarse cualquier dependencia en pruebas, documentación y carga de archivos; un cambio puramente cosmético no debe mezclarse con una modificación funcional.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#instalación-con-docker-compose",
-    "href": "chapters/04-plantuml/index.html#instalación-con-docker-compose",
-    "title": "5  PlantUML",
-    "section": "5.5 Instalación con Docker Compose",
-    "text": "5.5 Instalación con Docker Compose\nLa misma instalación puede declararse mediante compose.yml:\nservices:\n  plantuml:\n    image: plantuml/plantuml-server:jetty\n    container_name: plantuml-server\n    restart: unless-stopped\n    ports:\n      - \"1025:8080\"\nPara iniciarla:\ndocker compose up -d\nPara comprobar su estado:\ndocker compose ps\nPara detenerla:\ndocker compose down\nLa declaración Compose resulta especialmente útil cuando el servidor forma parte de un entorno de desarrollo reproducible.",
+    "objectID": "chapters/04-architecture/index.html#estrategias-como-puntos-de-variación",
+    "href": "chapters/04-architecture/index.html#estrategias-como-puntos-de-variación",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.5 Estrategias como puntos de variación",
+    "text": "5.5 Estrategias como puntos de variación\nregular, structured y direct convergen en el mismo contrato de publicación preparada, pero producen sus artefactos de forma distinta. Una estrategia nueva no consiste únicamente en añadir una rama: requiere definir reconocimiento, validación, preparación, archivos derivados, interacción con HTML y PDF, y casos de prueba.\nLa lógica compartida debe permanecer fuera de las implementaciones específicas. La lógica que cambia por estrategia debe mantenerse localizada para evitar condicionales dispersos por todo el pipeline.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#comprobar-el-servidor",
-    "href": "chapters/04-plantuml/index.html#comprobar-el-servidor",
-    "title": "5  PlantUML",
-    "section": "5.6 Comprobar el servidor",
-    "text": "5.6 Comprobar el servidor\nDespués de iniciar el contenedor, puede abrirse en un navegador:\nhttp://localhost:1025\nTambién puede comprobarse desde una terminal:\ncurl http://localhost:1025\nLa respuesta debe proceder del servidor PlantUML.\nEl contenedor puede inspeccionarse con:\ndocker ps --filter name=plantuml-server\nY sus mensajes con:\ndocker logs plantuml-server",
+    "objectID": "chapters/04-architecture/index.html#archivos-fuente-y-derivados",
+    "href": "chapters/04-architecture/index.html#archivos-fuente-y-derivados",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.6 Archivos fuente y derivados",
+    "text": "5.6 Archivos fuente y derivados\nEl paquete puede generar archivos que Quarto necesita para renderizar. Esos archivos no deben convertirse accidentalmente en fuente editorial.\nUna modificación de la preparación debe mantener estas propiedades:\n\nejecución repetible sobre el mismo árbol de fuentes;\ncontenido determinista;\nescritura limitada a las rutas derivadas previstas;\nausencia de cambios parciales cuando una validación previa falla;\ncompatibilidad con construcciones HTML y PDF independientes.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#utilizarlo-desde-otra-máquina",
-    "href": "chapters/04-plantuml/index.html#utilizarlo-desde-otra-máquina",
-    "title": "5  PlantUML",
-    "section": "5.7 Utilizarlo desde otra máquina",
-    "text": "5.7 Utilizarlo desde otra máquina\nCuando Quarto se ejecuta en otro equipo, localhost ya no representa la máquina que aloja PlantUML.\nDebe utilizarse su nombre o dirección de red:\nhttp://&lt;host&gt;:1025\nPor ejemplo:\nfilter-options:\n  plantuml:\n    server: http://plantuml.local:1025\nLa máquina cliente debe poder resolver el nombre y acceder al puerto publicado.\nLa comprobación debe realizarse desde el mismo entorno que ejecutará Quarto:\ncurl http://plantuml.local:1025\nQue el servidor funcione en su propia máquina no garantiza que sea accesible desde otro equipo, una máquina virtual o un contenedor.",
+    "objectID": "chapters/04-architecture/index.html#gestión-de-errores",
+    "href": "chapters/04-architecture/index.html#gestión-de-errores",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.7 Gestión de errores",
+    "text": "5.7 Gestión de errores\nLos errores deben aparecer en la primera etapa que pueda describirlos con precisión. Un mensaje útil identifica la publicación, el archivo o el valor afectado y explica el contrato incumplido.\nNo deben capturarse errores de Quarto para convertirlos en éxitos aparentes. Cuando una operación no encuentra un espacio de trabajo IASI válido, la API puede devolver NULL según su contrato; una configuración reconocida pero inválida debe producir un error.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#configuración-local-recomendada",
-    "href": "chapters/04-plantuml/index.html#configuración-local-recomendada",
-    "title": "5  PlantUML",
-    "section": "5.8 Configuración local recomendada",
-    "text": "5.8 Configuración local recomendada\nPara una publicación construida en el mismo equipo:\nfilter-options:\n  plantuml:\n    enabled: true\n    server: http://localhost:1025\n    format: png\n    cache: true\n    styles:\n      - resources/plantuml/iasi.puml\nEsta configuración combina:\nservidor local controlado\nsalida PNG\ncaché activada\nestilo compartido\nEs el punto de partida recomendado en esta guía.",
+    "objectID": "chapters/04-architecture/index.html#dependencias-externas",
+    "href": "chapters/04-architecture/index.html#dependencias-externas",
+    "title": "5  Responsabilidades del paquete",
+    "section": "5.8 Dependencias externas",
+    "text": "5.8 Dependencias externas\nR ejecuta la orquestación y Quarto realiza el renderizado. El sistema de archivos es parte esencial del contrato: rutas relativas, perfiles _quarto-&lt;formato&gt;.yml, directorios de salida y publish/ influyen en el resultado.\nLas extensiones Lua son dependencias de la publicación, no componentes internos de iasi.quarto. Sus cambios deben realizarse y documentarse en iasi-lua.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#configuración-para-un-equipo",
-    "href": "chapters/04-plantuml/index.html#configuración-para-un-equipo",
-    "title": "5  PlantUML",
-    "section": "5.9 Configuración para un equipo",
-    "text": "5.9 Configuración para un equipo\nCuando el servidor es compartido, solo cambia su dirección:\nfilter-options:\n  plantuml:\n    enabled: true\n    server: http://plantuml.local:1025\n    format: png\n    cache: true\n    styles:\n      - resources/plantuml/iasi.puml\nLa publicación no necesita conocer cómo se ejecuta internamente el servidor.\nSolo necesita una URL compatible y accesible.\nEsto permite cambiar su despliegue sin modificar los bloques PlantUML de los documentos.",
+    "objectID": "chapters/05-development/index.html",
+    "href": "chapters/05-development/index.html",
+    "title": "6  Preparar el entorno",
+    "section": "",
+    "text": "6.1 Leer un cambio de extremo a extremo\nEl desarrollo se realiza sobre el repositorio iasi-quarto. Se necesita R 4.2 o posterior y las dependencias declaradas en DESCRIPTION. Quarto es necesario para las pruebas o comprobaciones que ejecuten renderizados reales.\nDesde R, una instalación de desarrollo habitual es:\nLa documentación generada de la API procede de los bloques roxygen de R/. Después de cambiar una función pública o su contrato:\nNo debe editarse NAMESPACE ni los archivos de man/ como fuente primaria.\nAntes de modificar una etapa, conviene seguir un caso desde la API hasta su efecto en disco:\nEsta lectura evita corregir un síntoma en una etapa posterior cuando el dato incorrecto se introdujo antes.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#actualizar-el-servidor",
-    "href": "chapters/04-plantuml/index.html#actualizar-el-servidor",
-    "title": "5  PlantUML",
-    "section": "5.10 Actualizar el servidor",
-    "text": "5.10 Actualizar el servidor\nCuando se utiliza la etiqueta jetty, Docker puede obtener una versión más reciente de la imagen:\ndocker pull plantuml/plantuml-server:jetty\nDespués debe recrearse el contenedor.\nCon Docker Compose:\ndocker compose pull\ndocker compose up -d\nPara construcciones que necesiten reproducibilidad estricta, el equipo debe fijar una etiqueta concreta o un digest de imagen en lugar de depender de una etiqueta móvil.\nLa actualización del servidor puede cambiar el resultado gráfico de un diagrama aunque su fuente no haya cambiado.\nPor eso debe tratarse como una actualización de infraestructura y comprobarse antes de adoptarla en una publicación estable.",
+    "objectID": "chapters/05-development/index.html#leer-un-cambio-de-extremo-a-extremo",
+    "href": "chapters/05-development/index.html#leer-un-cambio-de-extremo-a-extremo",
+    "title": "6  Preparar el entorno",
+    "section": "",
+    "text": "localizar la entrada pública;\nseguir las funciones privadas que transforma el plan;\nidentificar las aserciones anteriores y posteriores;\nrevisar la estrategia afectada;\nlocalizar las pruebas y fixtures equivalentes;\ncomprobar el artefacto final que observa el consumidor.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#seguridad-y-privacidad",
-    "href": "chapters/04-plantuml/index.html#seguridad-y-privacidad",
-    "title": "5  PlantUML",
-    "section": "5.11 Seguridad y privacidad",
-    "text": "5.11 Seguridad y privacidad\nLa fuente del diagrama se envía al servidor configurado.\nPor tanto:\nun servidor público recibe el contenido del diagrama\nun servidor local lo mantiene en el equipo\nun servidor interno lo mantiene dentro de la red controlada\nLos diagramas pueden contener nombres de sistemas, relaciones, componentes o flujos internos.\nLa dirección del servidor no debe elegirse únicamente por comodidad.\nTampoco se recomienda publicar directamente en Internet una instancia propia sin revisar su exposición, configuración y política de seguridad.\nPara uso individual, enlazarla únicamente al entorno necesario reduce la superficie accesible.\nPara uso compartido, el servidor debe incorporarse a las medidas normales de red, actualización y control de acceso del equipo.",
+    "objectID": "chapters/05-development/index.html#pruebas-automatizadas",
+    "href": "chapters/05-development/index.html#pruebas-automatizadas",
+    "title": "6  Preparar el entorno",
+    "section": "6.2 Pruebas automatizadas",
+    "text": "6.2 Pruebas automatizadas\nLas pruebas están en tests/testthat/ y se agrupan por etapa: reconocimiento, descubrimiento, comprobación, preparación, construcción, publicación y despliegue.\nPara ejecutar el conjunto completo:\ndevtools::test()\nPara validar el paquete con las comprobaciones estándar de R:\ndevtools::check()\nEn este entorno de documentación no siempre está disponible Rscript; la ausencia del ejecutable impide verificar las pruebas, pero no constituye un resultado de prueba satisfactorio. La validación debe repetirse en un entorno R configurado antes de integrar cambios del paquete.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#disponibilidad-y-caché",
-    "href": "chapters/04-plantuml/index.html#disponibilidad-y-caché",
-    "title": "5  PlantUML",
-    "section": "5.12 Disponibilidad y caché",
-    "text": "5.12 Disponibilidad y caché\nEl servidor es necesario cuando la extensión debe compilar un diagrama nuevo.\ndiagrama nuevo o modificado\n  -&gt; necesita servidor\n\ndiagrama presente en caché\n  -&gt; puede reutilizar la imagen\nLa caché mejora el rendimiento y reduce la dependencia durante construcciones repetidas, pero no debe confundirse con una garantía de disponibilidad permanente.\nUna construcción limpia necesita poder acceder al servidor para regenerar todos los diagramas.",
+    "objectID": "chapters/05-development/index.html#fixtures",
+    "href": "chapters/05-development/index.html#fixtures",
+    "title": "6  Preparar el entorno",
+    "section": "6.3 Fixtures",
+    "text": "6.3 Fixtures\nLos fixtures representan árboles de proyecto reales bajo tests/testthat/fixtures/. Son preferibles a construir estructuras complejas dentro de cada prueba porque hacen visibles los archivos que intervienen en el contrato.\nAl añadir un fixture:\n\nutilice el árbol mínimo que reproduzca el caso;\nno reutilice un fixture si la prueba necesita mutarlo;\ndistinga configuración ausente, YAML mal formado y valor semánticamente inválido;\nincluya perfiles HTML o PDF solo cuando formen parte del caso;\ncompruebe tanto el resultado como los efectos en disco.\n\nLos helpers compartidos pertenecen a tests/testthat/helper-*.R. Un helper debe reducir ruido de preparación, no ocultar la condición que la prueba pretende demostrar.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#la-instalación-de-referencia",
-    "href": "chapters/04-plantuml/index.html#la-instalación-de-referencia",
-    "title": "5  PlantUML",
-    "section": "5.13 La instalación de referencia",
-    "text": "5.13 La instalación de referencia\nLa recomendación de esta guía puede resumirse así:\nPlantUML Server oficial\nejecutado en Docker\npuerto del anfitrión 1025\nacceso local o mediante red interna\nsalida PNG\ncaché activada\nestilos compartidos\nNo es la única instalación posible.\nEs una configuración pequeña, comprensible y suficiente para desarrollar publicaciones, compartir el servicio dentro de un equipo y trasladarlo posteriormente a una infraestructura más estable.\n\nEl contrato de la extensión es una URL PlantUML accesible. Docker y el puerto 1025 son la implementación de referencia.",
+    "objectID": "chapters/05-development/index.html#estrategia-de-pruebas-por-tipo-de-cambio",
+    "href": "chapters/05-development/index.html#estrategia-de-pruebas-por-tipo-de-cambio",
+    "title": "6  Preparar el entorno",
+    "section": "6.4 Estrategia de pruebas por tipo de cambio",
+    "text": "6.4 Estrategia de pruebas por tipo de cambio\n\n\n\n\n\n\n\nCambio\nComprobación mínima\n\n\n\n\nReconocimiento de rutas\nCasos positivo, negativo, publicación actual y multiproyecto anidado\n\n\nNueva clave de _iasi.yml\nAusencia, valor válido, tipo incorrecto, valor desconocido y predeterminado\n\n\nEstrategia de preparación\nÁrbol fuente, contenido derivado, repetición y ausencia de escrituras fuera del destino\n\n\nSelección de publicación\nNombre completo, nombre corto, prefijo numérico, varios valores y selección inexistente\n\n\nFormato de salida\nHTML, PDF, all, formato no soportado y perfil ausente\n\n\nPublicación\nArtefactos presentes, ausentes, destino anterior y fallo sin estado parcial\n\n\nAPI pública\nValor devuelto, clase, mensajes, avisos y errores observables",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#configurar-la-extensión",
-    "href": "chapters/04-plantuml/index.html#configurar-la-extensión",
-    "title": "5  PlantUML",
-    "section": "5.14 Configurar la extensión",
-    "text": "5.14 Configurar la extensión\nLa extensión PlantUML se incorpora a la publicación desde la configuración de Quarto.\nLa configuración recomendada se declara en _quarto.yml:\nfilters:\n  - extensions/plantuml/plantuml.lua\n\nfilter-options:\n  plantuml:\n    enabled: true\n    server: http://localhost:1025\n    format: png\n    cache: true\n    styles:\n      - resources/plantuml/iasi.puml\nEsta declaración tiene dos partes:\nfilters\n  carga el filtro Lua\n\nfilter-options\n  configura su comportamiento\nEl filtro debe cargarse antes de que sus opciones puedan aplicarse.",
+    "objectID": "chapters/05-development/index.html#procedimiento-recomendado-para-un-cambio",
+    "href": "chapters/05-development/index.html#procedimiento-recomendado-para-un-cambio",
+    "title": "6  Preparar el entorno",
+    "section": "6.5 Procedimiento recomendado para un cambio",
+    "text": "6.5 Procedimiento recomendado para un cambio\n\nDefinir el comportamiento observable y la compatibilidad esperada.\nAñadir o ajustar primero el caso de prueba que expresa el contrato.\nImplementar el cambio en la etapa propietaria del dato.\nEjecutar las pruebas específicas y después el conjunto completo.\nRegenerar documentación si cambia la API.\nConstruir una publicación representativa en HTML y PDF cuando el cambio afecte a preparación, perfiles o artefactos.\nActualizar la guía de usuario solo si cambia el uso público; actualizar esta guía si cambia la arquitectura o el procedimiento de mantenimiento.\nRegistrar en Next steps cualquier trabajo deliberadamente aplazado.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#ruta-del-filtro",
-    "href": "chapters/04-plantuml/index.html#ruta-del-filtro",
-    "title": "5  PlantUML",
-    "section": "5.15 Ruta del filtro",
-    "text": "5.15 Ruta del filtro\nLa entrada:\nfilters:\n  - extensions/plantuml/plantuml.lua\nindica la ubicación del filtro respecto a la raíz de la publicación.\nLa estructura esperada puede ser:\npublication/\n├── _quarto.yml\n├── extensions/\n│   ├── core/\n│   └── plantuml/\n│       ├── plantuml.lua\n│       ├── compiler.lua\n│       └── defaults.lua\n└── resources/\n    └── plantuml/\n        └── iasi.puml\nLa extensión PlantUML utiliza módulos comunes situados en:\nextensions/core/\nPor tanto, no debe copiarse únicamente plantuml.lua.\nDebe conservarse la estructura completa de la extensión y de su núcleo compartido.",
+    "objectID": "chapters/05-development/index.html#compatibilidad",
+    "href": "chapters/05-development/index.html#compatibilidad",
+    "title": "6  Preparar el entorno",
+    "section": "6.6 Compatibilidad",
+    "text": "6.6 Compatibilidad\nLa frontera pública está formada por nombres, argumentos, valores de retorno, clases, efectos en disco y condiciones emitidas. Una modificación incompatible debe ser consciente y documentada; renombrar una función privada no garantiza por sí solo que el cambio sea interno si altera archivos generados o mensajes utilizados por automatizaciones.\nLos perfiles de Quarto y _iasi.yml también son contratos persistentes. Las nuevas claves deben tener un valor predeterminado compatible o una estrategia explícita de migración.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#enabled",
-    "href": "chapters/04-plantuml/index.html#enabled",
-    "title": "5  PlantUML",
-    "section": "5.16 enabled",
-    "text": "5.16 enabled\nLa propiedad:\nenabled: true\nactiva el procesamiento de bloques PlantUML.\nCuando su valor es false, la extensión no debe compilar los bloques.\nfilter-options:\n  plantuml:\n    enabled: false\nEsta opción permite conservar la configuración y desactivar temporalmente la integración sin retirar el filtro de _quarto.yml.\nLa configuración habitual es:\nenabled: true",
+    "objectID": "chapters/05-development/index.html#revisión-técnica",
+    "href": "chapters/05-development/index.html#revisión-técnica",
+    "title": "6  Preparar el entorno",
+    "section": "6.7 Revisión técnica",
+    "text": "6.7 Revisión técnica\nAntes de considerar terminado un cambio, revise:\n\nque la responsabilidad esté en la etapa correcta;\nque no se duplique lógica entre estrategias;\nque las rutas se normalicen y permanezcan dentro del proyecto previsto;\nque un fallo no deje publish/ en estado parcial;\nque los mensajes permitan localizar el problema;\nque las pruebas cubran el caso y su principal borde;\nque código, roxygen y manuales describan el mismo contrato.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#server",
-    "href": "chapters/04-plantuml/index.html#server",
-    "title": "5  PlantUML",
-    "section": "5.17 server",
-    "text": "5.17 server\nLa propiedad server contiene la URL base del servidor PlantUML.\nserver: http://localhost:1025\nNo debe incluirse el segmento de formato:\n/png\n/svg\nLa extensión lo añade al construir la petición.\nLa URL debe señalar únicamente la raíz del servicio:\ncorrecto\n  http://localhost:1025\n\nincorrecto\n  http://localhost:1025/png\nPara un servidor compartido:\nserver: http://plantuml.local:1025\nLa dirección debe ser accesible desde el proceso que ejecuta Quarto.\nEsto es especialmente importante cuando la construcción ocurre dentro de:\nuna máquina virtual\nun contenedor\nun agente de integración continua\notro equipo de la red\nEn esos entornos, localhost representa el propio entorno de ejecución, no necesariamente la máquina anfitriona.",
+    "objectID": "chapters/06-next-steps/index.html",
+    "href": "chapters/06-next-steps/index.html",
+    "title": "7  Propósito",
+    "section": "",
+    "text": "7.1 Prioridad inmediata\nEste capítulo reúne limitaciones conocidas, decisiones todavía abiertas y trabajo que conviene abordar para evolucionar iasi.quarto. No describe capacidades disponibles ni compromete una fecha de entrega.\nDebe mantenerse vivo: cuando una línea de trabajo se implemente, su contrato pasa al capítulo correspondiente y se elimina de aquí. Las propuestas nuevas deben indicar el problema, el resultado esperado y cómo se verificará.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#format",
-    "href": "chapters/04-plantuml/index.html#format",
-    "title": "5  PlantUML",
-    "section": "5.18 format",
-    "text": "5.18 format\nLa configuración recomendada utiliza:\nformat: png\nEl flujo resultante es:\nPlantUML\n  -&gt; PNG\n  -&gt; mediabag de Pandoc\n  -&gt; HTML o PDF\nLa salida PNG evita que la construcción PDF dependa de una conversión posterior desde SVG.\nAunque la arquitectura conserva la validación de formatos admitidos por el compilador, la implementación actual de la plataforma normaliza la salida efectiva a PNG.\nPor tanto, la configuración de usuario debe expresar también:\nformat: png\nAsí, la configuración declarada coincide con el comportamiento real del pipeline.",
+    "objectID": "chapters/06-next-steps/index.html#prioridad-inmediata",
+    "href": "chapters/06-next-steps/index.html#prioridad-inmediata",
+    "title": "7  Propósito",
+    "section": "",
+    "text": "7.1.1 Automatizar la verificación continua\nEl repositorio no contiene actualmente una configuración de integración continua. Debe incorporarse una ejecución reproducible de las pruebas y de las comprobaciones del paquete en las versiones de R soportadas.\nEl criterio de finalización debería incluir:\n\ninstalación limpia de dependencias;\nR CMD check o equivalente sin errores;\npruebas testthat;\ncomprobación explícita de los requisitos de Quarto para los casos de integración;\nconservación de logs y artefactos cuando falle una construcción.\n\n\n\n7.1.2 Definir pruebas de integración con Quarto\nLas etapas puras cuentan con fixtures detallados, pero debe formalizarse qué renderizados reales forman parte de la verificación del proyecto. Como mínimo, conviene mantener una publicación pequeña por tipo soportado y comprobar HTML, PDF y ensamblado de publish/.\nEstas pruebas deben separar claramente los fallos del paquete, la ausencia de Quarto y los problemas del entorno LaTeX.\n\n\n7.1.3 Consolidar la documentación técnica\nParte del contenido histórico mezcla uso, implementación de iasi.quarto y comportamiento de extensiones Lua. La separación iniciada en esta revisión debe completarse:\n\nla guía de usuario conserva únicamente el contrato público y los flujos de uso;\nesta guía conserva arquitectura, mantenimiento y decisiones internas;\niasi-lua-docs documenta filtros y extensiones, incluido PlantUML;\nlos bloques roxygen son la referencia inmediata de la API R.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#cache",
-    "href": "chapters/04-plantuml/index.html#cache",
-    "title": "5  PlantUML",
-    "section": "5.19 cache",
-    "text": "5.19 cache\nLa propiedad:\ncache: true\nactiva la reutilización de diagramas ya compilados.\nCuando la caché está activa:\nmisma fuente preparada\nmisma configuración relevante\nmisma versión de la extensión\n  -&gt; misma entrada de caché\nEl servidor solo vuelve a utilizarse cuando cambia la identidad del diagrama o cuando la entrada almacenada ya no está disponible.\nPara desactivar temporalmente la caché:\ncache: false\nEsto puede resultar útil durante el diagnóstico de un servidor o de una modificación del compilador.\nNo es la configuración recomendada para el trabajo habitual.",
+    "objectID": "chapters/06-next-steps/index.html#evolución-del-diseño",
+    "href": "chapters/06-next-steps/index.html#evolución-del-diseño",
+    "title": "7  Propósito",
+    "section": "7.2 Evolución del diseño",
+    "text": "7.2 Evolución del diseño\n\n7.2.1 Formalizar los contratos de los objetos internos\niasi_quarto_plan, iasi_quarto_project e iasi_quarto_publication evolucionan como listas enriquecidas por etapas. Conviene definir en pruebas sus campos obligatorios por estado y las invariantes que cada transición garantiza.\nAntes de adoptar clases más rígidas debe evaluarse si aportan validación real sin dificultar la evolución. El objetivo no es cambiar de representación, sino evitar dependencias implícitas entre etapas.\n\n\n7.2.2 Normalizar la organización interna\nLos nombres de archivo del motor combinan guiones y guiones bajos y existen responsabilidades cercanas distribuidas entre varios módulos. Puede estudiarse una normalización gradual, acompañada de pruebas, sin mezclarla con cambios funcionales.\nLa reorganización debería facilitar responder tres preguntas: quién crea cada dato, quién puede modificarlo y qué etapa lo consume.\n\n\n7.2.3 Revisar la extensibilidad de estrategias y formatos\nLas estrategias y los formatos soportados están definidos mediante ramas y listas internas. Si aumenta su número, habrá que valorar un registro explícito de capacidades que agrupe validación, preparación, formatos y artefactos por tipo.\nNo debe introducirse esa abstracción antes de que exista un segundo caso real que justifique el coste. Mientras tanto, las nuevas ramas deben permanecer localizadas y exhaustivamente probadas.\n\n\n7.2.4 Diseñar una política de compatibilidad\nDebe acordarse qué cambios requieren incremento mayor, cómo se anuncian las deprecaciones y durante cuánto tiempo se mantienen. La política debe cubrir la API R, _iasi.yml, nombres de estrategia, estructura de artefactos y comportamiento de publish/.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#styles",
-    "href": "chapters/04-plantuml/index.html#styles",
-    "title": "5  PlantUML",
-    "section": "5.20 styles",
-    "text": "5.20 styles\nLa propiedad styles declara los archivos PlantUML que deben incorporarse a cada diagrama.\nstyles:\n  - resources/plantuml/iasi.puml\nPuede contener más de un archivo:\nstyles:\n  - resources/plantuml/base.puml\n  - resources/plantuml/architecture.puml\nLos archivos se procesan en el orden declarado.\nbase.puml\n  -&gt; architecture.puml\n  -&gt; fuente del diagrama\nLa extensión lee esos recursos y los inserta después de la declaración @startuml.\nUna fuente como:\n\nse prepara conceptualmente como:\n\nEl archivo indicado debe existir y ser legible durante la construcción.\nLa ruta se interpreta dentro del contexto de la publicación, por lo que conviene mantener los estilos bajo una ubicación estable:\nresources/plantuml/",
+    "objectID": "chapters/06-next-steps/index.html#operación-y-diagnóstico",
+    "href": "chapters/06-next-steps/index.html#operación-y-diagnóstico",
+    "title": "7  Propósito",
+    "section": "7.3 Operación y diagnóstico",
+    "text": "7.3 Operación y diagnóstico\n\n7.3.1 Estructurar resultados y condiciones\nLos mensajes actuales son útiles para ejecución interactiva, pero la automatización podría necesitar condiciones con clases y datos estructurados. Debe evaluarse una taxonomía mínima de errores y avisos sin perder mensajes legibles.\n\n\n7.3.2 Mejorar la observabilidad\nConviene definir un modo de diagnóstico que muestre las decisiones del pipeline: raíz reconocida, publicaciones seleccionadas, configuración efectiva, archivos derivados, perfiles usados y artefactos resueltos.\nEste modo no debe cambiar el resultado de la construcción ni exponer información sensible de rutas o entornos sin advertencia.\n\n\n7.3.3 Precisar la atomicidad de publicación\ndeploy() evita publicar cuando falla la construcción. Queda por especificar y probar de extremo a extremo qué garantías ofrece publish() ante un fallo durante el ensamblado, especialmente cuando ya existe un destino anterior.\nEl objetivo debería ser que el consumidor observe la versión anterior completa o la nueva completa, nunca una mezcla parcial.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#configuración-mínima",
-    "href": "chapters/04-plantuml/index.html#configuración-mínima",
-    "title": "5  PlantUML",
-    "section": "5.21 Configuración mínima",
-    "text": "5.21 Configuración mínima\nLa configuración mínima necesita el filtro y un servidor:\nfilters:\n  - extensions/plantuml/plantuml.lua\n\nfilter-options:\n  plantuml:\n    enabled: true\n    server: http://localhost:1025\n    format: png\nSin estilos:\nel diagrama conserva la presentación predeterminada de PlantUML\nSin caché explícita:\nse aplica el valor definido por la extensión\nPara que el proyecto sea legible y reproducible, es preferible declarar las opciones importantes de forma explícita.",
+    "objectID": "chapters/06-next-steps/index.html#portabilidad-y-alcance-futuro",
+    "href": "chapters/06-next-steps/index.html#portabilidad-y-alcance-futuro",
+    "title": "7  Propósito",
+    "section": "7.4 Portabilidad y alcance futuro",
+    "text": "7.4 Portabilidad y alcance futuro\n\n7.4.1 Verificar plataformas soportadas\nDebe definirse una matriz explícita para Windows, Linux y macOS. Las pruebas deben cubrir separadores, rutas relativas, nombres anidados, permisos y sustitución segura de directorios.\n\n\n7.4.2 Evaluar nuevos tipos de proyecto y formatos\nEl paquete admite actualmente los tipos y formatos codificados por su motor, con HTML y PDF como formatos de construcción soportados. La incorporación de sitios, artículos u otros formatos debe partir de casos de uso concretos y especificar preparación, renderizado y publicación; no debe reducirse a ampliar una lista.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>index.html</span>"
     ]
   },
   {
-    "objectID": "chapters/04-plantuml/index.html#configuración-recomendada",
-    "href": "chapters/04-plantuml/index.html#configuración-recomendada",
-    "title": "5  PlantUML",
-    "section": "5.22 Configuración recomendada",
-    "text": "5.22 Configuración recomendada\nLa configuración completa recomendada es:\nfilters:\n  - extensions/plantuml/plantuml.lua\n\nfilter-options:\n  plantuml:\n    enabled: true\n    server: http://localhost:1025\n    format: png\n    cache: true\n    styles:\n      - resources/plantuml/iasi.puml\nEsta combinación expresa todas las decisiones relevantes:\nla extensión está activa\nel servidor es local\nla salida es PNG\nla caché está habilitada\nla publicación comparte un estilo",
+    "objectID": "chapters/06-next-steps/index.html#cómo-mantener-este-capítulo",
+    "href": "chapters/06-next-steps/index.html#cómo-mantener-este-capítulo",
+    "title": "7  Propósito",
+    "section": "7.5 Cómo mantener este capítulo",
+    "text": "7.5 Cómo mantener este capítulo\nCada elemento nuevo debería registrar:\n\nproblema observado;\nalcance y exclusiones;\ndecisión pendiente;\ncriterio verificable de finalización;\ndependencias con otros repositorios.\n\nNext steps debe seguir siendo siempre el último capítulo de la guía técnica. Su función es hacer visible lo que todavía no forma parte del contrato actual.",
     "crumbs": [
       "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#configuración-por-entorno",
-    "href": "chapters/04-plantuml/index.html#configuración-por-entorno",
-    "title": "5  PlantUML",
-    "section": "5.23 Configuración por entorno",
-    "text": "5.23 Configuración por entorno\nLa URL del servidor puede variar entre equipos.\nPor ejemplo:\ndesarrollo local\n  http://localhost:1025\n\nred interna\n  http://plantuml.local:1025\n\nintegración continua\n  http://plantuml:8080\nNo conviene fijar en una guía reutilizable el nombre concreto de una máquina personal.\nLa configuración debe describir el servicio desde el punto de vista del entorno que ejecuta la publicación.\nCuando varios perfiles de Quarto necesitan direcciones diferentes, la opción puede colocarse en la configuración correspondiente al entorno.\nLa configuración común debe mantenerse en _quarto.yml, y únicamente las diferencias deben desplazarse a perfiles específicos.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#opciones-de-bloque",
-    "href": "chapters/04-plantuml/index.html#opciones-de-bloque",
-    "title": "5  PlantUML",
-    "section": "5.24 Opciones de bloque",
-    "text": "5.24 Opciones de bloque\nLa infraestructura permite que determinados atributos del bloque reemplacen opciones globales para un diagrama concreto.\nLas opciones reconocidas por el motor son:\nserver\nformat\ncache\nUn bloque puede declarar, por ejemplo:\n```{.plantuml cache=\"false\"}\n@startuml\nAlice -&gt; Bob: Prueba sin caché\n@enduml\n```\nEsta capacidad debe utilizarse con moderación.\nLa configuración global mantiene una publicación coherente. Las excepciones por bloque son apropiadas para pruebas o necesidades muy localizadas, no para sustituir una configuración común bien definida.\nEn la implementación actual, la salida efectiva continúa normalizándose a PNG.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#configuración-html-y-pdf",
-    "href": "chapters/04-plantuml/index.html#configuración-html-y-pdf",
-    "title": "5  PlantUML",
-    "section": "5.25 Configuración HTML y PDF",
-    "text": "5.25 Configuración HTML y PDF\nLa extensión se ejecuta antes de que Quarto genere el formato final.\nPor eso puede utilizarse la misma configuración para ambos perfiles:\n_quarto.yml\n  -&gt; extensión PlantUML\n  -&gt; imagen PNG\n\n_quarto-html.yml\n  -&gt; HTML\n\n_quarto-pdf.yml\n  -&gt; PDF\nNo es necesario declarar un servidor PlantUML diferente para HTML y PDF cuando ambos se construyen en el mismo entorno.\nTampoco es necesario mantener dos copias del estilo.\nLa configuración compartida pertenece a _quarto.yml.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#comprobar-la-configuración",
-    "href": "chapters/04-plantuml/index.html#comprobar-la-configuración",
-    "title": "5  PlantUML",
-    "section": "5.26 Comprobar la configuración",
-    "text": "5.26 Comprobar la configuración\nDespués de guardar _quarto.yml, deben comprobarse tres elementos.\nPrimero, que el servidor responde:\ncurl http://localhost:1025\nSegundo, que las rutas existen:\nextensions/plantuml/plantuml.lua\nresources/plantuml/iasi.puml\nTercero, que un documento contiene al menos un bloque PlantUML válido:\n```{.plantuml}\n@startuml\nAlice -&gt; Bob: Verificación\n@enduml\n```\nDespués puede construirse HTML:\nbuild(\n  format = \"html\"\n)\nY, una vez verificado:\nbuild(\n  format = \"pdf\"\n)",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#errores-de-configuración-habituales",
-    "href": "chapters/04-plantuml/index.html#errores-de-configuración-habituales",
-    "title": "5  PlantUML",
-    "section": "5.27 Errores de configuración habituales",
-    "text": "5.27 Errores de configuración habituales\n\n5.27.1 El filtro no existe\nextensions/plantuml/plantuml.lua\ndebe coincidir con la ruta real.\nUn cambio de nombre o una copia incompleta impide cargar la extensión.\n\n\n5.27.2 El servidor incluye /png\nLa opción debe ser:\nserver: http://localhost:1025\nNo:\nserver: http://localhost:1025/png\nLa extensión construye la ruta final.\n\n\n5.27.3 El estilo no puede leerse\nUna ruta como:\nstyles:\n  - resources/plantuml/iasi.puml\ndebe señalar un archivo existente.\nLa extensión detiene la compilación cuando no puede leer un estilo declarado.\n\n\n5.27.4 localhost apunta al lugar equivocado\nDesde un contenedor o una máquina virtual, localhost puede no ser el equipo donde se ejecuta PlantUML.\nDebe utilizarse una dirección accesible desde el entorno de construcción.\n\n\n5.27.5 La configuración declara SVG\nLa plataforma utiliza actualmente PNG como salida efectiva.\nLa configuración recomendada debe mantener:\nformat: png\npara evitar una discrepancia entre lo declarado y lo generado.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#contrato-de-configuración",
-    "href": "chapters/04-plantuml/index.html#contrato-de-configuración",
-    "title": "5  PlantUML",
-    "section": "5.28 Contrato de configuración",
-    "text": "5.28 Contrato de configuración\nLa extensión necesita conocer:\nsi debe ejecutarse\ndónde está el servidor\nqué formato debe producir\nsi puede reutilizar la caché\nqué estilos debe incorporar\nEstas decisiones pertenecen a la publicación, no a cada documento individual.\n\n_quarto.yml conecta el contenido PlantUML con la infraestructura que lo convierte en una imagen reproducible.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#escribir-diagramas",
-    "href": "chapters/04-plantuml/index.html#escribir-diagramas",
-    "title": "5  PlantUML",
-    "section": "5.29 Escribir diagramas",
-    "text": "5.29 Escribir diagramas\nLos diagramas PlantUML se escriben directamente dentro de los documentos .qmd.\nLa forma básica es un bloque de código con la clase plantuml:\n```{.plantuml}\n@startuml\nAlice -&gt; Bob: Mensaje\n@enduml\n```\nLa extensión reconoce el bloque, envía su contenido al servidor y sustituye el código por la imagen generada.\nbloque .plantuml\n  -&gt; fuente PlantUML\n  -&gt; compilación\n  -&gt; imagen dentro del documento\nEl diagrama aparece en la misma posición en la que se declaró el bloque.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estructura-mínima",
-    "href": "chapters/04-plantuml/index.html#estructura-mínima",
-    "title": "5  PlantUML",
-    "section": "5.30 Estructura mínima",
-    "text": "5.30 Estructura mínima\nCada bloque debe contener una fuente PlantUML válida.\nLa estructura mínima es:\n\n@startuml abre el diagrama.\n@enduml lo cierra.\nEntre ambas declaraciones se escribe su contenido.\nPor ejemplo:\n```{.plantuml}\n@startuml\nCliente -&gt; Servicio: Solicitud\nServicio --&gt; Cliente: Respuesta\n@enduml\n```\nLa extensión no inventa ni corrige la sintaxis PlantUML.\nCuando el servidor no puede interpretar la fuente, la construcción debe detenerse con el error correspondiente.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#primer-diagrama",
-    "href": "chapters/04-plantuml/index.html#primer-diagrama",
-    "title": "5  PlantUML",
-    "section": "5.31 Primer diagrama",
-    "text": "5.31 Primer diagrama\nEste es un ejemplo completo:\n\nSu fuente es:\n```{.plantuml}\n@startuml\nactor Usuario\nparticipant Aplicacion\nparticipant Servicio\n\nUsuario -&gt; Aplicacion: Ejecutar operación\nAplicacion -&gt; Servicio: Solicitud\nServicio --&gt; Aplicacion: Resultado\nAplicacion --&gt; Usuario: Respuesta\n@enduml\n```\nEl mismo bloque se utiliza para HTML y PDF.\nNo es necesario mantener una versión distinta para cada formato.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#diagramas-de-secuencia",
-    "href": "chapters/04-plantuml/index.html#diagramas-de-secuencia",
-    "title": "5  PlantUML",
-    "section": "5.32 Diagramas de secuencia",
-    "text": "5.32 Diagramas de secuencia\nLos diagramas de secuencia representan interacciones ordenadas en el tiempo.\n\nLa fuente:\n```{.plantuml}\n@startuml\nactor Autor\nparticipant \"iasi.quarto\" as IASI\nparticipant Quarto\nparticipant \"PlantUML Server\" as PlantUML\n\nAutor -&gt; IASI: build()\nIASI -&gt; Quarto: render\nQuarto -&gt; PlantUML: compilar diagrama\nPlantUML --&gt; Quarto: PNG\nQuarto --&gt; Autor: publicación\n@enduml\n```\nPueden utilizarse:\nactores\nparticipantes\nmensajes síncronos\nrespuestas\nactivaciones\nfragmentos condicionales\nbucles\nnotas\nConviene mantener los nombres coherentes con el vocabulario utilizado en el texto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#diagramas-de-componentes",
-    "href": "chapters/04-plantuml/index.html#diagramas-de-componentes",
-    "title": "5  PlantUML",
-    "section": "5.33 Diagramas de componentes",
-    "text": "5.33 Diagramas de componentes\nLos diagramas de componentes muestran piezas de un sistema y sus dependencias.\n\nLa fuente:\n```{.plantuml}\n@startuml\nleft to right direction\n\ncomponent \"Documento .qmd\" as Document\ncomponent \"Filtro Lua\" as Filter\ncomponent \"Servidor PlantUML\" as Server\ncomponent \"Quarto\" as Quarto\n\nDocument --&gt; Filter\nFilter --&gt; Server\nServer --&gt; Filter\nFilter --&gt; Quarto\n@enduml\n```\nLos alias:\n\npermiten utilizar una etiqueta legible en el diagrama y un identificador breve en las relaciones.\n\nEsta práctica mejora la legibilidad cuando los nombres contienen espacios o son demasiado largos.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#diagramas-de-actividad",
-    "href": "chapters/04-plantuml/index.html#diagramas-de-actividad",
-    "title": "5  PlantUML",
-    "section": "5.34 Diagramas de actividad",
-    "text": "5.34 Diagramas de actividad\nLos diagramas de actividad son útiles para describir procesos y decisiones.\n\nLa fuente:\n```{.plantuml}\n@startuml\nstart\n\n:Leer configuración;\n:Descubrir publicaciones;\n\nif (¿Proyecto válido?) then (sí)\n  :Preparar estructura;\n  :Renderizar;\nelse (no)\n  :Mostrar errores;\nendif\n\nstop\n@enduml\n```\nEste tipo de diagrama resulta apropiado para:\npipelines\nprocesos de validación\nflujos de decisión\nprocedimientos operativos\nciclos de construcción\nNo debe utilizarse para sustituir una explicación necesaria.\nEl diagrama resume el flujo. El texto explica su significado y sus condiciones.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#diagramas-de-despliegue",
-    "href": "chapters/04-plantuml/index.html#diagramas-de-despliegue",
-    "title": "5  PlantUML",
-    "section": "5.35 Diagramas de despliegue",
-    "text": "5.35 Diagramas de despliegue\nLos diagramas de despliegue representan dónde se ejecutan los componentes.\n\nLa fuente:\n```{.plantuml}\n@startuml\nnode \"Equipo de desarrollo\" {\n  component R\n  component Quarto\n  component \"iasi.quarto\" as IASI\n}\n\nnode \"Contenedor Docker\" {\n  component \"PlantUML Server\" as Server\n}\n\nR --&gt; IASI\nIASI --&gt; Quarto\nQuarto --&gt; Server : HTTP\n@enduml\n```\nEste tipo de representación permite distinguir:\ncomponentes lógicos\nprocesos\nmáquinas\ncontenedores\nservicios de red\ndependencias externas",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#orientación",
-    "href": "chapters/04-plantuml/index.html#orientación",
-    "title": "5  PlantUML",
-    "section": "5.36 Orientación",
-    "text": "5.36 Orientación\nPlantUML elige automáticamente una disposición, pero puede indicarse una orientación general.\nHorizontal:\n\nVertical:\n\nEjemplo:\n```{.plantuml}\n@startuml\nleft to right direction\n\nrectangle Fuente\nrectangle Compilador\nrectangle Imagen\n\nFuente --&gt; Compilador\nCompilador --&gt; Imagen\n@enduml\n```\nLa orientación debe elegirse según la estructura del diagrama y el espacio disponible en la publicación.\nPara PDF, los diagramas demasiado anchos pueden perder legibilidad al ajustarse al ancho de página.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#alias-y-nombres-visibles",
-    "href": "chapters/04-plantuml/index.html#alias-y-nombres-visibles",
-    "title": "5  PlantUML",
-    "section": "5.37 Alias y nombres visibles",
-    "text": "5.37 Alias y nombres visibles\nLos elementos pueden tener un nombre visible y un alias interno.\n\nEsto evita repetir etiquetas largas:\nnombre visible\n  Servidor PlantUML\n\nalias utilizado en la fuente\n  PlantUML\nLos alias también ayudan a mantener estable la fuente cuando cambia una etiqueta editorial.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#etiquetas-en-las-relaciones",
-    "href": "chapters/04-plantuml/index.html#etiquetas-en-las-relaciones",
-    "title": "5  PlantUML",
-    "section": "5.38 Etiquetas en las relaciones",
-    "text": "5.38 Etiquetas en las relaciones\nLas relaciones pueden describirse:\n\nLas etiquetas deben aportar información que no resulte obvia por los nombres de los elementos.\nUna relación sin contenido adicional puede mantenerse sin texto:\n\nUna relación con significado operacional debería nombrarlo:",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#notas",
-    "href": "chapters/04-plantuml/index.html#notas",
-    "title": "5  PlantUML",
-    "section": "5.39 Notas",
-    "text": "5.39 Notas\nPlantUML permite añadir notas:\n\nEjemplo completo:\n```{.plantuml}\n@startuml\nrectangle Quarto\nrectangle PlantUML\n\nQuarto --&gt; PlantUML : fuente\n\nnote right of PlantUML\n  La instancia puede ser\n  local o compartida\nend note\n@enduml\n```\nLas notas son útiles para aclaraciones breves.\nCuando una explicación necesita varios párrafos, debe permanecer en el texto del documento y no dentro del diagrama.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#separar-significado-y-apariencia",
-    "href": "chapters/04-plantuml/index.html#separar-significado-y-apariencia",
-    "title": "5  PlantUML",
-    "section": "5.40 Separar significado y apariencia",
-    "text": "5.40 Separar significado y apariencia\nLos bloques deben concentrarse en:\nelementos\nrelaciones\norden\nagrupaciones\nmensajes\ndecisiones\nLa apariencia común debe vivir en los archivos de estilo configurados para la publicación.\nNo conviene repetir en cada bloque:\ncolores corporativos\ntipografías\ngrosores de borde\nconfiguración visual general\nLa fuente del diagrama describe qué representa.\nEl estilo compartido decide cómo se presenta.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#un-diagrama-por-bloque",
-    "href": "chapters/04-plantuml/index.html#un-diagrama-por-bloque",
-    "title": "5  PlantUML",
-    "section": "5.41 Un diagrama por bloque",
-    "text": "5.41 Un diagrama por bloque\nCada bloque .plantuml debe representar un único diagrama.\nun bloque\n  -&gt; una fuente\n  -&gt; una imagen\n  -&gt; una entrada de caché\nNo debe utilizarse un único bloque para producir varios diagramas independientes.\nSepararlos permite:\ncolocarlos junto al texto correspondiente\nreutilizar la caché de forma precisa\ndetectar qué fuente produjo cada imagen\nmantener cambios pequeños y revisables",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#ubicación-dentro-del-documento",
-    "href": "chapters/04-plantuml/index.html#ubicación-dentro-del-documento",
-    "title": "5  PlantUML",
-    "section": "5.42 Ubicación dentro del documento",
-    "text": "5.42 Ubicación dentro del documento\nEl diagrama debe situarse cerca del texto que explica.\nUna secuencia natural es:\nintroducción del concepto\ndiagrama\nexplicación de sus elementos\nconsecuencias o detalles\nEvite acumular todos los diagramas al final de un documento.\nEl objetivo no es crear una galería, sino integrar cada representación en el argumento técnico.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#tamaño-y-complejidad",
-    "href": "chapters/04-plantuml/index.html#tamaño-y-complejidad",
-    "title": "5  PlantUML",
-    "section": "5.43 Tamaño y complejidad",
-    "text": "5.43 Tamaño y complejidad\nUn diagrama legible no intenta contener todo el sistema.\nCuando el número de elementos crece demasiado, conviene dividirlo por perspectiva:\nvisión general\ncomponentes principales\nflujo de una operación\ndespliegue\ndetalle de un subsistema\nUna publicación puede contener varios diagramas relacionados, cada uno con una pregunta clara.\n¿qué componentes existen?\n¿cómo se comunican?\n¿dónde se ejecutan?\n¿qué ocurre durante una operación?\nCada pregunta puede requerir una representación diferente.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#nombres-estables",
-    "href": "chapters/04-plantuml/index.html#nombres-estables",
-    "title": "5  PlantUML",
-    "section": "5.44 Nombres estables",
-    "text": "5.44 Nombres estables\nLos nombres utilizados en los diagramas deben coincidir con los nombres empleados en:\nel texto\nla configuración\nel código\notros diagramas\nNo conviene llamar al mismo elemento:\nPlantUML Server\nservidor de diagramas\nmotor gráfico\nservicio UML\nsin una razón explícita.\nLa coherencia terminológica convierte los diagramas en parte de la documentación, no en ilustraciones aisladas.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caracteres-y-codificación",
-    "href": "chapters/04-plantuml/index.html#caracteres-y-codificación",
-    "title": "5  PlantUML",
-    "section": "5.45 Caracteres y codificación",
-    "text": "5.45 Caracteres y codificación\nLos documentos y los archivos de estilo deben guardarse en UTF-8.\nEsto permite utilizar correctamente:\nacentos\neñes\nsímbolos\netiquetas en castellano\nPor ejemplo:\n\nCuando aparecen caracteres incorrectos, deben revisarse:\nla codificación del archivo .qmd\nla codificación del archivo .puml\nla respuesta del servidor\nla fuente utilizada por PlantUML",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#opciones-por-bloque",
-    "href": "chapters/04-plantuml/index.html#opciones-por-bloque",
-    "title": "5  PlantUML",
-    "section": "5.46 Opciones por bloque",
-    "text": "5.46 Opciones por bloque\nUn bloque puede incluir atributos reconocidos por la extensión.\nPor ejemplo, para evitar temporalmente la caché:\n```{.plantuml cache=\"false\"}\n@startuml\nAlice -&gt; Bob: Compilación nueva\n@enduml\n```\nLas opciones globales continúan viniendo de _quarto.yml.\nLas opciones por bloque deben utilizarse únicamente cuando un diagrama necesita una excepción concreta.\nEl capítulo dedicado a la caché explica con más detalle su comportamiento.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#prueba-mínima",
-    "href": "chapters/04-plantuml/index.html#prueba-mínima",
-    "title": "5  PlantUML",
-    "section": "5.47 Prueba mínima",
-    "text": "5.47 Prueba mínima\nDespués de configurar la extensión, cree un documento con:\n## Prueba de PlantUML\n\n```{.plantuml}\n@startuml\nAlice -&gt; Bob: Funciona\nBob --&gt; Alice: PNG generado\n@enduml\n```\nConstruya HTML:\nbuild(\n  format = \"html\"\n)\nDespués construya PDF:\nbuild(\n  format = \"pdf\"\n)\nEl mismo diagrama debe aparecer en ambos resultados.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#criterio-práctico",
-    "href": "chapters/04-plantuml/index.html#criterio-práctico",
-    "title": "5  PlantUML",
-    "section": "5.48 Criterio práctico",
-    "text": "5.48 Criterio práctico\nUn bloque PlantUML correcto debe cumplir cuatro condiciones:\nla fuente es válida\nel diagrama responde a una pregunta concreta\nlos nombres coinciden con el resto de la documentación\nla complejidad permite leerlo en HTML y PDF\n\nUn buen diagrama no contiene más información. Contiene la información adecuada, colocada donde el texto la necesita.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estilos-compartidos-1",
-    "href": "chapters/04-plantuml/index.html#estilos-compartidos-1",
-    "title": "5  PlantUML",
-    "section": "5.49 Estilos compartidos",
-    "text": "5.49 Estilos compartidos\nLa extensión puede incorporar uno o varios archivos PlantUML a todos los diagramas de una publicación.\nLa configuración recomendada utiliza:\nfilter-options:\n  plantuml:\n    styles:\n      - resources/plantuml/iasi.puml\nEl archivo:\nresources/plantuml/iasi.puml\ncentraliza la apariencia común de los diagramas.\ndocumentos .qmd\n  -&gt; estructura y significado\n\niasi.puml\n  -&gt; apariencia compartida\nEsta separación evita repetir reglas visuales dentro de cada bloque.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estructura-recomendada",
-    "href": "chapters/04-plantuml/index.html#estructura-recomendada",
-    "title": "5  PlantUML",
-    "section": "5.50 Estructura recomendada",
-    "text": "5.50 Estructura recomendada\nUna publicación puede organizar los recursos PlantUML así:\npublication/\n├── _quarto.yml\n├── resources/\n│   └── plantuml/\n│       └── iasi.puml\n└── chapters/\n    ├── 01-intro/\n    └── 02-fundamentals/\nLa ruta declarada en _quarto.yml debe coincidir con la ubicación real:\nstyles:\n  - resources/plantuml/iasi.puml\nEl archivo debe estar disponible durante la construcción y guardado en UTF-8.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#qué-pertenece-al-estilo",
-    "href": "chapters/04-plantuml/index.html#qué-pertenece-al-estilo",
-    "title": "5  PlantUML",
-    "section": "5.51 Qué pertenece al estilo",
-    "text": "5.51 Qué pertenece al estilo\nUn archivo compartido puede definir:\ncolores\ntipografía\nbordes\nfondos\nsombras\nespaciado\napariencia de flechas\nestilo de actores\nestilo de componentes\nestilo de nodos\nconvenciones visuales\nPor ejemplo:\n\nEste contenido es únicamente un ejemplo de estructura.\nLos colores, fuentes y convenciones definitivos pertenecen a la identidad visual de cada publicación.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#qué-debe-permanecer-en-el-diagrama",
-    "href": "chapters/04-plantuml/index.html#qué-debe-permanecer-en-el-diagrama",
-    "title": "5  PlantUML",
-    "section": "5.52 Qué debe permanecer en el diagrama",
-    "text": "5.52 Qué debe permanecer en el diagrama\nEl bloque .plantuml debe describir el contenido concreto:\n\nNo debería repetir reglas generales como:\n\nCuando esas reglas aparecen en cada documento:\naumenta la duplicación\nlos diagramas pueden divergir\nlos cambios visuales exigen editar muchos archivos\nla fuente pierde legibilidad\nEl diagrama debe concentrarse en elementos y relaciones.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cómo-se-aplica-el-estilo",
-    "href": "chapters/04-plantuml/index.html#cómo-se-aplica-el-estilo",
-    "title": "5  PlantUML",
-    "section": "5.53 Cómo se aplica el estilo",
-    "text": "5.53 Cómo se aplica el estilo\nAntes de compilar un diagrama, la extensión lee los archivos configurados.\nDespués inserta su contenido inmediatamente después de la línea @startuml.\nUna fuente original:\n\nse prepara conceptualmente como:\n\nEl servidor recibe la fuente ya preparada.\nPor tanto, el estilo forma parte de la compilación y también influye en la identidad utilizada por la caché.\ncambia el estilo\n  -&gt; cambia la fuente preparada\n  -&gt; cambia la imagen generada",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#varios-archivos-de-estilo",
-    "href": "chapters/04-plantuml/index.html#varios-archivos-de-estilo",
-    "title": "5  PlantUML",
-    "section": "5.54 Varios archivos de estilo",
-    "text": "5.54 Varios archivos de estilo\nLa opción styles admite más de un archivo:\nstyles:\n  - resources/plantuml/base.puml\n  - resources/plantuml/iasi.puml\n  - resources/plantuml/architecture.puml\nLa extensión los lee en el orden declarado.\nbase.puml\n  -&gt; iasi.puml\n  -&gt; architecture.puml\n  -&gt; contenido del diagrama\nEste orden permite construir estilos por capas.\nPor ejemplo:\nbase.puml\n  reglas generales\n\niasi.puml\n  identidad visual de la publicación\n\narchitecture.puml\n  convenciones específicas para diagramas técnicos\nCuando dos archivos modifican la misma propiedad, la regla aplicada posteriormente puede reemplazar a la anterior según el comportamiento de PlantUML.\nEl orden debe ser deliberado y estable.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#un-único-archivo-o-varios",
-    "href": "chapters/04-plantuml/index.html#un-único-archivo-o-varios",
-    "title": "5  PlantUML",
-    "section": "5.55 Un único archivo o varios",
-    "text": "5.55 Un único archivo o varios\nPara una publicación pequeña, un solo archivo suele ser suficiente:\nresources/plantuml/iasi.puml\nCuando las reglas crecen, pueden separarse por responsabilidad:\nresources/plantuml/\n├── base.puml\n├── sequence.puml\n├── components.puml\n└── deployment.puml\nLa separación resulta útil cuando:\nlas reglas tienen ámbitos claros\nvarios libros comparten una base\nexisten convenciones por tipo de diagrama\nlos archivos siguen siendo fáciles de localizar\nNo conviene fragmentar el estilo sin una necesidad real.\nDemasiados archivos convierten una decisión visual sencilla en una pequeña arqueología de includes.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estilo-base-recomendado",
-    "href": "chapters/04-plantuml/index.html#estilo-base-recomendado",
-    "title": "5  PlantUML",
-    "section": "5.56 Estilo base recomendado",
-    "text": "5.56 Estilo base recomendado\nUn punto de partida sencillo podría ser:\n\nEl objetivo no es decorar cada elemento.\nEl objetivo es conseguir que todos los diagramas pertenezcan visualmente a la misma publicación.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estilos-por-tipo-de-elemento",
-    "href": "chapters/04-plantuml/index.html#estilos-por-tipo-de-elemento",
-    "title": "5  PlantUML",
-    "section": "5.57 Estilos por tipo de elemento",
-    "text": "5.57 Estilos por tipo de elemento\nPlantUML permite configurar familias concretas.\n\n5.57.1 Rectángulos\n\n\n\n5.57.2 Componentes\n\n\n\n5.57.3 Secuencias\n\n\n\n5.57.4 Actividades\n\nNo todas las publicaciones necesitan configurar todos los tipos.\nDeben añadirse reglas cuando existe un diagrama real que las utiliza.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#colores-semánticos",
-    "href": "chapters/04-plantuml/index.html#colores-semánticos",
-    "title": "5  PlantUML",
-    "section": "5.58 Colores semánticos",
-    "text": "5.58 Colores semánticos\nUn estilo puede definir convenciones visuales con significado.\nPor ejemplo:\ncomponente interno\n  tono neutro\n\nsistema externo\n  tono distinto\n\nerror\n  tono de alerta\n\nartefacto generado\n  borde discontinuo\nSin embargo, estas convenciones deben aplicarse de forma consistente.\nUn mismo color no debería significar:\nservicio externo en un diagrama\nerror en otro\nbase de datos en un tercero\nLa identidad gráfica sirve para reducir esfuerzo cognitivo, no para fabricar un acertijo cromático.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#macros-y-convenciones-reutilizables",
-    "href": "chapters/04-plantuml/index.html#macros-y-convenciones-reutilizables",
-    "title": "5  PlantUML",
-    "section": "5.59 Macros y convenciones reutilizables",
-    "text": "5.59 Macros y convenciones reutilizables\nEl archivo .puml también puede definir macros para elementos frecuentes.\nPor ejemplo:\n\nY después:\n\nLas macros pueden reducir repetición cuando representan una convención real del proyecto.\nDeben utilizarse con moderación.\nUna macro demasiado abstracta puede ocultar la sintaxis y dificultar que otro autor comprenda el diagrama.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estereotipos",
-    "href": "chapters/04-plantuml/index.html#estereotipos",
-    "title": "5  PlantUML",
-    "section": "5.60 Estereotipos",
-    "text": "5.60 Estereotipos\nLos estereotipos permiten aplicar estilos diferenciados.\nPor ejemplo, en el archivo compartido:\n\nY en el documento:\n\nEsta técnica mantiene el significado dentro de la fuente:\n&lt;&lt;External&gt;&gt;\ny la apariencia dentro del estilo compartido.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#fuentes",
-    "href": "chapters/04-plantuml/index.html#fuentes",
-    "title": "5  PlantUML",
-    "section": "5.61 Fuentes",
-    "text": "5.61 Fuentes\nLa fuente configurada debe existir en el entorno donde PlantUML genera la imagen.\nUn nombre como:\n\npuede funcionar en un equipo y no estar disponible dentro de otro servidor o contenedor.\nPara una construcción reproducible deben utilizarse fuentes disponibles en la infraestructura elegida.\nCuando la fuente no existe, PlantUML puede sustituirla por otra.\nEso puede alterar:\nanchos\nsaltos de línea\ntamaño de cajas\ndistribución del diagrama\nLa tipografía también forma parte del entorno de renderizado.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#transparencia-y-fondo",
-    "href": "chapters/04-plantuml/index.html#transparencia-y-fondo",
-    "title": "5  PlantUML",
-    "section": "5.62 Transparencia y fondo",
-    "text": "5.62 Transparencia y fondo\nPara integrar los diagramas en HTML y PDF puede utilizarse un fondo transparente:\n\nEsto permite que la imagen adopte el fondo visual del documento.\nSin embargo, todos los textos, líneas y rellenos deben mantener contraste suficiente tanto en pantalla como en impresión.\nUn diagrama diseñado únicamente para un fondo oscuro puede resultar ilegible en PDF.\nLa configuración común debe probarse en ambos formatos.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cambiar-el-estilo",
-    "href": "chapters/04-plantuml/index.html#cambiar-el-estilo",
-    "title": "5  PlantUML",
-    "section": "5.63 Cambiar el estilo",
-    "text": "5.63 Cambiar el estilo\nCuando se modifica iasi.puml, los diagramas deben recompilarse con la nueva fuente preparada.\nLa extensión calcula la caché después de incorporar el estilo.\nPor tanto, un cambio real en el contenido del archivo debe producir una identidad diferente.\nEl flujo es:\nmodificar iasi.puml\n  -&gt; preparar de nuevo la fuente\n  -&gt; generar otra identidad\n  -&gt; solicitar un PNG nuevo\nSi durante el desarrollo se sospecha que se está reutilizando una imagen antigua, puede limpiarse únicamente la caché PlantUML:\nRemove-Item -Recurse -Force .quarto\\plantuml -ErrorAction SilentlyContinue\nNo es necesario eliminar imágenes SVG o PNG de forma indiscriminada por todo el proyecto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#estilo-y-caché",
-    "href": "chapters/04-plantuml/index.html#estilo-y-caché",
-    "title": "5  PlantUML",
-    "section": "5.64 Estilo y caché",
-    "text": "5.64 Estilo y caché\nEl estilo no es una decoración aplicada después de compilar.\nForma parte de la fuente enviada al servidor.\nEso significa que dos diagramas con el mismo cuerpo, pero con estilos diferentes, no representan la misma compilación.\nmismo diagrama\nestilo A\n  -&gt; imagen A\n\nmismo diagrama\nestilo B\n  -&gt; imagen B\nLa caché debe distinguir ambos resultados.\nEl capítulo siguiente desarrolla su funcionamiento completo.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#probar-el-estilo",
-    "href": "chapters/04-plantuml/index.html#probar-el-estilo",
-    "title": "5  PlantUML",
-    "section": "5.65 Probar el estilo",
-    "text": "5.65 Probar el estilo\nUna prueba mínima puede incluir varios tipos de elementos:\n```{.plantuml}\n@startuml\nleft to right direction\n\nactor Usuario\ncomponent \"iasi.quarto\" as IASI\nrectangle Quarto\ndatabase Cache\n\nUsuario --&gt; IASI\nIASI --&gt; Quarto\nIASI --&gt; Cache\n@enduml\n```\nDespués deben construirse ambos formatos:\nbuild(\n  format = \"html\"\n)\n\nbuild(\n  format = \"pdf\"\n)\nLa revisión debe comprobar:\nlegibilidad de textos\ncontraste\nconsistencia de colores\ntamaño de los elementos\nanchura en PDF\napariencia con fondo HTML",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#criterio-de-diseño",
-    "href": "chapters/04-plantuml/index.html#criterio-de-diseño",
-    "title": "5  PlantUML",
-    "section": "5.66 Criterio de diseño",
-    "text": "5.66 Criterio de diseño\nUn buen estilo compartido cumple tres funciones:\nunifica\n  los diagramas parecen pertenecer al mismo libro\n\nsimplifica\n  los bloques contienen menos ruido visual\n\nestabiliza\n  una decisión gráfica se cambia en un único lugar\n\nEl documento explica el sistema. El archivo de estilo evita que cada diagrama tenga que inventar de nuevo su propio idioma visual.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caché-de-diagramas",
-    "href": "chapters/04-plantuml/index.html#caché-de-diagramas",
-    "title": "5  PlantUML",
-    "section": "5.67 Caché de diagramas",
-    "text": "5.67 Caché de diagramas\nLa extensión PlantUML puede conservar los diagramas compilados y reutilizarlos en construcciones posteriores.\nLa configuración recomendada activa esta capacidad:\nfilter-options:\n  plantuml:\n    cache: true\nLa caché evita solicitar al servidor una imagen que ya fue generada con la misma fuente y la misma configuración relevante.\ndiagrama sin cambios\n  -&gt; reutilizar imagen\n\ndiagrama modificado\n  -&gt; compilar de nuevo\nNo sustituye al servidor PlantUML ni a la fuente del diagrama.\nEs un almacén local de artefactos derivados.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#por-qué-existe",
-    "href": "chapters/04-plantuml/index.html#por-qué-existe",
-    "title": "5  PlantUML",
-    "section": "5.68 Por qué existe",
-    "text": "5.68 Por qué existe\nSin caché, cada construcción tendría que enviar de nuevo todos los diagramas al servidor.\n10 diagramas\n  -&gt; 10 peticiones en cada build\nCon caché:\n10 diagramas sin cambios\n  -&gt; 0 compilaciones nuevas\n\n1 diagrama modificado\n  -&gt; 1 compilación nueva\nEsto aporta:\nconstrucciones más rápidas\nmenos tráfico hacia el servidor\nmenos trabajo repetido\nmayor estabilidad durante el desarrollo\nLa mejora resulta especialmente visible en publicaciones grandes o cuando el servidor se encuentra en otra máquina.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#ubicación",
-    "href": "chapters/04-plantuml/index.html#ubicación",
-    "title": "5  PlantUML",
-    "section": "5.69 Ubicación",
-    "text": "5.69 Ubicación\nLa caché de PlantUML se guarda dentro del espacio de trabajo de Quarto:\n.quarto/plantuml/\nSu contenido pertenece a la construcción local.\nNo forma parte del contenido editorial de la publicación.\nchapters/\nresources/\n_quarto.yml\n  -&gt; fuentes del proyecto\n\n.quarto/plantuml/\n  -&gt; artefactos derivados\nLa carpeta puede eliminarse y regenerarse.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#identidad-de-un-diagrama",
-    "href": "chapters/04-plantuml/index.html#identidad-de-un-diagrama",
-    "title": "5  PlantUML",
-    "section": "5.70 Identidad de un diagrama",
-    "text": "5.70 Identidad de un diagrama\nLa extensión calcula una identidad para cada compilación.\nEn la implementación actual intervienen:\nfuente preparada\nservidor configurado\nformato de salida\nversión de la extensión\nLa fuente preparada incluye el contenido de los estilos compartidos.\nPor tanto:\ncambia el bloque\n  -&gt; cambia la identidad\n\ncambia iasi.puml\n  -&gt; cambia la identidad\n\ncambia el servidor\n  -&gt; cambia la identidad\n\ncambia el formato\n  -&gt; cambia la identidad\n\ncambia la versión de la extensión\n  -&gt; cambia la identidad\nLa identidad se calcula mediante un resumen criptográfico del contenido relevante.\nEl nombre final no intenta ser legible para una persona.\nSu función es representar de forma estable una compilación concreta.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#flujo-de-lectura",
-    "href": "chapters/04-plantuml/index.html#flujo-de-lectura",
-    "title": "5  PlantUML",
-    "section": "5.71 Flujo de lectura",
-    "text": "5.71 Flujo de lectura\nCuando la extensión encuentra un bloque PlantUML:\n1. lee la configuración\n2. incorpora los estilos\n3. calcula la identidad\n4. consulta la caché\n5. reutiliza o compila\n6. entrega la imagen a Pandoc\nEl flujo puede representarse así:",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#acierto-de-caché",
-    "href": "chapters/04-plantuml/index.html#acierto-de-caché",
-    "title": "5  PlantUML",
-    "section": "5.72 Acierto de caché",
-    "text": "5.72 Acierto de caché\nExiste un acierto de caché cuando la identidad calculada ya tiene una imagen almacenada.\ncache hit\n  -&gt; no se llama al servidor\n  -&gt; se reutiliza la imagen\nEsto ocurre normalmente cuando:\nel bloque no ha cambiado\nlos estilos no han cambiado\nla configuración relevante no ha cambiado\nla entrada sigue presente\nEl resultado debe ser idéntico al de la compilación original.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#fallo-de-caché",
-    "href": "chapters/04-plantuml/index.html#fallo-de-caché",
-    "title": "5  PlantUML",
-    "section": "5.73 Fallo de caché",
-    "text": "5.73 Fallo de caché\nExiste un fallo de caché cuando no se encuentra una entrada válida.\ncache miss\n  -&gt; se llama al servidor\n  -&gt; se recibe una imagen\n  -&gt; se almacena\nUn fallo de caché no es un error.\nEs el comportamiento normal para:\nun diagrama nuevo\nun diagrama modificado\nun estilo modificado\nuna caché recién eliminada\nuna versión nueva de la extensión",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caché-activada",
-    "href": "chapters/04-plantuml/index.html#caché-activada",
-    "title": "5  PlantUML",
-    "section": "5.74 Caché activada",
-    "text": "5.74 Caché activada\nLa configuración habitual es:\ncache: true\nCon ella, las construcciones repetidas reutilizan resultados.\nEsta opción es apropiada para:\ndesarrollo local\ndocumentación extensa\nservidores compartidos\nintegración continua con caché persistente\nLa caché debe considerarse una optimización segura, no una fuente de verdad.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caché-desactivada",
-    "href": "chapters/04-plantuml/index.html#caché-desactivada",
-    "title": "5  PlantUML",
-    "section": "5.75 Caché desactivada",
-    "text": "5.75 Caché desactivada\nPuede desactivarse globalmente:\nfilter-options:\n  plantuml:\n    cache: false\nEn ese modo, cada diagrama se solicita de nuevo al servidor.\ncada build\n  -&gt; compilar todos los diagramas\nEsto puede ser útil para:\nprobar el servidor\ndiagnosticar una modificación del compilador\ncomparar resultados\nconfirmar que una imagen se regenera\nNo es recomendable como configuración permanente cuando la publicación contiene numerosos diagramas.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#desactivar-la-caché-en-un-bloque",
-    "href": "chapters/04-plantuml/index.html#desactivar-la-caché-en-un-bloque",
-    "title": "5  PlantUML",
-    "section": "5.76 Desactivar la caché en un bloque",
-    "text": "5.76 Desactivar la caché en un bloque\nLa infraestructura admite una excepción local:\n```{.plantuml cache=\"false\"}\n@startuml\nAlice -&gt; Bob: Compilación forzada\n@enduml\n```\nEsto permite probar un diagrama concreto sin cambiar la configuración de toda la publicación.\nDebe utilizarse de forma temporal.\nUna publicación no debería mezclar arbitrariamente diagramas con y sin caché sin una razón documentada.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#limpiar-la-caché",
-    "href": "chapters/04-plantuml/index.html#limpiar-la-caché",
-    "title": "5  PlantUML",
-    "section": "5.77 Limpiar la caché",
-    "text": "5.77 Limpiar la caché\nCuando es necesario regenerar todos los diagramas, debe eliminarse únicamente la caché de PlantUML.\nEn PowerShell:\nRemove-Item -Recurse -Force .quarto\\plantuml -ErrorAction SilentlyContinue\nDespués, la siguiente construcción vuelve a solicitar las imágenes al servidor.\nbuild(\n  format = \"html\"\n)\nNo es necesario eliminar:\ntodos los archivos PNG del proyecto\ntodos los archivos SVG\nla carpeta .quarto completa\nlos directorios de salida HTML o PDF\nUna limpieza quirúrgica evita destruir otros artefactos útiles.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cuándo-limpiar",
-    "href": "chapters/04-plantuml/index.html#cuándo-limpiar",
-    "title": "5  PlantUML",
-    "section": "5.78 Cuándo limpiar",
-    "text": "5.78 Cuándo limpiar\nLa limpieza manual puede ser apropiada cuando:\nse ha modificado el compilador\nse sospecha que una entrada está dañada\nse ha cambiado la política de formato\nse está probando una versión nueva del servidor\nse necesita reproducir una construcción limpia\nNo debería ser el primer paso ante cualquier error.\nAntes conviene identificar si el problema pertenece a:\nla fuente PlantUML\nla configuración\nel servidor\nla caché\nQuarto\nBorrar la caché puede ocultar temporalmente un problema sin explicar su causa.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cambios-de-estilo",
-    "href": "chapters/04-plantuml/index.html#cambios-de-estilo",
-    "title": "5  PlantUML",
-    "section": "5.79 Cambios de estilo",
-    "text": "5.79 Cambios de estilo\nLos archivos de estilo se incorporan antes de calcular la identidad.\nPor tanto, una modificación real en:\nresources/plantuml/iasi.puml\ndebe producir nuevas imágenes.\nestilo anterior\n  -&gt; identidad A\n  -&gt; imagen A\n\nestilo nuevo\n  -&gt; identidad B\n  -&gt; imagen B\nEn condiciones normales no es necesario limpiar manualmente la caché al cambiar el estilo.\nLa limpieza solo resulta necesaria cuando se sospecha una incoherencia, una entrada dañada o un problema durante el desarrollo de la propia extensión.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cambio-de-formato",
-    "href": "chapters/04-plantuml/index.html#cambio-de-formato",
-    "title": "5  PlantUML",
-    "section": "5.80 Cambio de formato",
-    "text": "5.80 Cambio de formato\nLa configuración recomendada utiliza:\nformat: png\nEl formato participa en la identidad y en el nombre del recurso generado.\nmisma fuente + PNG\n  -&gt; entrada PNG\n\nmisma fuente + SVG\n  -&gt; entrada SVG\nLa implementación actual normaliza la salida efectiva a PNG.\nPor ello, la configuración y la caché deben mantener esa misma decisión.\nCuando se cambia la política de formato de la extensión, conviene limpiar:\n.quarto/plantuml/\npara evitar conservar artefactos pertenecientes a una etapa anterior del diseño.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cambio-de-servidor",
-    "href": "chapters/04-plantuml/index.html#cambio-de-servidor",
-    "title": "5  PlantUML",
-    "section": "5.81 Cambio de servidor",
-    "text": "5.81 Cambio de servidor\nLa dirección del servidor también participa en la identidad.\nserver: http://localhost:1025\ny:\nserver: http://plantuml.local:1025\nproducen identidades distintas aunque la fuente sea igual.\nEsta decisión evita asumir que dos servidores diferentes generan necesariamente el mismo resultado.\nPueden utilizar:\nversiones distintas de PlantUML\nfuentes distintas\nconfiguraciones distintas\ndependencias distintas\nEl servidor forma parte del entorno de compilación.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#versión-de-la-extensión",
-    "href": "chapters/04-plantuml/index.html#versión-de-la-extensión",
-    "title": "5  PlantUML",
-    "section": "5.82 Versión de la extensión",
-    "text": "5.82 Versión de la extensión\nLa versión de la extensión participa en la identidad.\nCuando cambia el comportamiento del compilador, una versión nueva evita reutilizar resultados generados por una implementación anterior.\nextensión 0.1.0\n  -&gt; caché A\n\nextensión 0.2.0\n  -&gt; caché B\nEsto es importante cuando la extensión modifica:\nla preparación de la fuente\nla construcción de la URL\nel formato\nel MIME\nla incorporación de estilos\nLa versión no es únicamente información descriptiva.\nTambién protege la coherencia de los artefactos derivados.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caché-y-disponibilidad-del-servidor",
-    "href": "chapters/04-plantuml/index.html#caché-y-disponibilidad-del-servidor",
-    "title": "5  PlantUML",
-    "section": "5.83 Caché y disponibilidad del servidor",
-    "text": "5.83 Caché y disponibilidad del servidor\nUn diagrama presente en caché puede reutilizarse aunque el servidor no responda.\nentrada existente\n  -&gt; construcción posible\n\nentrada ausente\n  -&gt; se necesita el servidor\nEsto mejora la tolerancia durante el desarrollo, pero tiene un límite claro.\nUna construcción limpia necesita acceso al servidor para regenerar todos los diagramas.\nPor tanto, la caché no debe utilizarse como sustituto de una infraestructura PlantUML disponible.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caché-en-integración-continua",
-    "href": "chapters/04-plantuml/index.html#caché-en-integración-continua",
-    "title": "5  PlantUML",
-    "section": "5.84 Caché en integración continua",
-    "text": "5.84 Caché en integración continua\nEn un pipeline de integración continua pueden adoptarse dos estrategias.\n\n5.84.1 Construcción limpia\ncada ejecución comienza sin caché\nVentajas:\nmáxima independencia de artefactos previos\nverificación completa del servidor\ncomportamiento fácil de reproducir\nCoste:\ntodos los diagramas se compilan de nuevo\n\n\n5.84.2 Caché persistente\nel pipeline conserva .quarto/plantuml\nVentajas:\nconstrucciones más rápidas\nmenos solicitudes al servidor\nRiesgos:\nla clave externa de caché debe estar bien diseñada\nla carpeta puede crecer\ndebe poder invalidarse\nLa estrategia elegida debe ser explícita.\nLa publicación no debe depender de una caché persistente para ser construible.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#versionado",
-    "href": "chapters/04-plantuml/index.html#versionado",
-    "title": "5  PlantUML",
-    "section": "5.85 Versionado",
-    "text": "5.85 Versionado\nLa carpeta:\n.quarto/plantuml/\nnormalmente no debe almacenarse en Git.\nLa fuente verdadera está en:\ndocumentos .qmd\narchivos .puml\nconfiguración YAML\ncódigo de la extensión\nLa caché puede regenerarse a partir de esas fuentes y del servidor.\nPor eso suele incluirse .quarto/ en .gitignore.\nEl repositorio debe conservar la receta, no cada plato que la cocina produjo ayer.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#crecimiento-de-la-caché",
-    "href": "chapters/04-plantuml/index.html#crecimiento-de-la-caché",
-    "title": "5  PlantUML",
-    "section": "5.86 Crecimiento de la caché",
-    "text": "5.86 Crecimiento de la caché\nCada identidad distinta puede crear una nueva entrada.\nLa carpeta puede crecer cuando se realizan numerosos cambios en:\ndiagramas\nestilos\nservidores\nversiones\nformatos\nLa extensión no necesita borrar automáticamente todas las entradas antiguas durante cada construcción.\nUna limpieza periódica puede hacerse cuando:\nel tamaño deja de ser razonable\nse termina una etapa de desarrollo\nse cambia de versión principal\nse prepara una construcción limpia\nEl comando continúa siendo:\nRemove-Item -Recurse -Force .quarto\\plantuml -ErrorAction SilentlyContinue",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#diagnóstico",
-    "href": "chapters/04-plantuml/index.html#diagnóstico",
-    "title": "5  PlantUML",
-    "section": "5.87 Diagnóstico",
-    "text": "5.87 Diagnóstico\nCuando un diagrama parece antiguo, conviene seguir este orden:\n1. comprobar que el archivo .qmd fue guardado\n2. comprobar que el estilo .puml fue guardado\n3. revisar la configuración efectiva\n4. confirmar qué compiler.lua está cargando Quarto\n5. limpiar .quarto/plantuml\n6. construir de nuevo\nSi la URL del error contiene:\n/svg/\ncuando se espera PNG, el problema no debe atribuirse automáticamente a la caché.\nPuede indicar:\notra copia de la extensión\nuna configuración distinta\nun compiler.lua no actualizado\nuna normalización de formato que no se está ejecutando\nLa propia URL de PlantUML muestra el formato efectivo utilizado por el compilador.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#prueba-de-funcionamiento",
-    "href": "chapters/04-plantuml/index.html#prueba-de-funcionamiento",
-    "title": "5  PlantUML",
-    "section": "5.88 Prueba de funcionamiento",
-    "text": "5.88 Prueba de funcionamiento\nPuede comprobarse la caché con un diagrama pequeño.\nPrimera construcción:\nbuild(\n  format = \"html\"\n)\nEl servidor debe recibir la compilación.\nSegunda construcción, sin cambios:\nbuild(\n  format = \"html\"\n)\nLa imagen debe reutilizarse.\nDespués, cambie el texto:\n\nLa siguiente construcción debe generar una entrada nueva.\nFinalmente, restaure el contenido original.\nLa extensión podrá reutilizar la entrada anterior si todavía existe.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#contrato-de-la-caché",
-    "href": "chapters/04-plantuml/index.html#contrato-de-la-caché",
-    "title": "5  PlantUML",
-    "section": "5.89 Contrato de la caché",
-    "text": "5.89 Contrato de la caché\nLa caché debe cumplir cuatro propiedades:\ndeterminista\n  la misma entrada produce la misma identidad\n\ninvalidable\n  los cambios relevantes generan otra identidad\n\ndesechable\n  puede eliminarse sin perder fuentes\n\nlocalizada\n  puede limpiarse sin borrar todo el proyecto\n\nLa caché acelera el pipeline, pero nunca debe convertirse en la única memoria de cómo se construyó un diagrama.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#parámetros-de-los-bloques-plantuml",
-    "href": "chapters/04-plantuml/index.html#parámetros-de-los-bloques-plantuml",
-    "title": "5  PlantUML",
-    "section": "5.90 Parámetros de los bloques PlantUML",
-    "text": "5.90 Parámetros de los bloques PlantUML\nUn bloque PlantUML puede contener parámetros que modifican su compilación y atributos que controlan cómo se presenta la imagen dentro de Quarto.\nNo pertenecen al mismo nivel.\nparámetros de compilación\n  modifican cómo se obtiene la imagen\n\natributos de presentación\n  modifican cómo Quarto coloca la imagen\nEsta distinción evita recompilar un diagrama únicamente porque cambia su tamaño, alineación o pie de figura.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#forma-general",
-    "href": "chapters/04-plantuml/index.html#forma-general",
-    "title": "5  PlantUML",
-    "section": "5.91 Forma general",
-    "text": "5.91 Forma general\nLos parámetros se declaran en la cabecera del bloque:\n```{.plantuml width=\"80%\" fig-cap=\"Pipeline de construcción\"}\n@startuml\nFuente -&gt; Compilador\nCompilador -&gt; Imagen\n@enduml\n```\nLa clase:\n.plantuml\nidentifica el bloque que debe procesar la extensión.\nLos demás valores se escriben como atributos:\nnombre=\"valor\"",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#parámetros-de-compilación",
-    "href": "chapters/04-plantuml/index.html#parámetros-de-compilación",
-    "title": "5  PlantUML",
-    "section": "5.92 Parámetros de compilación",
-    "text": "5.92 Parámetros de compilación\nLos parámetros de compilación modifican el proceso utilizado para obtener la imagen.\nLa extensión reconoce:\nserver\nformat\ncache\nEstos parámetros pueden declararse globalmente en _quarto.yml o reemplazarse para un bloque concreto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#server-1",
-    "href": "chapters/04-plantuml/index.html#server-1",
-    "title": "5  PlantUML",
-    "section": "5.93 server",
-    "text": "5.93 server\nserver selecciona el servidor PlantUML utilizado por el bloque.\nConfiguración global:\nfilter-options:\n  plantuml:\n    server: http://localhost:1025\nExcepción por bloque:\n```{.plantuml server=\"http://plantuml.local:1025\"}\n@startuml\nAlice -&gt; Bob: Mensaje\n@enduml\n```\nLa URL debe señalar la raíz del servidor.\nNo debe incluir:\n/png\n/svg\nLa extensión añade el formato al construir la petición.\nEl uso por bloque debe reservarse para situaciones concretas. Una publicación normal debería utilizar un servidor común.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#format-1",
-    "href": "chapters/04-plantuml/index.html#format-1",
-    "title": "5  PlantUML",
-    "section": "5.94 format",
-    "text": "5.94 format\nformat indica el formato gráfico solicitado al servidor.\nLa configuración recomendada es:\nformat: png\nTambién puede declararse en el bloque:\n```{.plantuml format=\"png\"}\n@startuml\nAlice -&gt; Bob: Mensaje\n@enduml\n```\nLa plataforma utiliza actualmente PNG como salida efectiva común para HTML y PDF.\nPor tanto, la configuración y los bloques deberían mantener:\nformat=\"png\"\nEl formato participa en la identidad de la caché porque modifica el recurso generado.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#cache-1",
-    "href": "chapters/04-plantuml/index.html#cache-1",
-    "title": "5  PlantUML",
-    "section": "5.95 cache",
-    "text": "5.95 cache\ncache controla si el bloque puede reutilizar una compilación anterior.\nConfiguración global:\ncache: true\nExcepción por bloque:\n```{.plantuml cache=\"false\"}\n@startuml\nAlice -&gt; Bob: Compilación nueva\n@enduml\n```\nValores:\ntrue\n  reutiliza la caché cuando existe\n\nfalse\n  solicita una compilación nueva\nDesactivar la caché por bloque resulta útil durante pruebas y diagnóstico.\nNo debería utilizarse de forma permanente sin una razón concreta.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#atributos-de-presentación",
-    "href": "chapters/04-plantuml/index.html#atributos-de-presentación",
-    "title": "5  PlantUML",
-    "section": "5.96 Atributos de presentación",
-    "text": "5.96 Atributos de presentación\nLos atributos de presentación no modifican la fuente enviada a PlantUML.\nControlan la imagen que Quarto incorpora al documento.\nLos principales son:\nwidth\nheight\nfig-cap\nfig-alt\nfig-align\nidentificador\nEstos atributos no deberían participar en la identidad de compilación.\nmismo diagrama + width=\"50%\"\nmismo diagrama + width=\"100%\"\n  -&gt; una única imagen compilada\n  -&gt; dos presentaciones diferentes",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#width",
-    "href": "chapters/04-plantuml/index.html#width",
-    "title": "5  PlantUML",
-    "section": "5.97 width",
-    "text": "5.97 width\nwidth establece el ancho con el que Quarto presenta la imagen.\nPorcentaje:\n```{.plantuml width=\"80%\"}\n@startuml\nFuente -&gt; Imagen\n@enduml\n```\nUnidad física:\n```{.plantuml width=\"14cm\"}\n@startuml\nFuente -&gt; Imagen\n@enduml\n```\nOtros ejemplos válidos dependen del formato de salida y de las unidades admitidas por Pandoc y Quarto:\n600px\n12cm\n5in\n75%\nPara publicaciones HTML y PDF, los porcentajes y las unidades físicas pueden producir resultados diferentes.\nDebe comprobarse el resultado en ambos formatos.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#height",
-    "href": "chapters/04-plantuml/index.html#height",
-    "title": "5  PlantUML",
-    "section": "5.98 height",
-    "text": "5.98 height\nheight establece la altura de presentación.\n```{.plantuml height=\"8cm\"}\n@startuml\nFuente -&gt; Imagen\n@enduml\n```\nTambién puede combinarse con width:\n```{.plantuml width=\"14cm\" height=\"8cm\"}\n@startuml\nFuente -&gt; Imagen\n@enduml\n```\nSin embargo, declarar ambas dimensiones puede deformar la imagen cuando la relación de aspecto no coincide con el PNG generado.\nLa práctica recomendada es indicar únicamente width y permitir que Quarto conserve la proporción original.\nrecomendado\n  width=\"80%\"\n\nutilizar con cuidado\n  width=\"14cm\" height=\"8cm\"",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#fig-cap",
-    "href": "chapters/04-plantuml/index.html#fig-cap",
-    "title": "5  PlantUML",
-    "section": "5.99 fig-cap",
-    "text": "5.99 fig-cap\nfig-cap añade un pie de figura.\n```{.plantuml fig-cap=\"Pipeline de construcción de la publicación\"}\n@startuml\nFuente -&gt; Preparación\nPreparación -&gt; Quarto\n@enduml\n```\nEl texto se procesa como contenido Markdown.\nPuede combinarse con un identificador para crear referencias cruzadas.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#identificador",
-    "href": "chapters/04-plantuml/index.html#identificador",
-    "title": "5  PlantUML",
-    "section": "5.100 Identificador",
-    "text": "5.100 Identificador\nEl identificador se declara con #.\n```{.plantuml #fig-build-pipeline fig-cap=\"Pipeline de construcción\"}\n@startuml\nFuente -&gt; Preparación\nPreparación -&gt; Quarto\n@enduml\n```\nDespués puede referenciarse desde el texto:\nComo muestra la @fig-build-pipeline, la preparación ocurre antes del renderizado.\nPara que Quarto lo trate como figura referenciable, el identificador debe seguir la convención:\n#fig-\nEjemplo:\n#fig-plantuml-server\n#fig-build-pipeline\n#fig-publication-flow",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#fig-alt",
-    "href": "chapters/04-plantuml/index.html#fig-alt",
-    "title": "5  PlantUML",
-    "section": "5.101 fig-alt",
-    "text": "5.101 fig-alt\nfig-alt proporciona una descripción alternativa para accesibilidad.\n```{.plantuml\n#fig-plantuml-flow\nfig-cap=\"Flujo de compilación PlantUML\"\nfig-alt=\"Un documento Quarto pasa por la extensión Lua, el servidor PlantUML y termina convertido en una imagen PNG.\"\n}\n@startuml\nDocumento -&gt; Extension\nExtension -&gt; Servidor\nServidor -&gt; PNG\n@enduml\n```\nEl texto alternativo debe explicar la información principal del diagrama.\nNo debe limitarse a repetir el pie de figura.\npie\n  nombre editorial de la figura\n\ntexto alternativo\n  contenido y relaciones importantes",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#fig-align",
-    "href": "chapters/04-plantuml/index.html#fig-align",
-    "title": "5  PlantUML",
-    "section": "5.102 fig-align",
-    "text": "5.102 fig-align\nfig-align controla la alineación de la figura.\n```{.plantuml fig-align=\"center\" width=\"75%\"}\n@startuml\nFuente -&gt; Imagen\n@enduml\n```\nValores habituales:\nleft\ncenter\nright\nLa configuración más común para diagramas es:\nfig-align=\"center\"\nLa alineación pertenece a la presentación y no modifica la compilación.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caption",
-    "href": "chapters/04-plantuml/index.html#caption",
-    "title": "5  PlantUML",
-    "section": "5.103 caption",
-    "text": "5.103 caption\nLa extensión puede admitir caption como alias de fig-cap.\n```{.plantuml caption=\"Diagrama de secuencia\"}\n@startuml\nAlice -&gt; Bob: Mensaje\n@enduml\n```\nPara mantener coherencia con Quarto, la forma recomendada es:\nfig-cap",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#label",
-    "href": "chapters/04-plantuml/index.html#label",
-    "title": "5  PlantUML",
-    "section": "5.104 label",
-    "text": "5.104 label\nPuede admitirse label como alternativa al identificador del bloque.\nSin embargo, la sintaxis natural de Quarto es:\n```{.plantuml #fig-example}\n...\n```\nPor claridad editorial, debe preferirse el identificador #fig-....",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#combinación-recomendada",
-    "href": "chapters/04-plantuml/index.html#combinación-recomendada",
-    "title": "5  PlantUML",
-    "section": "5.105 Combinación recomendada",
-    "text": "5.105 Combinación recomendada\nUn bloque completo puede escribirse así:\n```{.plantuml\n#fig-publication-pipeline\nwidth=\"80%\"\nfig-align=\"center\"\nfig-cap=\"Pipeline de una publicación IASI Quarto\"\nfig-alt=\"La fuente documental pasa por iasi.quarto, Quarto y el servidor PlantUML antes de producir HTML y PDF.\"\n}\n@startuml\nleft to right direction\n\nrectangle \"Fuente\" as Source\nrectangle \"iasi.quarto\" as IASI\nrectangle \"Quarto\" as Quarto\nrectangle \"PlantUML\" as PlantUML\nrectangle \"HTML / PDF\" as Output\n\nSource --&gt; IASI\nIASI --&gt; Quarto\nQuarto --&gt; PlantUML\nPlantUML --&gt; Quarto\nQuarto --&gt; Output\n@enduml\n```\nEn este ejemplo:\n#fig-publication-pipeline\n  identifica la figura\n\nwidth\n  controla el tamaño\n\nfig-align\n  controla la posición\n\nfig-cap\n  proporciona el pie\n\nfig-alt\n  describe el contenido\n\nla fuente PlantUML\n  define elementos y relaciones",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#qué-parámetros-modifican-la-caché",
-    "href": "chapters/04-plantuml/index.html#qué-parámetros-modifican-la-caché",
-    "title": "5  PlantUML",
-    "section": "5.106 Qué parámetros modifican la caché",
-    "text": "5.106 Qué parámetros modifican la caché\nDeben participar en la identidad de compilación:\nfuente preparada\nserver\nformat\nversión de la extensión\nestilos incorporados\nNo deben participar:\nwidth\nheight\nfig-cap\nfig-alt\nfig-align\nidentificador\nLa razón es sencilla:\ncompilación\n  decide qué imagen se genera\n\npresentación\n  decide cómo se utiliza esa imagen\nCambiar el pie de figura no debería llamar al servidor PlantUML.\nCambiar el ancho tampoco.\nCambiar la fuente o el estilo sí debe generar una imagen nueva.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#parámetros-globales-y-parámetros-de-bloque",
-    "href": "chapters/04-plantuml/index.html#parámetros-globales-y-parámetros-de-bloque",
-    "title": "5  PlantUML",
-    "section": "5.107 Parámetros globales y parámetros de bloque",
-    "text": "5.107 Parámetros globales y parámetros de bloque\nNo todas las opciones globales tienen sentido dentro de un bloque.\nConfiguración global:\nenabled\nstyles\nserver\nformat\ncache\nConfiguración por bloque:\nserver\nformat\ncache\nwidth\nheight\nfig-cap\nfig-alt\nfig-align\nidentificador\nenabled controla la extensión completa.\nstyles define una política común de la publicación.\nPor tanto, no deberían modificarse arbitrariamente en cada diagrama.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#tabla-de-referencia",
-    "href": "chapters/04-plantuml/index.html#tabla-de-referencia",
-    "title": "5  PlantUML",
-    "section": "5.108 Tabla de referencia",
-    "text": "5.108 Tabla de referencia\n\n\n\n\n\n\n\n\n\nParámetro\nÁmbito\nFunción\nAfecta a la compilación\n\n\n\n\nenabled\nGlobal\nActiva o desactiva la extensión\nSí, detiene el procesamiento\n\n\nstyles\nGlobal\nIncorpora estilos compartidos\nSí\n\n\nserver\nGlobal o bloque\nSelecciona el servidor PlantUML\nSí\n\n\nformat\nGlobal o bloque\nSelecciona el formato gráfico\nSí\n\n\ncache\nGlobal o bloque\nActiva o evita la reutilización\nNo cambia la imagen, pero cambia el proceso\n\n\nwidth\nBloque\nControla el ancho de presentación\nNo\n\n\nheight\nBloque\nControla la altura de presentación\nNo\n\n\nfig-cap\nBloque\nAñade el pie de figura\nNo\n\n\nfig-alt\nBloque\nAñade descripción alternativa\nNo\n\n\nfig-align\nBloque\nControla la alineación\nNo\n\n\n#fig-...\nBloque\nIdentifica la figura\nNo",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#criterio-de-uso",
-    "href": "chapters/04-plantuml/index.html#criterio-de-uso",
-    "title": "5  PlantUML",
-    "section": "5.109 Criterio de uso",
-    "text": "5.109 Criterio de uso\nLa regla práctica es:\nsi cambia la imagen que debe producir PlantUML\n  es un parámetro de compilación\n\nsi cambia cómo Quarto presenta la misma imagen\n  es un atributo de presentación\n\nPlantUML genera la imagen. Quarto decide cuánto ocupa, dónde aparece y cómo se referencia.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#resolución-de-problemas",
-    "href": "chapters/04-plantuml/index.html#resolución-de-problemas",
-    "title": "5  PlantUML",
-    "section": "5.110 Resolución de problemas",
-    "text": "5.110 Resolución de problemas\nLos errores de PlantUML pueden aparecer en distintas etapas del pipeline.\ncarga de la extensión\nlectura de configuración\npreparación de la fuente\nacceso al servidor\ncompilación\ncaché\nintegración con Quarto\nEl mensaje final no siempre identifica por sí solo la causa real.\nLa forma más eficaz de diagnosticar consiste en localizar primero qué componente ha fallado.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#orden-de-diagnóstico",
-    "href": "chapters/04-plantuml/index.html#orden-de-diagnóstico",
-    "title": "5  PlantUML",
-    "section": "5.111 Orden de diagnóstico",
-    "text": "5.111 Orden de diagnóstico\nSiga este orden:\n1. comprobar que el filtro cargado es el correcto\n2. comprobar la configuración efectiva\n3. comprobar que el servidor responde\n4. comprobar la fuente PlantUML\n5. comprobar los archivos de estilo\n6. comprobar la caché\n7. revisar la integración con Quarto\nNo conviene comenzar borrando archivos al azar.\nCada etapa deja señales distintas.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-filtro-no-se-carga",
-    "href": "chapters/04-plantuml/index.html#el-filtro-no-se-carga",
-    "title": "5  PlantUML",
-    "section": "5.112 El filtro no se carga",
-    "text": "5.112 El filtro no se carga\nLa publicación debe declarar:\nfilters:\n  - extensions/plantuml/plantuml.lua\nY debe existir:\nextensions/plantuml/plantuml.lua\nLa extensión también depende del núcleo común:\nextensions/core/\nUna copia incompleta puede contener plantuml.lua, pero carecer de:\nengine.lua\nconfig.lua\ncache.lua\nmediabag.lua\nfilesystem.lua\nmetadata.lua\nLa estructura debe conservarse completa.\nUna referencia relativa incorrecta dentro de plantuml.lua también impide cargar módulos como:\ncompiler.lua\ndefaults.lua\nengine.lua\nCuando el error menciona require, dofile o una ruta Lua, debe comprobarse qué archivo exacto está intentando cargar Quarto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#se-está-editando-otra-copia",
-    "href": "chapters/04-plantuml/index.html#se-está-editando-otra-copia",
-    "title": "5  PlantUML",
-    "section": "5.113 Se está editando otra copia",
-    "text": "5.113 Se está editando otra copia\nEs posible tener varias copias de la extensión:\ndentro de la publicación\nen otro proyecto\nen recursos globales de Quarto\nen una instalación anterior\nEl error suele mostrar la ruta real del archivo ejecutado.\nPor ejemplo:\n...\\resources\\quarto\\extensions\\plantuml\\compiler.lua\nEsa ruta es la que debe revisarse.\nModificar otro compiler.lua no cambia el comportamiento de la copia que Quarto está cargando.\nLa primera pregunta debe ser:\n¿Qué archivo exacto aparece en el error?",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#error-de-sintaxis-lua",
-    "href": "chapters/04-plantuml/index.html#error-de-sintaxis-lua",
-    "title": "5  PlantUML",
-    "section": "5.114 Error de sintaxis Lua",
-    "text": "5.114 Error de sintaxis Lua\nUn error como:\n'end' expected near &lt;eof&gt;\nindica que Lua ha llegado al final del archivo sin encontrar el cierre esperado.\nLas causas habituales son:\nuna función sin end\nun if sin end\nun bucle sin end\nun archivo pegado dos veces\nuna edición truncada\nCuando el mensaje indica:\nto close 'function' at line 134\ndebe revisarse esa función y el final del archivo.\nUn compiler.lua válido debe terminar con:\nreturn Compiler\nLa solución no consiste en añadir un end al azar.\nDebe comprobarse si el archivo contiene contenido duplicado o incompleto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-servidor-no-responde",
-    "href": "chapters/04-plantuml/index.html#el-servidor-no-responde",
-    "title": "5  PlantUML",
-    "section": "5.115 El servidor no responde",
-    "text": "5.115 El servidor no responde\nCompruebe primero la URL base:\ncurl http://localhost:1025\nDespués revise el contenedor:\ndocker ps --filter name=plantuml-server\nY sus mensajes:\ndocker logs plantuml-server\nSi el contenedor no está en ejecución:\ndocker start plantuml-server\nCon Docker Compose:\ndocker compose up -d\nCuando el servidor está en otra máquina:\ncurl http://plantuml.local:1025\nLa prueba debe ejecutarse desde el mismo entorno que construye Quarto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#localhost-apunta-al-lugar-equivocado-1",
-    "href": "chapters/04-plantuml/index.html#localhost-apunta-al-lugar-equivocado-1",
-    "title": "5  PlantUML",
-    "section": "5.116 localhost apunta al lugar equivocado",
-    "text": "5.116 localhost apunta al lugar equivocado\nDentro de:\nuna máquina virtual\nun contenedor\nun agente CI\notro equipo\nlocalhost representa ese entorno.\nNo representa automáticamente la máquina anfitriona.\nSi PlantUML se ejecuta fuera del entorno de construcción, configure una dirección accesible:\nserver: http://plantuml.local:1025\nTambién deben comprobarse:\nresolución del nombre\npuerto publicado\nreglas de red\nfirewall\nruta entre ambos entornos",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#la-url-contiene-svg",
-    "href": "chapters/04-plantuml/index.html#la-url-contiene-svg",
-    "title": "5  PlantUML",
-    "section": "5.117 La URL contiene /svg/",
-    "text": "5.117 La URL contiene /svg/\nLa URL solicitada al servidor revela el formato efectivo.\nhttp://localhost:1025/svg/...\nsignifica que el compilador está solicitando SVG.\nhttp://localhost:1025/png/...\nsignifica que está solicitando PNG.\nSi la configuración declara:\nformat: png\npero el error muestra /svg/, las causas probables son:\nse está cargando otra copia del compilador\nla modificación no fue guardada\nla normalización del formato no se ejecuta\notra configuración reemplaza el valor\nse está utilizando código antiguo\nNo debe atribuirse automáticamente a Quarto.\nLa ruta pertenece a la petición construida por el compilador PlantUML.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#forzar-temporalmente-una-comprobación",
-    "href": "chapters/04-plantuml/index.html#forzar-temporalmente-una-comprobación",
-    "title": "5  PlantUML",
-    "section": "5.118 Forzar temporalmente una comprobación",
-    "text": "5.118 Forzar temporalmente una comprobación\nPuede añadirse temporalmente dentro de Compiler.compile():\nerror(\n  \"DEBUG compiler: \"\n    .. tostring(config.format)\n)\nLa construcción se detendrá mostrando el valor efectivo.\nDespués de comprobarlo, debe eliminarse el diagnóstico.\nNo conviene dejar errores deliberados dentro de la extensión.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#svg-y-construcción-pdf",
-    "href": "chapters/04-plantuml/index.html#svg-y-construcción-pdf",
-    "title": "5  PlantUML",
-    "section": "5.119 SVG y construcción PDF",
-    "text": "5.119 SVG y construcción PDF\nUn flujo basado en SVG puede hacer que Quarto intente convertir la imagen para incorporarla al PDF.\nEl error puede mencionar una herramienta como:\nrsvg-convert\nEsto indica que el pipeline ha generado SVG y necesita una conversión adicional.\nLa configuración recomendada evita esa dependencia utilizando:\nformat: png\nEl flujo esperado es:\nPlantUML\n  -&gt; PNG\n  -&gt; PDF\nSi el error continúa mencionando SVG, debe revisarse la URL efectiva y el archivo compiler.lua realmente cargado.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#la-respuesta-está-vacía",
-    "href": "chapters/04-plantuml/index.html#la-respuesta-está-vacía",
-    "title": "5  PlantUML",
-    "section": "5.120 La respuesta está vacía",
-    "text": "5.120 La respuesta está vacía\nLa extensión puede detenerse con un mensaje equivalente a:\nPlantUML devolvió una respuesta vacía\nDebe comprobarse:\nque el servidor está disponible\nque la URL generada es válida\nque el servidor admite el formato solicitado\nque la fuente PlantUML es aceptable\nque no existe un proxy o error de red\nLa URL incluida en el error permite reproducir la petición fuera de Quarto.\nNo debe ocultarse ese dato durante el diagnóstico.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#error-de-fuente-plantuml",
-    "href": "chapters/04-plantuml/index.html#error-de-fuente-plantuml",
-    "title": "5  PlantUML",
-    "section": "5.121 Error de fuente PlantUML",
-    "text": "5.121 Error de fuente PlantUML\nUna fuente incorrecta puede contener:\n@startuml ausente\n@enduml ausente\nelementos sin cerrar\nsintaxis no reconocida\nmacros inexistentes\nestereotipos mal escritos\nReduzca temporalmente el bloque a:\n```{.plantuml}\n@startuml\nAlice -&gt; Bob: Prueba\n@enduml\n```\nSi este ejemplo funciona, el problema está en la fuente original o en alguno de sus recursos.\nDespués, reincorpore los elementos de forma gradual.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-estilo-no-puede-leerse-1",
-    "href": "chapters/04-plantuml/index.html#el-estilo-no-puede-leerse-1",
-    "title": "5  PlantUML",
-    "section": "5.122 El estilo no puede leerse",
-    "text": "5.122 El estilo no puede leerse\nLa configuración:\nstyles:\n  - resources/plantuml/iasi.puml\nexige que el archivo exista y sea legible.\nLa extensión puede mostrar un error equivalente a:\nNo se pudo leer el estilo PlantUML\nCompruebe:\nla ruta\nel nombre exacto\nla extensión .puml\nlos permisos\nla codificación\nel directorio desde el que se resuelve\nEn Windows, una diferencia de mayúsculas puede pasar inadvertida localmente y fallar después en Linux.\nConviene mantener nombres exactos y consistentes.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-estilo-produce-un-error",
-    "href": "chapters/04-plantuml/index.html#el-estilo-produce-un-error",
-    "title": "5  PlantUML",
-    "section": "5.123 El estilo produce un error",
-    "text": "5.123 El estilo produce un error\nUn archivo .puml también puede contener sintaxis inválida.\nPara aislarlo:\nstyles: []\no retire temporalmente la opción styles.\nDespués construya un diagrama mínimo.\nSi funciona sin el estilo:\nel servidor responde\nel filtro funciona\nel problema está en el archivo .puml\nRevise sus últimas modificaciones antes de volver a activarlo.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-diagrama-no-cambia",
-    "href": "chapters/04-plantuml/index.html#el-diagrama-no-cambia",
-    "title": "5  PlantUML",
-    "section": "5.124 El diagrama no cambia",
-    "text": "5.124 El diagrama no cambia\nPrimero compruebe que fueron guardados:\nel archivo .qmd\nel archivo .puml\n_quarto.yml\ncompiler.lua\nDespués limpie únicamente la caché PlantUML:\nRemove-Item -Recurse -Force .quarto\\plantuml -ErrorAction SilentlyContinue\nY vuelva a construir:\nbuild(\n  format = \"html\"\n)\nSi la imagen sigue sin cambiar, compruebe qué copia de la extensión se está ejecutando.\nLa caché no explica una modificación realizada en un archivo que Quarto nunca carga.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-diagrama-funciona-en-html-pero-no-en-pdf",
-    "href": "chapters/04-plantuml/index.html#el-diagrama-funciona-en-html-pero-no-en-pdf",
-    "title": "5  PlantUML",
-    "section": "5.125 El diagrama funciona en HTML pero no en PDF",
-    "text": "5.125 El diagrama funciona en HTML pero no en PDF\nCuando HTML funciona, ya están verificados:\nla carga del filtro\nla configuración\nel servidor\nla sintaxis PlantUML\nla generación de la imagen\nEl fallo PDF puede estar en:\nel formato de imagen\nla conversión de recursos\nla instalación TeX\nla anchura del diagrama\nla integración de Quarto con PDF\nCompruebe primero que la URL PlantUML utiliza /png/.\nDespués revise:\nquarto check\nSi el error procede de LaTeX, debe tratarse como un problema del entorno PDF, no del servidor PlantUML.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#el-diagrama-es-demasiado-ancho",
-    "href": "chapters/04-plantuml/index.html#el-diagrama-es-demasiado-ancho",
-    "title": "5  PlantUML",
-    "section": "5.126 El diagrama es demasiado ancho",
-    "text": "5.126 El diagrama es demasiado ancho\nUn diagrama puede verse correctamente en HTML y resultar pequeño o ilegible en PDF.\nLas soluciones preferibles son:\nreducir el número de elementos\ndividir el diagrama\ncambiar la orientación\nacortar etiquetas\ncrear una vista general y otra de detalle\nPuede probarse:\n\nen lugar de:\n\nNo conviene resolver toda la complejidad reduciendo la tipografía hasta convertir el diagrama en polvo técnico.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#la-tipografía-cambia",
-    "href": "chapters/04-plantuml/index.html#la-tipografía-cambia",
-    "title": "5  PlantUML",
-    "section": "5.127 La tipografía cambia",
-    "text": "5.127 La tipografía cambia\nEl servidor PlantUML utiliza las fuentes disponibles en su propio entorno.\nUn contenedor puede no tener la misma tipografía que el equipo anfitrión.\nSi el estilo declara:\n\npero Arial no existe dentro del servidor, PlantUML puede sustituirla.\nEsto puede cambiar:\nanchos\nsaltos de línea\ntamaños\ndisposición\nLa solución reproducible consiste en utilizar fuentes disponibles dentro de la infraestructura elegida o preparar una imagen de servidor que las incluya.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caracteres-incorrectos",
-    "href": "chapters/04-plantuml/index.html#caracteres-incorrectos",
-    "title": "5  PlantUML",
-    "section": "5.128 Caracteres incorrectos",
-    "text": "5.128 Caracteres incorrectos\nLos archivos deben guardarse en UTF-8:\ndocumentos .qmd\nestilos .puml\narchivos Lua\nconfiguración YAML\nCuando aparecen caracteres extraños, revise:\ncodificación del documento\ncodificación del estilo\nfuentes instaladas\nrespuesta del servidor\nNo debe corregirse sustituyendo acentos por texto sin tildes.\nLa publicación debe preservar correctamente su idioma.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#error-al-descargar-la-imagen",
-    "href": "chapters/04-plantuml/index.html#error-al-descargar-la-imagen",
-    "title": "5  PlantUML",
-    "section": "5.129 Error al descargar la imagen",
-    "text": "5.129 Error al descargar la imagen\nLa extensión utiliza pandoc.mediabag.fetch para obtener la respuesta del servidor.\nUn error en esta etapa puede deberse a:\nURL inaccesible\nservidor detenido\nerror HTTP\nrespuesta incompatible\nproblema de red\nEl mensaje debe incluir la URL solicitada y el detalle devuelto por Pandoc.\nPruebe esa misma URL desde el entorno de construcción.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#mime-inesperado",
-    "href": "chapters/04-plantuml/index.html#mime-inesperado",
-    "title": "5  PlantUML",
-    "section": "5.130 MIME inesperado",
-    "text": "5.130 MIME inesperado\nEl compilador espera que el servidor devuelva un tipo compatible con el formato solicitado.\nPara PNG:\nimage/png\nPara SVG:\nimage/svg+xml\nSi el servidor devuelve una página HTML de error, una redirección o una respuesta intermedia, el contenido puede no ser una imagen válida.\nCompruebe:\nla URL completa\nel código HTTP\nel contenido recibido\nla configuración del servidor o proxy\nUna respuesta HTTP correcta no garantiza por sí sola que el cuerpo sea el diagrama esperado.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#caché-dañada",
-    "href": "chapters/04-plantuml/index.html#caché-dañada",
-    "title": "5  PlantUML",
-    "section": "5.131 Caché dañada",
-    "text": "5.131 Caché dañada\nUna entrada puede quedar incompleta por una interrupción durante la escritura o por una modificación del desarrollo.\nLimpie:\nRemove-Item -Recurse -Force .quarto\\plantuml -ErrorAction SilentlyContinue\nDespués construya de nuevo.\nSi el problema reaparece en una caché limpia, la causa no es una entrada antigua.\nDebe revisarse la compilación o la escritura del artefacto.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#configuración-no-aplicada",
-    "href": "chapters/04-plantuml/index.html#configuración-no-aplicada",
-    "title": "5  PlantUML",
-    "section": "5.132 Configuración no aplicada",
-    "text": "5.132 Configuración no aplicada\nLa configuración PlantUML debe estar bajo:\nfilter-options:\n  plantuml:\nNo en una clave arbitraria.\nEjemplo correcto:\nfilters:\n  - extensions/plantuml/plantuml.lua\n\nfilter-options:\n  plantuml:\n    enabled: true\n    server: http://localhost:1025\n    format: png\n    cache: true\nUna indentación YAML incorrecta puede hacer que las opciones no pertenezcan a plantuml.\nRevise la estructura, no únicamente los valores.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#una-publicación-utiliza-otro-_quarto.yml",
-    "href": "chapters/04-plantuml/index.html#una-publicación-utiliza-otro-_quarto.yml",
-    "title": "5  PlantUML",
-    "section": "5.133 Una publicación utiliza otro _quarto.yml",
-    "text": "5.133 Una publicación utiliza otro _quarto.yml\nEn un multiproyecto puede haber:\nun _quarto.yml en la raíz\nun _quarto.yml en cada publicación\nperfiles HTML y PDF\nLa configuración efectiva depende de la publicación que se construye.\nCompruebe:\nqué libro fue seleccionado\ndesde qué ruta se ejecutó build()\nqué perfiles se aplicaron\ndónde está declarado el filtro\nNo debe asumirse que todos los libros comparten automáticamente la misma extensión.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#limpieza-mínima",
-    "href": "chapters/04-plantuml/index.html#limpieza-mínima",
-    "title": "5  PlantUML",
-    "section": "5.134 Limpieza mínima",
-    "text": "5.134 Limpieza mínima\nLa limpieza recomendada para PlantUML es:\nRemove-Item -Recurse -Force .quarto\\plantuml -ErrorAction SilentlyContinue\nNo se recomienda comenzar con:\nborrar todos los PNG\nborrar todos los SVG\nborrar toda la carpeta .quarto\nborrar la salida completa del libro\nreinstalar Quarto\nLa limpieza debe corresponder al componente sospechoso.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#diagnóstico-completo",
-    "href": "chapters/04-plantuml/index.html#diagnóstico-completo",
-    "title": "5  PlantUML",
-    "section": "5.135 Diagnóstico completo",
-    "text": "5.135 Diagnóstico completo\nUna secuencia práctica es:\n1. guardar todos los archivos\n2. leer la ruta exacta del error\n3. confirmar el compiler.lua cargado\n4. comprobar _quarto.yml\n5. abrir el servidor en el navegador\n6. ejecutar curl contra el servidor\n7. probar un diagrama mínimo\n8. desactivar temporalmente los estilos\n9. limpiar .quarto/plantuml\n10. construir solo HTML\n11. construir PDF\nCada paso reduce el espacio de búsqueda.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#tabla-rápida",
-    "href": "chapters/04-plantuml/index.html#tabla-rápida",
-    "title": "5  PlantUML",
-    "section": "5.136 Tabla rápida",
-    "text": "5.136 Tabla rápida\n\n\n\n\n\n\n\n\nSíntoma\nCausa probable\nComprobación\n\n\n\n\nNo se encuentra plantuml.lua\nRuta incorrecta\nRevisar filters y estructura\n\n\nError require o dofile\nCopia incompleta o ruta Lua incorrecta\nRevisar extensions/core\n\n\nend expected near &lt;eof&gt;\nArchivo Lua truncado o duplicado\nRevisar la línea indicada y el final\n\n\nNo conecta con el servidor\nContenedor detenido o URL inaccesible\ncurl, docker ps, docker logs\n\n\nURL con /svg/\nFormato efectivo SVG\nRevisar compiler.lua cargado\n\n\nError rsvg-convert\nQuarto intenta convertir SVG para PDF\nForzar y verificar PNG\n\n\nNo se puede leer .puml\nRuta o permisos incorrectos\nRevisar styles\n\n\nDiagrama antiguo\nCaché o copia de extensión equivocada\nGuardar, verificar ruta y limpiar caché\n\n\nHTML funciona, PDF falla\nEntorno PDF o formato de imagen\nRevisar PNG, TeX y quarto check\n\n\nTipografía distinta\nFuente ausente en el servidor\nRevisar fuentes del contenedor",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-plantuml/index.html#información-útil-al-informar-de-un-error",
-    "href": "chapters/04-plantuml/index.html#información-útil-al-informar-de-un-error",
-    "title": "5  PlantUML",
-    "section": "5.137 Información útil al informar de un error",
-    "text": "5.137 Información útil al informar de un error\nUn informe útil debe incluir:\nmensaje completo\nruta exacta del archivo Lua\nURL PlantUML mostrada\nformato solicitado\nconfiguración filter-options\nresultado de curl\nresultado de docker ps\nsi falla HTML, PDF o ambos\nsi ocurre con un diagrama mínimo\nTambién conviene indicar:\nsistema operativo\nentorno de ejecución\nversión de Quarto\nversión de iasi.quarto\nversión de la extensión\nNo es necesario adjuntar toda la publicación para comenzar el diagnóstico.\nUna evidencia pequeña y precisa suele abrir la cerradura más rápido que una carretilla de logs.\n\nEl objetivo no es probar cosas hasta que funcione. Es identificar qué etapa dejó de cumplir su contrato.",
-    "crumbs": [
-      "Introducción",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>PlantUML</span>"
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>index.html</span>"
     ]
   }
 ]

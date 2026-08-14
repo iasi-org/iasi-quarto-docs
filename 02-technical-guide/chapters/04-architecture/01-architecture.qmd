@@ -1,0 +1,106 @@
+## Responsabilidades del paquete
+
+`iasi.quarto` es un orquestador escrito en R. Reconoce publicaciones IASI, interpreta su configuración, comprueba invariantes, prepara archivos derivados, delega el renderizado en Quarto y ensambla los artefactos publicables.
+
+No procesa Markdown ni sustituye el sistema de extensiones de Quarto. Tampoco implementa los filtros Lua que una publicación pueda utilizar. Esa separación debe conservarse al añadir nuevas capacidades.
+
+## Frontera pública
+
+El archivo `NAMESPACE` exporta cuatro operaciones:
+
+- `validate()` reconoce una publicación o un multiproyecto;
+- `build()` ejecuta el pipeline de construcción;
+- `publish()` ensambla artefactos ya construidos bajo `publish/`;
+- `deploy()` encadena una construcción correcta y su publicación.
+
+Los métodos `print()` de `iasi_quarto_project` e `iasi_quarto_publication` también forman parte del comportamiento observable, aunque no sean operaciones del pipeline.
+
+Todo nombre que comienza por punto pertenece a la implementación. Puede cambiar durante la evolución del paquete, pero cualquier modificación debe preservar los contratos de las funciones públicas y contar con pruebas del comportamiento afectado.
+
+## Pipeline de construcción
+
+`build()` coordina las etapas en este orden:
+
+```text
+validate(path)
+  -> .select_build_books()
+  -> .discover()
+  -> .check()
+  -> .prepare()
+  -> .render() para cada publicación y formato
+  -> .report_build()
+```
+
+El orden es parte del diseño. El reconocimiento no debe leer ni validar toda la configuración; el descubrimiento no debe preparar archivos; la comprobación debe fallar antes de que Quarto sea invocado; y el renderizado solo debe recibir una publicación preparada.
+
+`deploy()` añade una segunda fase:
+
+```text
+build()
+  -> publish()
+```
+
+Si `build()` falla, `publish()` no se ejecuta. Esta propiedad protege el contenido anterior de `publish/`.
+
+## Modelo de datos
+
+El pipeline transporta un plan y lo enriquece por etapas. Los objetos principales son:
+
+- `iasi_quarto_plan`: raíz inspeccionada, publicaciones encontradas, selección y estado agregado;
+- `iasi_quarto_project`: configuración descubierta y comprobada de una publicación;
+- `iasi_quarto_publication`: representación preparada que consume el renderizado.
+
+Las etapas devuelven el plan recibido con nuevos datos. Evitar estados globales hace que el flujo sea inspeccionable y facilita probar cada transformación por separado.
+
+Al añadir un campo hay que decidir explícitamente:
+
+1. qué etapa es su propietaria;
+2. si es un dato fuente, derivado o de ejecución;
+3. qué funciones pueden asumir que ya existe;
+4. cómo se representa su ausencia;
+5. qué prueba protege el contrato.
+
+## Organización del código
+
+La implementación se encuentra en `R/` y sigue una separación funcional:
+
+| Área | Archivos representativos | Responsabilidad |
+|---|---|---|
+| API | `validate.R`, `build.R`, `publish.R`, `deploy.R` | Entradas estables para consumidores |
+| Reconocimiento y comprobación | `engine_validate.R`, `engine_discover.R`, `engine_check.R` | Identificación, lectura y validación |
+| Preparación | `engine_prepare*.R`, `engine-prepare_*.R` | Generación de la estructura derivada por estrategia |
+| Renderizado | `engine-render.R`, `engine_build.R` | Selección de formatos y llamada a Quarto |
+| Publicación | `engine-publish.R`, `engine-artifacts.R` | Resolución y ensamblado de artefactos |
+| Dominio e infraestructura | `project.R`, `publication.R`, `io.R`, `engine_paths.R`, `engine-assert.R` | Objetos, rutas, E/S e invariantes compartidos |
+
+Los nombres históricos utilizan tanto guion como guion bajo. Antes de normalizarlos debe comprobarse cualquier dependencia en pruebas, documentación y carga de archivos; un cambio puramente cosmético no debe mezclarse con una modificación funcional.
+
+## Estrategias como puntos de variación
+
+`regular`, `structured` y `direct` convergen en el mismo contrato de publicación preparada, pero producen sus artefactos de forma distinta. Una estrategia nueva no consiste únicamente en añadir una rama: requiere definir reconocimiento, validación, preparación, archivos derivados, interacción con HTML y PDF, y casos de prueba.
+
+La lógica compartida debe permanecer fuera de las implementaciones específicas. La lógica que cambia por estrategia debe mantenerse localizada para evitar condicionales dispersos por todo el pipeline.
+
+## Archivos fuente y derivados
+
+El paquete puede generar archivos que Quarto necesita para renderizar. Esos archivos no deben convertirse accidentalmente en fuente editorial.
+
+Una modificación de la preparación debe mantener estas propiedades:
+
+- ejecución repetible sobre el mismo árbol de fuentes;
+- contenido determinista;
+- escritura limitada a las rutas derivadas previstas;
+- ausencia de cambios parciales cuando una validación previa falla;
+- compatibilidad con construcciones HTML y PDF independientes.
+
+## Gestión de errores
+
+Los errores deben aparecer en la primera etapa que pueda describirlos con precisión. Un mensaje útil identifica la publicación, el archivo o el valor afectado y explica el contrato incumplido.
+
+No deben capturarse errores de Quarto para convertirlos en éxitos aparentes. Cuando una operación no encuentra un espacio de trabajo IASI válido, la API puede devolver `NULL` según su contrato; una configuración reconocida pero inválida debe producir un error.
+
+## Dependencias externas
+
+R ejecuta la orquestación y Quarto realiza el renderizado. El sistema de archivos es parte esencial del contrato: rutas relativas, perfiles `_quarto-<formato>.yml`, directorios de salida y `publish/` influyen en el resultado.
+
+Las extensiones Lua son dependencias de la publicación, no componentes internos de `iasi.quarto`. Sus cambios deben realizarse y documentarse en `iasi-lua`.
