@@ -2,11 +2,45 @@
 
 IASI Quarto soporta tres estrategias de publicación. La estrategia define cómo se interpreta la organización de los documentos fuente.
 
-| Estrategia | Disponible para | Organización editorial | Cuándo utilizarla |
-|---|---|---|---|
-| `regular` | Website y Book | En un Book, cada carpeta de contenido forma una unidad y sus `.qmd` se combinan. | Cuando varios documentos fuente forman una única unidad editorial. Es la estrategia predeterminada. |
-| `structured` | Book | Cada carpeta representa una Parte; su `index.qmd` presenta la Parte y los demás `.qmd` son Capítulos. | Cuando la estructura Parte → Capítulo debe estar representada explícitamente. |
-| `direct` | Book | Cada `.qmd` se publica directamente como Capítulo; las carpetas solo organizan los fuentes. | Cuando cada documento ya es una unidad editorial completa. |
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+strategies = data.frame(
+  Estrategia = c("regular", "structured", "direct"),
+  "Disponible para" = c("Website y Book", "Book", "Book"),
+  "Organización editorial" = c(
+    "En un Book, cada carpeta de contenido forma una unidad y sus archivos .qmd se combinan.",
+    "Cada carpeta representa una Parte; su index.qmd presenta la Parte y los demás archivos .qmd son Capítulos.",
+    "Cada archivo .qmd se publica directamente como Capítulo; las carpetas solo organizan los fuentes."
+  ),
+  "Cuándo utilizarla" = c(
+    "Cuando varios documentos fuente forman una única unidad editorial. Es la estrategia predeterminada.",
+    "Cuando la estructura Parte → Capítulo debe estar representada explícitamente.",
+    "Cuando cada documento ya es una unidad editorial completa."
+  ),
+  check.names = FALSE
+)
+
+if (knitr::is_html_output() && requireNamespace("kableExtra", quietly = TRUE)) {
+  knitr::kable(
+    strategies,
+    format = "html",
+    align = c("l", "l", "l", "l")
+  ) |>
+    kableExtra::kable_styling(full_width = TRUE) |>
+    kableExtra::column_spec(1, width = "12%", bold = TRUE) |>
+    kableExtra::column_spec(2, width = "15%") |>
+    kableExtra::column_spec(3, width = "36%") |>
+    kableExtra::column_spec(4, width = "37%")
+} else {
+  knitr::kable(
+    strategies,
+    align = c("l", "l", "l", "l")
+  )
+}
+```
 
 Para un Website, la estrategia soportada es `regular`. Las estrategias `structured` y `direct` son propias de publicaciones de tipo Book.
 

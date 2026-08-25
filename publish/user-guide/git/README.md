@@ -1,0 +1,17 @@
+# IASI Quarto User Guide
+
+
+`iasi.quarto` ayuda a organizar, construir y publicar proyectos documentales basados en Quarto.
+
+Esta guía explica **cómo utilizarlo**. No describe su arquitectura interna ni el funcionamiento de sus componentes privados.
+
+El recorrido recomendado es sencillo:
+
+1.  conocer los términos que utiliza IASI Quarto;
+2.  instalar la herramienta;
+3.  elegir el tipo de publicación y su estrategia;
+4.  configurar los formatos de salida;
+5.  construir y publicar;
+6.  utilizar un multiproyecto cuando varias publicaciones comparten un mismo espacio de trabajo.
+
+Si ya conoce IASI Quarto, puede ir directamente al capítulo que corresponda a la tarea que quiere realizar.

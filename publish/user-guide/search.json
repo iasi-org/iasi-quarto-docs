@@ -15,18 +15,7 @@
     "href": "chapters/01-definitions/index.html",
     "title": "2  Definiciones y conceptos",
     "section": "",
-    "text": "2.1 Definiciones y conceptos\nEn este documento se utilizan los siguientes términos y conceptos. Las definiciones se presentan en orden alfabético para facilitar su consulta.",
-    "crumbs": [
-      "Definiciones",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Definiciones y conceptos</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/01-definitions/index.html#definiciones-y-conceptos",
-    "href": "chapters/01-definitions/index.html#definiciones-y-conceptos",
-    "title": "2  Definiciones y conceptos",
-    "section": "",
-    "text": "Término\nDefinición\n\n\n\n\nBuild\nOperación que construye uno o varios formatos de una publicación a partir de sus fuentes. Por defecto, los resultados se escriben en _outputs/; la ubicación puede configurarse. Véase: Formato.\n\n\nCapítulo\nUnidad principal de contenido de un libro. Puede estar organizado en secciones.\n\n\nDirect\nEstrategia de libro en la que cada documento .qmd del contenido se publica como capítulo y las carpetas se utilizan únicamente para organizar físicamente los archivos. Véase: Estrategia.\n\n\nDeploy\nOperación que mantiene una publicación al día: construye cuando es necesario y publica cuando el resultado construido ha cambiado. Puede ejecutarse en modo forzado. Véase: Force y Publish.\n\n\nEstrategia\nRegla que determina cómo interpreta IASI Quarto la organización física de un libro. Las estrategias de libro son regular, structured y direct.\n\n\nForce\nModo explícito que ordena ejecutar la operación completa sin consultar si el estado previo indica que es necesaria. No evita las validaciones ni convierte operaciones Git en operaciones forzadas.\n\n\nFormato\nTipo de salida que puede generar una publicación, por ejemplo HTML, PDF o EPUB.\n\n\nLibro\nPublicación Quarto de tipo book. IASI Quarto admite las estrategias regular, structured y direct para libros. Véase: Publicación.\n\n\nMultiproyecto\nEspacio de trabajo que contiene varias publicaciones IASI Quarto y permite operar sobre todas o seleccionar una de ellas. Véase: Publicación.\n\n\nParte\nDivisión de alto nivel de un libro utilizada para agrupar capítulos relacionados. En la estrategia structured, una carpeta de contenido representa una Parte. Véase: Structured.\n\n\nProyecto Quarto\nProyecto reconocido por Quarto mediante su configuración habitual, incluida _quarto.yml.\n\n\nPublicación\nProyecto Quarto gestionado por IASI Quarto mediante _iasi.yml. Puede ser un Website o un Libro. Véase: Website.\n\n\nPublish\nOperación que toma los resultados ya construidos y crea el árbol final publish/ preparado para desplegarse. No vuelve a renderizar los fuentes.\n\n\nQuarto\nMotor de publicación que procesa los documentos .qmd y genera los formatos finales. IASI Quarto organiza y coordina el proyecto, pero Quarto continúa siendo el motor de renderizado.\n\n\nRegular\nEstrategia de libro en la que cada carpeta de contenido se convierte en una unidad o capítulo y los documentos .qmd que contiene se combinan en el index.qmd generado de esa carpeta. Véase: Estrategia.\n\n\nSección\nDivisión principal dentro de un capítulo.\n\n\nStructured\nEstrategia de libro en la que cada carpeta de contenido representa una Parte, su index.qmd presenta esa Parte y los demás documentos .qmd de la carpeta son Capítulos. Véase: Estrategia.\n\n\nWebsite\nPublicación Quarto de tipo website. En IASI Quarto utiliza la estrategia regular.",
+    "text": "2.1 Definiciones y conceptos\nEn este documento se utilizan los siguientes términos y conceptos. Las definiciones se presentan en orden alfabético para facilitar su consulta.\nTérmino\nDefinición\n\n\n\n\nBuild\nOperación que construye uno o varios formatos de una publicación a partir de sus fuentes. Por defecto, los resultados se escriben en _outputs/; la ubicación puede configurarse. Véase: Formato.\n\n\nCapítulo\nUnidad principal de contenido de un libro. Puede estar organizado en secciones.\n\n\nDirect\nEstrategia de libro en la que cada documento .qmd del contenido se publica como capítulo y las carpetas se utilizan únicamente para organizar físicamente los archivos. Véase: Estrategia.\n\n\nDeploy\nOperación que mantiene una publicación al día: construye cuando es necesario y publica cuando el resultado construido ha cambiado. Puede ejecutarse en modo forzado. Véase: Force y Publish.\n\n\nEstrategia\nRegla que determina cómo interpreta IASI Quarto la organización física de un libro. Las estrategias de libro son regular, structured y direct.\n\n\nForce\nModo explícito que ordena ejecutar la operación completa sin consultar si el estado previo indica que es necesaria. No evita las validaciones ni convierte operaciones Git en operaciones forzadas.\n\n\nFormato\nTipo de salida que puede generar una publicación, por ejemplo HTML, PDF o EPUB.\n\n\nGitBook\nFormato de publicación de IASI Quarto para generar un libro destinado a GitBook. Se selecciona mediante el formato `git`. Véase: Formato.\n\n\nLibro\nPublicación Quarto de tipo book. IASI Quarto admite las estrategias regular, structured y direct para libros. Véase: Publicación.\n\n\nMultiproyecto\nEspacio de trabajo que contiene varias publicaciones IASI Quarto y permite operar sobre todas o seleccionar una de ellas. Véase: Publicación.\n\n\nParte\nDivisión de alto nivel de un libro utilizada para agrupar capítulos relacionados. En la estrategia structured, una carpeta de contenido representa una Parte. Véase: Structured.\n\n\nProyecto Quarto\nProyecto reconocido por Quarto mediante su configuración habitual, incluida _quarto.yml.\n\n\nPublicación\nProyecto Quarto gestionado por IASI Quarto mediante _iasi.yml. Puede ser un Website o un Libro. Véase: Website.\n\n\nPublish\nOperación que toma los resultados ya construidos y crea el árbol final publish/ preparado para desplegarse. No vuelve a renderizar los fuentes.\n\n\nQuarto\nMotor de publicación que procesa los documentos .qmd y genera los formatos finales. IASI Quarto organiza y coordina el proyecto, pero Quarto continúa siendo el motor de renderizado.\n\n\nRegular\nEstrategia de libro en la que cada carpeta de contenido se convierte en una unidad o capítulo y los documentos .qmd que contiene se combinan en el index.qmd generado de esa carpeta. Véase: Estrategia.\n\n\nSección\nDivisión principal dentro de un capítulo.\n\n\nStructured\nEstrategia de libro en la que cada carpeta de contenido representa una Parte, su index.qmd presenta esa Parte y los demás documentos .qmd de la carpeta son Capítulos. Véase: Estrategia.\n\n\nWebsite\nPublicación Quarto de tipo website. En IASI Quarto utiliza la estrategia regular.",
     "crumbs": [
       "Definiciones",
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Definiciones y conceptos</span>"
@@ -81,18 +70,7 @@
     "href": "chapters/03-publications/index.html",
     "title": "4  Tipos de publicación",
     "section": "",
-    "text": "4.1 Estrategias soportadas\nIASI Quarto soporta tres estrategias de publicación. La estrategia define cómo se interpreta la organización de los documentos fuente.\nPara un Website, la estrategia soportada es regular. Las estrategias structured y direct son propias de publicaciones de tipo Book.",
-    "crumbs": [
-      "Definiciones",
-      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de publicación</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/03-publications/index.html#estrategias-soportadas",
-    "href": "chapters/03-publications/index.html#estrategias-soportadas",
-    "title": "4  Tipos de publicación",
-    "section": "",
-    "text": "Estrategia\nDisponible para\nOrganización editorial\nCuándo utilizarla\n\n\n\n\nregular\nWebsite y Book\nEn un Book, cada carpeta de contenido forma una unidad y sus .qmd se combinan.\nCuando varios documentos fuente forman una única unidad editorial. Es la estrategia predeterminada.\n\n\nstructured\nBook\nCada carpeta representa una Parte; su index.qmd presenta la Parte y los demás .qmd son Capítulos.\nCuando la estructura Parte → Capítulo debe estar representada explícitamente.\n\n\ndirect\nBook\nCada .qmd se publica directamente como Capítulo; las carpetas solo organizan los fuentes.\nCuando cada documento ya es una unidad editorial completa.",
+    "text": "4.1 Estrategias soportadas\nIASI Quarto soporta tres estrategias de publicación. La estrategia define cómo se interpreta la organización de los documentos fuente.\nEstrategia\nDisponible para\nOrganización editorial\nCuándo utilizarla\n\n\n\n\nregular\nWebsite y Book\nEn un Book, cada carpeta de contenido forma una unidad y sus archivos .qmd se combinan.\nCuando varios documentos fuente forman una única unidad editorial. Es la estrategia predeterminada.\n\n\nstructured\nBook\nCada carpeta representa una Parte; su index.qmd presenta la Parte y los demás archivos .qmd son Capítulos.\nCuando la estructura Parte → Capítulo debe estar representada explícitamente.\n\n\ndirect\nBook\nCada archivo .qmd se publica directamente como Capítulo; las carpetas solo organizan los fuentes.\nCuando cada documento ya es una unidad editorial completa.\nPara un Website, la estrategia soportada es regular. Las estrategias structured y direct son propias de publicaciones de tipo Book.",
     "crumbs": [
       "Definiciones",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de publicación</span>"
@@ -158,7 +136,7 @@
     "href": "chapters/03-publications/index.html#elegir-una-estrategia",
     "title": "4  Tipos de publicación",
     "section": "4.7 Elegir una estrategia",
-    "text": "4.7 Elegir una estrategia\n\n\n\n\n\n\n\nSi necesita…\nEstrategia\n\n\n\n\nUn Website Quarto\nregular\n\n\nCombinar varios .qmd de una carpeta en una única unidad\nregular\n\n\nRepresentar Partes que contienen Capítulos\nstructured\n\n\nPublicar cada .qmd directamente como Capítulo\ndirect\n\n\n\nLa elección es editorial. No depende del formato final: un mismo libro puede utilizar la misma estrategia para HTML, PDF, EPUB y otros formatos.",
+    "text": "4.7 Elegir una estrategia\n\n\n\n\n\n\n\n\n\nSi necesita…\nEstrategia\n\n\n\n\nUn Website Quarto\nregular\n\n\nCombinar varios archivos .qmd de una carpeta en una única unidad\nregular\n\n\nRepresentar Partes que contienen Capítulos\nstructured\n\n\nPublicar cada archivo .qmd directamente como Capítulo\ndirect\n\n\n\n\n\nLa elección es editorial. No depende del formato final: un mismo libro puede utilizar la misma estrategia para HTML, PDF, EPUB y otros formatos.",
     "crumbs": [
       "Definiciones",
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Tipos de publicación</span>"
@@ -169,18 +147,7 @@
     "href": "chapters/04-formats/index.html",
     "title": "5  Formatos",
     "section": "",
-    "text": "5.1 Formatos disponibles\nIASI Quarto reconoce actualmente los siguientes formatos de construcción:\nUn Website utiliza HTML. Un Book puede utilizar cualquiera de los formatos soportados que tenga configurados.",
-    "crumbs": [
-      "Definiciones",
-      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Formatos</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/04-formats/index.html#formatos-disponibles",
-    "href": "chapters/04-formats/index.html#formatos-disponibles",
-    "title": "5  Formatos",
-    "section": "",
-    "text": "Formato\nResultado habitual\n\n\n\n\nhtml\nPublicación HTML\n\n\npdf\nPDF generado por Quarto\n\n\ntypst\nPDF mediante Typst\n\n\nepub\nLibro EPUB\n\n\ndoc\nDocumento ODT presentado como formato DOC de IASI Quarto\n\n\nodt\nDocumento ODT\n\n\ngit\nSalida Markdown orientada a publicación Git\n\n\ngfm\nGitHub Flavored Markdown",
+    "text": "5.1 Formatos disponibles\nIASI Quarto reconoce actualmente los siguientes formatos de construcción:\nFormato\nResultado habitual\n\n\n\n\nhtml\nPublicación HTML\n\n\npdf\nPDF generado por Quarto\n\n\ntypst\nPDF mediante Typst\n\n\nepub\nLibro EPUB\n\n\ndoc\nDocumento ODT presentado como formato DOC de IASI Quarto\n\n\nodt\nDocumento ODT\n\n\ngit\nGitBook\nUn Website utiliza HTML. Un Book puede utilizar cualquiera de los formatos soportados que tenga configurados.\nEl formato git representa una publicación GitBook. gfm no es un formato soportado por IASI Quarto.",
     "crumbs": [
       "Definiciones",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Formatos</span>"

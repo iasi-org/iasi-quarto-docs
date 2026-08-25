@@ -162,11 +162,19 @@ document.addEventListener("DOMContentLoaded", () => {
   </li>  
 </ul>
 <ul class="navbar-nav navbar-nav-scroll ms-auto">
-<li class="nav-item compact">
-    <a class="nav-link" href="../../IASI-Quarto-User-Guide.pdf"> <i class="bi bi-file-pdf" role="img" aria-label="Descargar guía en PDF">
+<li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-guardar-..." role="link" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-download" role="img">
 </i> 
-<span class="menu-text"></span></a>
+ <span class="menu-text">Guardar …</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-guardar-...">
+<li>
+    <a class="dropdown-item" href="../../#iasi-exports">
+ <span class="dropdown-text">Guardar …</span></a>
   </li>  
+    </ul>
+</li>
   <li class="nav-item compact">
     <a class="nav-link" href="https://iasi-org.github.io/iasi-home/pages/common/manifesto-bilingual.html"> <i class="bi bi-translate" role="img" aria-label="Idioma / Language">
 </i> 

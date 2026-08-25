@@ -1,6 +1,11 @@
 project:
   type: book
 
+profile:
+  default: html
+  group:
+    - [html, pdf, git]
+
 metadata-files:
   - _book-structure.yml
 
