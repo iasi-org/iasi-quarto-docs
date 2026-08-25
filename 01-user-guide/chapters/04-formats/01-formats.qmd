@@ -1,0 +1,58 @@
+## Formatos disponibles
+
+IASI Quarto reconoce actualmente los siguientes formatos de construcción:
+
+| Formato | Resultado habitual |
+|---|---|
+| `html` | Publicación HTML |
+| `pdf` | PDF generado por Quarto |
+| `typst` | PDF mediante Typst |
+| `epub` | Libro EPUB |
+| `doc` | Documento ODT presentado como formato DOC de IASI Quarto |
+| `odt` | Documento ODT |
+| `git` | Salida Markdown orientada a publicación Git |
+| `gfm` | GitHub Flavored Markdown |
+
+Un Website utiliza HTML. Un Book puede utilizar cualquiera de los formatos soportados que tenga configurados.
+
+## Configurar un formato
+
+Cada formato se configura mediante su perfil Quarto correspondiente, por ejemplo:
+
+```text
+_quarto-html.yml
+_quarto-pdf.yml
+_quarto-epub.yml
+```
+
+IASI Quarto no sustituye la configuración propia de Quarto para cada formato.
+
+## Construir un formato
+
+Para construir solo HTML:
+
+```r
+build(format = "html")
+```
+
+Para construir solo PDF:
+
+```r
+build(format = "pdf")
+```
+
+Puede solicitar varios formatos:
+
+```r
+build(format = c("html", "pdf"))
+```
+
+## Construcción predeterminada
+
+Si no indica `format`, IASI Quarto utiliza su conjunto predeterminado:
+
+```text
+html, pdf, epub, doc, git
+```
+
+Solo se construyen los formatos que estén disponibles en la publicación mediante sus perfiles correspondientes.

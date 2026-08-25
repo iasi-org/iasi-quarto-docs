@@ -17,23 +17,29 @@ format:
     theme:
       - cosmo
       - resources/css/iasi.scss
+      - resources/css/book.scss
     toc: true
     number-sections: true
 
 book:
   navbar:
     title: "User Guide"
+    pinned: true
     left:
-      - text: "Introducción"
-        href: chapters/01-intro/index.qmd
-      - text: "Fundamentos"
-        href: chapters/02-fundamentals/index.qmd
+      - text: "Definiciones"
+        href: chapters/01-definitions/index.qmd
       - text: "Instalación"
-        href: chapters/03-installation/index.qmd
-      - text: "Workflow"
-        href: chapters/04-workflow/index.qmd
-      - text: "API"
-        href: chapters/05-api/index.qmd
+        href: chapters/02-installation/index.qmd
+      - text: "Publicaciones"
+        href: chapters/03-publications/index.qmd
+      - text: "Formatos"
+        href: chapters/04-formats/index.qmd
+      - text: "Construir y publicar"
+        href: chapters/05-operations/index.qmd
+      - text: "Multiproyectos"
+        href: chapters/06-multiproject/index.qmd
+      - text: "Problemas"
+        href: chapters/07-problems/index.qmd
     right:
       - icon: file-pdf
         href: IASI-Quarto-User-Guide.pdf
@@ -44,3 +50,7 @@ book:
       - icon: envelope
         href: https://iasi-org.github.io/iasi-home/pages/common/contact.html
         aria-label: "Contacto"
+
+  page-footer:
+    left: "© 2026 Javier G. Grandez · IASI Rocks 🤘"
+    right: '<span id="iasi-publish-date"></span>'

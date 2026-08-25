@@ -1,45 +1,18 @@
-# Introducción
+---
+title: "IASI Quarto User Guide"
+---
 
-Bienvenido a la guía de usuario de **iasi.quarto**.
+`iasi.quarto` ayuda a organizar, construir y publicar proyectos documentales basados en Quarto.
 
-Este libro está dirigido a quienes desean utilizar `iasi.quarto` para construir proyectos documentales basados en Quarto.
+Esta guía explica **cómo utilizarlo**. No describe su arquitectura interna ni el funcionamiento de sus componentes privados.
 
-No es necesario conocer la arquitectura interna del framework ni los detalles de su implementación.
+El recorrido recomendado es sencillo:
 
-El objetivo de esta guía es ayudarte a comprender la filosofía de `iasi.quarto`, instalarlo, crear tu primer proyecto y aprovechar sus capacidades en situaciones reales.
+1. conocer los términos que utiliza IASI Quarto;
+2. instalar la herramienta;
+3. elegir el tipo de publicación y su estrategia;
+4. configurar los formatos de salida;
+5. construir y publicar;
+6. utilizar un multiproyecto cuando varias publicaciones comparten un mismo espacio de trabajo.
 
-## iasi.quarto y Quarto
-
-`iasi.quarto` vive sobre Quarto.
-
-No pretende sustituirlo, modificar su modelo documental ni crear un sistema de publicación alternativo.
-
-Quarto continúa siendo el motor responsable de procesar los documentos y generar los formatos finales. `iasi.quarto` proporciona una capa de organización, automatización y convenciones que facilita el desarrollo y mantenimiento de proyectos documentales de cualquier tamaño.
-
-## ¿Qué encontrarás en este libro?
-
-A lo largo de esta guía aprenderás a:
-
-- comprender el propósito de `iasi.quarto`;
-- instalar el framework;
-- crear un nuevo proyecto;
-- organizar la documentación;
-- generar libros en distintos formatos;
-- configurar el comportamiento del framework;
-- seguir un workflow recomendado desde la edición hasta la publicación;
-- utilizar la API pública;
-- resolver los problemas más habituales.
-
-Cada capítulo desarrolla un aspecto concreto y puede consultarse de forma independiente cuando ya se conoce el funcionamiento básico del framework.
-
-## Requisitos
-
-Se recomienda tener conocimientos básicos de:
-
-- Quarto;
-- Git;
-- R (para utilizar el paquete `iasi.quarto`).
-
-No obstante, los conceptos específicos del framework se explican desde el principio.
-
-Comencemos entendiendo por qué nació el framework y qué problemas pretende resolver.
+Si ya conoce IASI Quarto, puede ir directamente al capítulo que corresponda a la tarea que quiere realizar.

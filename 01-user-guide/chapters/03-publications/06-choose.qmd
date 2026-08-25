@@ -1,0 +1,10 @@
+## Elegir una estrategia
+
+| Si necesita... | Estrategia |
+|---|---|
+| Un Website Quarto | `regular` |
+| Combinar varios `.qmd` de una carpeta en una única unidad | `regular` |
+| Representar Partes que contienen Capítulos | `structured` |
+| Publicar cada `.qmd` directamente como Capítulo | `direct` |
+
+La elección es editorial. No depende del formato final: un mismo libro puede utilizar la misma estrategia para HTML, PDF, EPUB y otros formatos.
